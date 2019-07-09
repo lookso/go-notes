@@ -7,9 +7,9 @@
 
 ```
 
-## 2.channel
+## 2.chan
 ```
-1.channel原理是什么？
+1.chan原理是什么？
 2.无缓冲channel和有缓冲channel
 3.select-case 、nil
 4.closed
