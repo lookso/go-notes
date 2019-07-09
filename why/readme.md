@@ -14,34 +14,42 @@
 3.select-case 、nil
 4.closed
 5.make创建chan,设置容量值,如果容量超过设置的值,怎么办？
+6.chan底层结构是什么样的？
+7.
 
 ```
 
 ## 3.slice和array
 
 ```
-len和cap、append和copy(),len超过设置的长度,怎么办？
+1.len和cap、append和copy(),len超过设置的长度,怎么办？
 ```
 
 ## 4.map
 
 ```
-map 声明和初始化,make和new(),make()长度、
-遍历map、
-判断指定元素是否在map中、
-golang中map不是并发安全、
-map 底层结构 hashtable和searchtree、
-map元素只读,不能更改其属性,且不能获取其地址
+1.map 声明和初始化,make和new(),make()长度、
+2.遍历map、
+3.判断指定元素是否在map中、
+4.golang中map不是并发安全、
+5.map 底层结构 hashtable和searchtree、
+6.map元素只读,不能更改其属性,且不能获取其地址
 ```
 
 ## 5.defer和recover
 ```
 ```
 
+## 6.结构体
+```
+1.结构体转json、
+
+```
 
 ## 7.go协程
 ```
-并发同步
+1.实现并发同步有哪些方式？
+2.
 ```
 
 

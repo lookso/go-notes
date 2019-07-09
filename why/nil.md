@@ -23,10 +23,12 @@ func main() {
     if theSlice == nil {
         fmt.Println("ok")
     }
-	//if theSlice == theMap {
-	//	fmt.Println("ok") // 报错,两个类型属性值不一样,两个不同类型的nil值可能不能相互比较
-	//}
+//if theSlice == theMap {
+//	fmt.Println("ok") // 报错,两个类型属性值不一样,两个不同类型的nil值可能不能相互比较
+//}
 }
+```
+## 指针（地址）解引用
 我们可以使用前置解引用操作符*来访问存储在一个指针所表示的地址处的值（即此指针所引用着的值）。
 比如，对于基类型为T的指针类型的一个指针值p，我们可以用*p来表示地址p处的值。
 此值的类型为T。*p称为指针p的解引用。解引用是取地址的逆过程
@@ -38,6 +40,8 @@ func main() {
 对于一个类型为T的可寻址的值t，我们可以用&t来取得它的地址。&t的类型为*T。
 
 // 返回指针类型的数据
+
+```
 func newInt() *int {
     intPoint:=new(int)
 	fmt.Println("类型指针地址:",intPoint)
@@ -51,4 +55,7 @@ func newInt() *int {
 }
 
 ```
+
+## Go语言中指针限制
+在Go中，指针是不能参与算术运算的。比如，对于一个指针p， 运算p++和p-2都是非法的
 
