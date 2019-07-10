@@ -9,14 +9,29 @@ import "fmt"
 4.nil、buffered、closed
 5.
 */
-func main()  {
+func main() {
 	var status chan int
-	if status==nil{
+	if status == nil {
 		fmt.Println("未初始化的chan 值是nil")
 	}
-	status=make(chan int,10)
+	status = make(chan int, 10)
+	fmt.Println("init value:", status)
+	status <- 1
+	fmt.Println("status value:", <-status)
 
-	fmt.Println(status)
+	pingc := make(chan string, 1)
+	pongc := make(chan string, 1)
 
+
+	ping(pingc, "i'm comming")
+	pong(pingc, pongc)
+	fmt.Println(<-pongc)
 }
 
+func ping(pingc chan<- string, msg string) {
+	pingc <- msg
+}
+func pong(pings <-chan string, pongs chan<- string) {
+	msg := <-pings
+	pongs <- msg
+}

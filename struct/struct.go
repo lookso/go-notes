@@ -15,6 +15,10 @@ type Books struct {
 }
 
 func main() {
+	b:=new(Books)
+	b.Title="baidu"
+	fmt.Println(b)
+
 	var books Books
 	fmt.Println(books)
 	books.Title = "time comming"

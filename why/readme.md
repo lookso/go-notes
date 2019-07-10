@@ -7,6 +7,14 @@
 
 ```
 
+## 2.slice和array
+
+```
+1.slice原理
+1.len和cap、append和copy(),len超过设置的长度,怎么办？
+
+```
+
 ## 2.chan
 ```
 1.chan原理是什么？
@@ -19,11 +27,7 @@
 
 ```
 
-## 3.slice和array
 
-```
-1.len和cap、append和copy(),len超过设置的长度,怎么办？
-```
 
 ## 4.map
 
