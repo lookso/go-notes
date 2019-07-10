@@ -36,6 +36,8 @@ func main() {
     fmt.Printf("uInfo point add:%p\n",uInfo)
 }
 ```
+输出结果
+```
 输出可以看到值类型的两个变量内存地址并不一样
 yourName point add: 0xc00000e200  myName point add: 0xc00000e210
 yourName point add:0xc00000e200
@@ -48,7 +50,7 @@ uInfo point add:0xc00007e000
 
 同时可以发现的是
 apend和copy函数可以实现对slice的深拷贝,当元素数量超过容量,切片会在底层申请新的数组,细节见slice章节
-
+```
 
 指针的零值,不是0，而是nil。任何未初始化的指针值都为nil。
 
