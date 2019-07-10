@@ -40,7 +40,7 @@ func main() {
 输出可以看到值类型的两个变量内存地址并不一样
 yourName point add: 0xc00000e200  myName point add: 0xc00000e210
 yourName point add:0xc00000e200
-以引用类型slice为例:引用类型的slice内存地址是一样的
+以引用类型slice为例:引用类型的slice内存地址是一样的,本质上指向同一个底层数组
 yourInfo value:[name_jack age sex]
 yourInfo point add:0xc000066180,myInfo point add:0xc000066180,yourInfoA point add:0xc000066180
 
