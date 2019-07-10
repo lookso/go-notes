@@ -30,6 +30,27 @@ func main() {
 	var str="name"
 	pointStr:=&str
 	fmt.Println("string point:",pointStr)
+
+	yourName:="jackma"
+	myName:=yourName
+	fmt.Println("yourName point add:",&yourName," myName point add:",&myName)
+	fmt.Printf("yourName point add:%p\n",&yourName)
+
+	var yourInfo = make([]string,50)
+	//yourInfo=[]string{"name","age","sex"}
+	yourInfo[0]="name"
+
+	yourInfoA:=yourInfo[0:2]
+	myInfo:=yourInfo // //其实就是浅拷贝,a和b同时指向同一个地址0xc00006c180 通过yourInfo和myInfo都可以改变值，myInfo值变了yourInfo的值也变了
+	myInfo[0]="name_jack"
+	fmt.Printf("yourInfo value:%v\n",yourInfo)
+	fmt.Printf("yourInfo point add:%p,myInfo point add:%p,yourInfoA point add:%p\n",yourInfo,myInfo,yourInfoA)
+
+	heInfo:=append(yourInfo,"hieght")
+	fmt.Printf("heInfo point add:%p\n",heInfo)
+	var uInfo=make([]string,30)
+	copy(uInfo,yourInfo)
+	fmt.Printf("uInfo point add:%p\n",uInfo)
 }
 func newInt() *int {
 	intPoint:=new(int)
