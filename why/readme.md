@@ -10,8 +10,9 @@
 ## 2.slice和array
 
 ```
-1.slice原理
-1.len和cap、append和copy(),len超过设置的长度,怎么办？
+2.1切片(slice) 原理
+2.2 append实现原理,append追加元素到切片时，如果切片定义的容量不够怎么办？
+2.3 copy()
 
 ```
 
