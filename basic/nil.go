@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"reflect"
+)
 
 func main() {
 	var theMap map[string]string
@@ -31,10 +34,16 @@ func main() {
 	pointStr:=&str
 	fmt.Println("string point:",pointStr)
 
+	var cupA interface{}
+	cupA="123"
+	cupB:=cupA
+	fmt.Printf("cupA:%p,cupB:%p\n",&cupA,&cupB)
+	fmt.Println("接口反射类型:",reflect.TypeOf(cupA)) // 接口反射类型: string
+
 	yourName:="jackma"
 	myName:=yourName
-	fmt.Println("yourName point add:",&yourName," myName point add:",&myName)
-	fmt.Printf("yourName point add:%p\n",&yourName)
+	fmt.Println("yourName point addr:",&yourName," myName point addr:",&myName)
+	fmt.Printf("yourName point addr:%p\n",&yourName)
 
 	var yourInfo = make([]string,50)
 	//yourInfo=[]string{"name","age","sex"}
@@ -44,13 +53,20 @@ func main() {
 	myInfo:=yourInfo // //其实就是浅拷贝,a和b同时指向同一个地址0xc00006c180 通过yourInfo和myInfo都可以改变值，myInfo值变了yourInfo的值也变了
 	myInfo[0]="name_jack"
 	fmt.Printf("yourInfo value:%v\n",yourInfo)
-	fmt.Printf("yourInfo point add:%p,myInfo point add:%p,yourInfoA point add:%p\n",yourInfo,myInfo,yourInfoA)
+	fmt.Printf("yourInfo point addr:%p,myInfo point add:%p,yourInfoA point addr:%p\n",yourInfo,myInfo,yourInfoA)
 
 	heInfo:=append(yourInfo,"hieght")
-	fmt.Printf("heInfo point add:%p\n",heInfo)
+	fmt.Printf("heInfo point addr:%p\n",heInfo)
 	var uInfo=make([]string,30)
 	copy(uInfo,yourInfo)
-	fmt.Printf("uInfo point add:%p\n",uInfo)
+	fmt.Printf("uInfo point addr:%p\n",uInfo)
+
+
+	var f func(int) int
+	if f==nil{
+		fmt.Println("func nil")
+	}
+	fmt.Printf("func point addr:%p\n", f)
 }
 func newInt() *int {
 	intPoint:=new(int)
@@ -67,3 +83,5 @@ func newInt() *int {
 	fmt.Println(ip)
 	return &a
 }
+
+
