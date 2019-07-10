@@ -13,6 +13,14 @@
 值类型复制例子:
 ```
 func main() {
+    var cupA interface{}
+	cupA="123"
+	cupB:=cupA
+	cupB="345"
+	fmt.Println("cupA",cupA)
+	fmt.Printf("cupA:%p,cupB:%p\n",&cupA,&cupB)  // 需要注意的是接口类型并不是引用类型,改变cupB的值,cupA并没有跟着改变,内存地址也并不一样
+	fmt.Println("接口反射类型:",reflect.TypeOf(cupA)) // 接口反射类型: string
+
     yourName:="jackma"
     myName:=yourName
     fmt.Println("yourName point add:",&yourName," myName point add:",&myName)
@@ -57,7 +65,7 @@ golang的nil在概念上和其它语言的null、None、nil、NULL一样，都�
 
 注意slice和channel和map 以及interface使用make初始化,如果没有初始化,只是声明,就是nil,因为其本身就是引用类型
 
-Go语言中的引用类型有：映射（map）,切片（slice）,通道（channel）,方法与函数。
+Go语言中的引用类型有：映射（map）,切片（slice）,通道（channel）,方法与函数。需要注意:interface类型并不是引用类型
 
 指针的零值,不是0，而是nil。任何未初始化的指针值都为nil。
 

@@ -37,7 +37,9 @@ func main() {
 	var cupA interface{}
 	cupA="123"
 	cupB:=cupA
-	fmt.Printf("cupA:%p,cupB:%p\n",&cupA,&cupB)
+	cupB="345"
+	fmt.Println("cupA",cupA)
+	fmt.Printf("cupA:%p,cupB:%p\n",&cupA,&cupB)  // 看起来接口类型并不是引用类型
 	fmt.Println("接口反射类型:",reflect.TypeOf(cupA)) // 接口反射类型: string
 
 	yourName:="jackma"
