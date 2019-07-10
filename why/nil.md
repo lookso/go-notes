@@ -46,8 +46,8 @@ yourInfo point add:0xc000066180,myInfo point add:0xc000066180,yourInfoA point ad
 heInfo point add:0xc000077500
 uInfo point add:0xc00007e000
 
-同时可以发现
-apend和copy函数可以实现对slice的深拷贝,细节见slice章节
+同时可以发现的是
+apend和copy函数可以实现对slice的深拷贝,当元素数量超过容量,切片会在底层申请新的数组,细节见slice章节
 
 
 指针的零值,不是0，而是nil。任何未初始化的指针值都为nil。
