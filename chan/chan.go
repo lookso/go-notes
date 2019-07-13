@@ -9,14 +9,11 @@ import "fmt"
 4.nil、buffered、closed
 5.
 */
-
 func main() {
 	defer func() {
-		//if err:=recover();err!=nil{
-		//	fmt.Println(err)
-		//}
-		errMsg:=recover()
-		fmt.Println(errMsg)
+		if errMsg:=recover();errMsg!=nil{
+			fmt.Println(errMsg)
+		}
 	}()
 	var status chan int
 	if status == nil {
@@ -27,8 +24,7 @@ func main() {
 	fmt.Println("init value:", status)
 	status <- 1
 	status <- 2
-	status <- 3
-	status <- 4
+
 	// 当超过容量值就回抛出错误
 	close(status)
 
