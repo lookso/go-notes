@@ -80,6 +80,12 @@
 
 ```
 
+## 10.golang 设计模式
+```
+1.组合模式
+2.
+```
+
 
 ```
 值类型和引用类型
@@ -92,3 +98,13 @@ https://blog.csdn.net/cyk2396/article/details/78893828
 参考资料:
 
 https://gfw.go101.org/article/type-system-overview.html
+
+
+golang技术博客
+1.CtoLIb码库
+https://www.ctolib.com/go
+2. no code no life
+http://tigerb.cn/
+
+3.IO多路复用与Go网络库的实现
+https://ninokop.github.io/2018/02/18/go-net/
