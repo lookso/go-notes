@@ -6,7 +6,10 @@
 */
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"encoding/json"
+)
 
 type Books struct {
 	Title  string `json:"title"`
@@ -15,13 +18,19 @@ type Books struct {
 }
 
 func main() {
-	b:=new(Books)
-	b.Title="baidu"
+	b := new(Books)
+	b.Title = "baidu"
 	fmt.Println(b)
 
 	var books Books
 	fmt.Println(books)
 	books.Title = "time comming"
 	books.Author = "lk"
+	books.Pages = 160
 	fmt.Println(books)
+	bookJson,err:=json.Marshal(&books)
+	if err!=nil{
+		fmt.Println(err)
+	}
+	fmt.Println("struct to json:",string(bookJson))
 }
