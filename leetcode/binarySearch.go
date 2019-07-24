@@ -14,9 +14,13 @@ import (
 func main() {
 	arr := []int{8, 9, 6, 7, 10, 7, 1}
 	sort.Ints(arr)
-	findVal := 9
+	findVal := 90
 	key := binarySearch(arr, findVal, 0, len(arr)-1)
-	fmt.Println("find key", key)
+	if key < 0 {
+	   	fmt.Println("no find the key")
+	}else {
+		fmt.Println("find key", key)
+	}
 }
 func binarySearch(arr []int, findVal int, start int, end int) (key int) {
 	if start > end {
