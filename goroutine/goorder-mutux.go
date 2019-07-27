@@ -29,14 +29,14 @@ func main() {
 		}
 		mutux.Unlock()
 		mutux.Lock()
-		group.Done()
+		defer group.Done()
 	}()
 	go func() {
 		for i := 11; i <= 20; i++ {
 			fmt.Println(i)
 		}
 		mutux.Unlock()
-		group.Done()
+		defer group.Done()
 	}()
 	group.Wait()
 
