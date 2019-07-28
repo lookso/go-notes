@@ -78,6 +78,33 @@ switch age:
         fmt.Println(age)  // break可以省略,如果要使用类似continue 跳过当前循环可以使fallthrough
     case 13:
          fmt.Println(age)
+
+3.for ... range 数组的时候,会复制一份数组,可以考虑使用切片
+```$xslt
+at := []int{0, 1, 2}
+fmt.Printf("%p\n", &at)
+for i, v := range at {
+    if i == 0 {
+        at[1], at[2] = 999, 999
+        fmt.Println(at) //[0 999 999]
+    }
+    at[i] = int(v) + int(100)
+}
+fmt.Println(at)  //[100,101,102]
+
+使用切片的结果是:
+at := []int{0, 1, 2}
+fmt.Printf("%p\n", &at)
+for i, v := range at {
+    if i == 0 {
+        at[1], at[2] = 999, 999
+        fmt.Println(at) //[0 999 999]
+    }
+    at[i] = int(v) + int(100)
+}
+fmt.Println(at)  //[0 999 999]
+
+```
          
 
 

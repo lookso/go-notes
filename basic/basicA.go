@@ -52,7 +52,7 @@ func main() {
 
 	}
 	fmt.Println("-------------")
-	at := [3]int{0, 1, 2}
+	at := []int{0, 1, 2}
 	fmt.Printf("%p\n", &at)
 	for i, v := range at {
 		if i == 0 {
