@@ -10,5 +10,6 @@ package main
 //输出：统计连续且相同字符串的个数并输出，如3a2b3c2a1b；
 
 func main() {
-
+	
 }
+

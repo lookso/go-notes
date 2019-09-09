@@ -6,18 +6,21 @@
 */
 package main
 
+import (
+	"math"
+)
+
 func main() {
-	redicalSign(12)
+	redicalSign(12, 0)
 }
 
 // 求根号运算
-func redicalSign(num int) int {
-	for i := 1; i < num; i++ {
-		for j := 1; j < num; j++ {
-			if i*j==12{
-				return i
-			}
-		}
+func redicalSign(num, t int) int {
+	var x1 = num
+	var x2 = x1 / 2
+	for int(math.Abs(float64(x1-x2))) > t {
+		x1 = x2
+		x2 = (x1 + num/2) / 2
 	}
-	return 0
+	return x2
 }

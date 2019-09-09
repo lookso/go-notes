@@ -13,25 +13,28 @@ import (
 
 func main() {
 	fmt.Println("-----quicksort-----")
-	arr := []int{5, 1, 10, 3,6}
+	arr := []int{5, 1, 10, 3, 6}
 	sort.Ints(arr)
-	fmt.Println("arr:",arr)
-	
+	fmt.Println("arr:", arr)
+
 	QSort(arr, 0, len(arr)-1)
 	fmt.Println(arr)
 	fmt.Println("----------")
 	quickSort(arr, 0, len(arr)-1)
 	fmt.Println(arr)
 
+	quick3sortArr := Quick3Sort(arr)
+	fmt.Println("quicksort3", quick3sortArr)
+
 	fmt.Println("-----maopaosort-----")
-	maoPao([]int{4,3,1,5,7,6})
+	maoPao([]int{4, 3, 1, 5, 7, 6})
 }
 
-func maoPao(values []int)  {
+func maoPao(values []int) {
 	for i := 0; i < len(values)-1; i++ {
-		for j := i+1; j < len(values)-1; j++ {
-			if  values[i]>values[j]{
-				values[i],values[j] = values[j],values[i]
+		for j := i + 1; j < len(values)-1; j++ {
+			if values[i] > values[j] {
+				values[i], values[j] = values[j], values[i]
 			}
 		}
 	}
@@ -62,7 +65,7 @@ func QSort(arr []int, start int, end int) {
 			low++
 		}
 		if low >= high {
-			fmt.Printf("low:%d,high:%d\n",low,high)
+			fmt.Printf("low:%d,high:%d\n", low, high)
 			arr[low] = flag
 			break
 		}
@@ -114,3 +117,39 @@ func quickSort(arr []int, firstLen, lastLen int) {
 	quickSort(arr, flag+1, right)
 }
 
+func Quick3Sort(values []int) []int {
+	//arr := []int{5, 1, 10, 3, 6}
+	if len(values) <= 1 {
+		return values
+	}
+	mid, i := values[0], 1
+	head, tail := 0, len(values)-1
+	for head < tail {
+		if values[i] > mid {
+			values[i], values[tail] = values[tail], values[i]
+			tail--
+		} else {
+			values[i], values[head] = values[head], values[i]
+			head++
+			i++
+		}
+	}
+	values[head] = mid
+	fmt.Println("vvv",values)
+	Quick3Sort(values[:head])
+	fmt.Println("ttt",values)
+	Quick3Sort(values[head+1:])
+	fmt.Println("qqq",values)
+
+	//vvv [1 5 6 10 3]
+	//ttt [1 5 6 10 3]
+	//vvv [3 5 10 6]
+	//ttt [3 5 10 6]
+	//vvv [6 10]
+	//ttt [6 10]
+	//qqq [6 10]
+	//qqq [3 5 6 10]
+	//qqq [1 3 5 6 10]
+	//quicksort3 [1 3 5 6 10]
+	return values
+}
