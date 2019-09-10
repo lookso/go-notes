@@ -1,16 +1,16 @@
 package main
 
 import (
-	"encoding/pem"
-	"crypto/x509"
-	"crypto/rsa"
 	"crypto/rand"
+	"crypto/rsa"
+	"crypto/x509"
+	"encoding/base64"
+	"encoding/json"
+	"encoding/pem"
+	"errors"
+	"fmt"
 	"io/ioutil"
 	"time"
-	"encoding/base64"
-	"fmt"
-	"errors"
-	"encoding/json"
 )
 
 func main() {
