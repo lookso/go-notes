@@ -35,6 +35,14 @@ func main() {
 	//defer calc("1", a, t1())
 	//a = 0
 	//defer calc("2", a, t2())
+	fmt.Println("---------")
+	deferDemo()
+	fmt.Println("---------")
+
+	fmt.Println("---deferDemoB()--start-----")
+	deferDemoB()
+	fmt.Println("---deferDemoB()--end------")
+
 
 }
 
@@ -47,3 +55,45 @@ func main() {
 // 20 0 2 2
 // 2  0 2 2
 // 1  1 3 4
+
+func deferDemo()  {
+	t:=1
+	defer func(t int) {
+		fmt.Println("aa:",t)
+	}(t)
+	t=2
+	defer func(t int) {
+		fmt.Println("bb:",t)
+	}(t)
+	t=3
+	defer func(t int) {
+		fmt.Println("cc:",t)
+	}(t)
+	t=4
+	defer func(t int) {
+		fmt.Println("dd:",t)
+	}(t)
+	t=5
+}
+
+func deferDemoB()  {
+	t:=1
+	defer func() {
+		fmt.Println("aa:",t)
+	}()
+	t=2
+	defer func() {
+		fmt.Println("bb:",t)
+	}()
+	t=3
+	defer func() {
+		fmt.Println("cc:",t)
+	}()
+	t=4
+	defer func() {
+		t=200
+		fmt.Println("dd:",t)
+	}()
+	t=5
+}
+

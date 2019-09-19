@@ -23,4 +23,9 @@ func main() {
 
 	arr:=new([20]int)
 	fmt.Println(cap(arr),len(arr))
+
+
+	var demoS = []int{1,2} // [3,1,2]
+	demoS=append([]int{3},demoS...)
+	fmt.Println(demoS)
 }
