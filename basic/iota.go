@@ -35,11 +35,24 @@ const (
 	// Cc 会报错,数量得保持一致
 	Cc, Dd
 )
-const(
-	a=1
-	b=iota
+const (
+	a = 1
+	b = iota
 	c
 )
+
+type Daba int
+
+const(
+	North Daba  =iota
+	East
+	Source
+	West
+)
+
+func (d Daba)String()string  {
+	return [...]string{"North","East","Source"}[d]
+}
 func main() {
 	fmt.Println(Num0, Num1, Num55, Num66, Num3, Num4, Num5, Num6) // 100 101 2 3 zz zz 7 8
 	fmt.Println("--------")
@@ -49,6 +62,9 @@ func main() {
 	fmt.Println("--------")
 	fmt.Println(Aa, Bb, Cc) // 0 3.14 2 3
 	fmt.Println("----------")
-	fmt.Println(a,b,c)
+	fmt.Println(a, b, c)
 
+	fmt.Println(Source) // "Source"
+	fmt.Println(North)
 }
+

@@ -17,6 +17,9 @@ func handle(x int) *DetailError {
 	}
 	return nil
 }
+func String()  {
+	fmt.Println("nb-string")
+}
 func main() {
 	var err error
 	err = handle(0)
