@@ -30,6 +30,8 @@ func main() {
 
 	println(*pa) // 01234
 	println(string(*pb)) // 052
+	fmt.Println("--------keng-------")
+	keng()
 }
 
 func split(sum int) (x, y, z int) {
@@ -37,4 +39,18 @@ func split(sum int) (x, y, z int) {
 	y = sum - x     // 3
 	z = x + y       // 5
 	return
+}
+
+func keng()  {
+	i:=1
+	s:=[]string{"A","B","C"}
+	i,s[i-1]=2,"Z"
+	fmt.Printf("s:%s\n",s)
+
+	a := 1
+	b := 2
+	a, b, a = b, a, b
+	c,d:=1,2
+	d++
+	fmt.Println(a,b,c,d) // 2 1 1 3
 }

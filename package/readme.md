@@ -5,3 +5,5 @@ golang基础操作
 4.获取当前时间戳,格式化时间,之间的相互转换
 5.创建文件,读取文件
 6.http
+7.bytes、bufio、signal、filePath、runtime、sort、strconv、strings、time、
+unsafe

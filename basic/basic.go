@@ -56,6 +56,8 @@ func main()  {
 
 	nextInt := intSeq()
 	fmt.Println("nextInt:",nextInt())
+
+	TT()
 }
 
 // 返回一个函数类型值
@@ -69,4 +71,13 @@ func intSeq() func() int {
 
 func hello(name string) {
 	fmt.Printf("hello,%s!\n", name)
+}
+
+func TT()  {
+	var t=[]string{"id","uid","fid"}
+	fmt.Println(t[3:]) // []
+	//fmt.Println(t[4:]) // 报错,超出边界
+	fmt.Println(cap(t))
+	fmt.Println(t[len(t):])
+	fmt.Println(cap(t))
 }
