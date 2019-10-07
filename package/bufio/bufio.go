@@ -29,6 +29,12 @@ func main() {
 	n, _ := br.Read(b)
 	fmt.Println("写入的字节数:", n)
 
+	// Peek返回输入流的下n个字节，而不会移动读取位置。返回的[]byte只在下一次调用读取操作前合法。
+	// 如果Peek返回的切片长度比n小，它也会返会一个错误说明原因。
+	// 如果n比缓冲尺寸还大，返回的错误将是ErrBufferFull。
+	p,_:=br.Peek(5)
+	fmt.Printf("p:%s\n", p)
+
 	file, err := os.OpenFile("a.txt", os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
 	if err != nil {
 		fmt.Println(err)

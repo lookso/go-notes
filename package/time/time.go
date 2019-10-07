@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"runtime"
 	"strconv"
 	"time"
 )
@@ -19,7 +20,8 @@ func main() {
 	timeStamp := tm.Unix()
 	fmt.Println("字符串/格式化转换为时间戳", timeStamp)
 
-	fmt.Println(time.Hour*2, time.Minute*2, time.Second*2) // 2h0m0s 2m0s 2s 将时间段表示为float64类型的小时数,分钟数和秒数
+	fmt.Println(time.Hour*2, time.Minute*2, time.Second*2)
+	// 输出:2h0m0s 2m0s 2s 将时间段表示为float64类型的小时数,分钟数和秒数
 
 	fmt.Println("现在是", time.Now().Hour(), "点")
 
@@ -40,4 +42,6 @@ func main() {
 		fmt.Println("timeout")
 	}
 	fmt.Println(time.Since(start))
+
+	fmt.Println("当前协程数目:",runtime.NumGoroutine())
 }

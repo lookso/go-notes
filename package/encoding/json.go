@@ -9,6 +9,8 @@ func main() {
 	jsonToMapAndStruct()
 	fmt.Println("-------toJson---------")
 	mapAndStructToJson()
+	fmt.Println("-------jsonToInterface----")
+	jsonToInterface()
 }
 func jsonToMapAndStruct() {
 	var str = `{"name":"jack","age":11}`
@@ -27,10 +29,10 @@ func jsonToMapAndStruct() {
 		Name string `json:"name""`
 		Age  int    `json:"age"`
 	}
-	var men =new(Men)
+	var men = new(Men)
 	toStructErr := json.Unmarshal([]byte(jsonStr), men)
 	if toStructErr != nil {
-		fmt.Println("JsonToStruct err: ",toStructErr)
+		fmt.Println("JsonToStruct err: ", toStructErr)
 	}
 	fmt.Printf("json to struct:%v\n", *men)
 
@@ -53,4 +55,34 @@ func mapAndStructToJson() {
 	str, _ := json.Marshal(mapStr)
 	fmt.Println(string(str))
 
+}
+
+func jsonToInterface() {
+	var userInfo interface{}
+	userInfo = []int{1,2,3,4,5}
+	var uu = userInfo.([]int)
+	fmt.Println("uu1",uu[1])
+
+	b := []byte(`{"Name":"Wednesday","Age":6,"Parents":["Gomez","Morticia"]}`)
+	var f interface{}
+	if err := json.Unmarshal(b, &f); err == nil {
+		m := f.(map[string]interface{})
+		for k, v := range m {
+			switch vv := v.(type) {
+			case string:
+				fmt.Println(k, "is string", vv)
+			case int:
+				fmt.Println(k, "is int", vv)
+			case float64:
+				fmt.Println(k, "is float64", vv)
+			case []interface{}:
+				fmt.Println(k, "is an array:")
+				for i, u := range vv {
+					fmt.Println(i, u)
+				}
+			default:
+				fmt.Println(k, "is of a type I don't know how to handle")
+			}
+		}
+	}
 }
