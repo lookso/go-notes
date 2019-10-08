@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"reflect"
+	"runtime"
 	"strconv"
 	"strings"
 )
@@ -88,4 +89,16 @@ func main() {
 	fmt.Println(strings.Split("a,b,c", ","))
 	// n 小于0,替换所有旧字符串,大于0,则只替换第一个旧字符串,等于0则不替换
 	fmt.Println(strings.Replace("hello world,i love world","world","china",-1))
+
+	fmt.Println(getMinVer(runtime.Version()))
+
+}
+
+func getMinVer(v string) (uint64, error) {
+	first := strings.IndexByte(v, '.')    // 3
+	last := strings.LastIndexByte(v, '.') // 6
+	if first == last {
+		return strconv.ParseUint(v[first+1:], 10, 64)
+	}
+	return strconv.ParseUint(v[first+1:last], 10, 64)
 }

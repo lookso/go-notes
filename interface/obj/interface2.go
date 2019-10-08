@@ -4,7 +4,7 @@
 @File : interface2
 @Software: GoLand
 */
-package obj
+package main
 
 import "fmt"
 
