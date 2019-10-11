@@ -8,7 +8,6 @@ import (
 )
 
 
-
 func endWork(fromFunction string, ch chan int) {
 	defer func() { fmt.Println(fromFunction, "sleepRandom complete") }()
 	seed := time.Now().UnixNano()

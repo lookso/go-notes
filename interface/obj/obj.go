@@ -1,4 +1,4 @@
-package obj
+package main
 
 import "fmt"
 

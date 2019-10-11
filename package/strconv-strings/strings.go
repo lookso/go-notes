@@ -5,6 +5,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"reflect"
+	"runtime"
+	"strconv"
 	"strings"
 )
 
@@ -66,4 +68,37 @@ func main() {
 	var ch byte = 'a' // 只能一个字符
 	fmt.Println(strings.IndexByte("baidu", ch))
 
+	// 链接字符串的几种方式
+	var strArr = []string{"hello", "world", "what", "name"}
+	newStr := strings.Join(strArr, "-")
+	fmt.Println(newStr) // hello-world-what-name
+
+	// 第二种
+	var buffer bytes.Buffer
+	for i := 0; i <= 9; i++ {
+		buffer.WriteString(strconv.Itoa(i)) // 0123456789
+	}
+	fmt.Println(buffer.String())
+	// 大写转小写
+	fmt.Println(strings.ToLower("GoPher"))
+	// 小写转大写
+	fmt.Println(strings.ToUpper("china"))
+	// 取消字符串左右两边的指定字符
+	fmt.Println(strings.Trim(" !!! Achtung! Achtung! !!! ", "! "))
+	// 字符串分割成字符串类型切片
+	fmt.Println(strings.Split("a,b,c", ","))
+	// n 小于0,替换所有旧字符串,大于0,则只替换第一个旧字符串,等于0则不替换
+	fmt.Println(strings.Replace("hello world,i love world","world","china",-1))
+
+	fmt.Println(getMinVer(runtime.Version()))
+
+}
+
+func getMinVer(v string) (uint64, error) {
+	first := strings.IndexByte(v, '.')    // 3
+	last := strings.LastIndexByte(v, '.') // 6
+	if first == last {
+		return strconv.ParseUint(v[first+1:], 10, 64)
+	}
+	return strconv.ParseUint(v[first+1:last], 10, 64)
 }

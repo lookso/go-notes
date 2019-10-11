@@ -4,35 +4,48 @@
 @File : runtime
 @Software: GoLand
 */
+
 package main
 
-import (
-	"fmt"
-	"runtime"
-)
+import "fmt"
 
-func main() {
+//runtime包中有几个处理goroutine的函数：
+//Goexit
+//退出当前执行的goroutine，但是defer函数还会继续调用
+//
+//Gosched
+//让出当前goroutine的执行权限，调度器安排其他等待的任务运行，并在下次某个时候从该位置恢复执行。
+//
+//NumCPU
+//返回 CPU 核数量
+//
+//NumGoroutine
+//返回正在执行和排队的任务总数
+//
+//GOMAXPROCS
+//用来设置可以并行计算的CPU核数的最大值，并返回之前的值。
 
-	fmt.Println(runtime.GOROOT())  // /usr/local/go
-	fmt.Println(runtime.Version()) // go1.12.7
-	fmt.Println(runtime.NumCPU())  // NumCPU返回本地机器的逻辑CPU个数
-	fmt.Println("-----------------")
-
-	for i := 0; i < 5; i++ {
-		ch := make(chan int)
-		go func(i int, ch chan int) {
-			ch <- i
-			if i == 2 {
-				runtime.Goexit()
-			}
-			if i == 1 {
-				runtime.Gosched()
-			}
-			fmt.Println(i)
-		}(i, ch)
-		<-ch
+func fibonacci(c, quit chan int) {
+	x, y := 1, 1
+	for {
+		select {
+		case c <- x:
+			x, y = y, x+y
+		case <-quit:
+			fmt.Println("quit")
+			return
+		}
 	}
-	fmt.Println("当前存在的协程个数:", runtime.NumGoroutine()) // NumGoroutine返回当前存在的Go程数
 }
 
-//https://studygolang.com/articles/12598?fr=sidebar
+func main() {
+	c := make(chan int)
+	quit := make(chan int)
+	go func() {
+		for i := 0; i < 10; i++ {
+			fmt.Println(<-c)
+		}
+		quit <- 0
+	}()
+	fibonacci(c, quit)
+}
