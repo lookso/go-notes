@@ -5,7 +5,11 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"time"
 )
+
+// Golang开启http服务的三种方式
+// https://www.jianshu.com/p/fe502c586034
 
 func SayHello(w http.ResponseWriter, req *http.Request) {
 	fmt.Println(req.URL.RawQuery)                // 获取?后面的参数, name=2342343&jack=123&age=123
@@ -29,7 +33,10 @@ func (server httpServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-
+	// StripPrefix返回一个处理器，该处理器会将请求的URL.Path字段中给定前缀prefix去除后再交由h处理。
+	// StripPrefix会向URL.Path字段中没有给定前缀的请求回复404 page not found。
+	http.Handle("/tmpfiles/", http.StripPrefix("/tmpfiles/", http.FileServer(http.Dir("/tmp"))))
+	time.Sleep(time.Second*20)
 	getGet()
 
 	var server httpServer

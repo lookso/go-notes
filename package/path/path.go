@@ -7,6 +7,9 @@ import (
 	"path/filepath"
 )
 
+// 文件相关
+// https://studygolang.com/articles/11101?fr=sidebar
+
 func main() {
 	p := path.Join("a", "b", "c")
 	fmt.Println(p) // a/b/c
@@ -27,4 +30,17 @@ func main() {
 		dir,_:=os.Getwd()
 		fmt.Println("dir:",dir)
 	}
+	ext:=path.Ext(pwd)
+	fmt.Println("文件扩展是:",ext)
+
+	//root := `d:\go_workspace\`
+	root,_:=os.Getwd()
+	err := filepath.Walk(root, visit)
+	fmt.Printf("filepath.Walk() returned %v\n", err)
+
+}
+
+func visit(path string, f os.FileInfo, err error) error {
+	fmt.Printf("Visited: %s\n", path)
+	return nil
 }
