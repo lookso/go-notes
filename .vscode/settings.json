@@ -12,7 +12,7 @@
     },
     "go.formatTool": "goreturns",
     "go.goroot": "/usr/local/go",
-    "go.gopath": "/Users/kunlu/data/apps/go",
+   // "go.gopath": "/Users/lukun/data/apps/works/go-apps",
 
 
     "editor.renderControlCharacters": false,

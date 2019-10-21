@@ -1,15 +1,14 @@
-package concurrent
+package main
 
 import (
-	"testing"
-	"sync"
 	"strconv"
+	"sync"
 )
 
 // golang 并发不安全
 // M
 type M struct {
-	Map    map[string]string
+	Map map[string]string
 }
 
 // Set ...
@@ -21,19 +20,17 @@ func (m *M) Set(key, value string) {
 func (m *M) Get(key string) string {
 	return m.Map[key]
 }
-// TestMap  ...
-func TestMap(t *testing.T) {
+
+func main() {
 	c := M{Map: make(map[string]string)}
-	wg := sync.WaitGroup{}
+	var wg sync.WaitGroup
 	for i := 0; i < 21; i++ {
 		wg.Add(1)
 		go func(n int) {
 			k, v := strconv.Itoa(n), strconv.Itoa(n)
 			c.Set(k, v)
-			t.Logf("k=:%v,v:=%v\n", k, c.Get(k))
-			wg.Done()
+			defer wg.Done()
 		}(i)
 	}
 	wg.Wait()
-	t.Log("ok finished.")
 }

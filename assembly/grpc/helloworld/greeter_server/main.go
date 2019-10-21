@@ -25,7 +25,7 @@ import (
 	"log"
 	"net"
 
-	pb "go_script/rpc/grpc/helloworld/helloworld"
+	pb "code.itech8.com/go-notes/assembly/grpc/helloworld/helloworld"
 	"google.golang.org/grpc"
 )
 
@@ -48,7 +48,7 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
-	pb.RegisterGreeterServer(s, &server{})
+	pb.RegisterHelloWorldServer(s, &server{})
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}

@@ -18,4 +18,7 @@ func main() {
 	if reflect.Struct == reflect.TypeOf(address).Kind() {
 		fmt.Println("right")
 	}
+	var a = 1024
+	name:=reflect.ValueOf(a).String()
+	fmt.Println(name) // <int Value>
 }

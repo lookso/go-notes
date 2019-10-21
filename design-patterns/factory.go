@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 type Op interface {
-	Connect() string  // 类似php的interface Op{ public function Connect();} //接口内的方法必须实现
+	Connect() string // 类似php的interface Op{ public function Connect();} //接口内的方法必须实现
 }
 type TheMysql struct {
 }
@@ -11,6 +11,7 @@ type ThePdo struct {
 }
 type TheFactory struct {
 }
+
 func (m *TheMysql) Connect() string {
 	return "this is mysql drive connect"
 }
@@ -32,5 +33,4 @@ func main() {
 	var f = new(TheFactory)
 	p := f.MyFactory("mysql")
 	fmt.Println(p.Connect())
-
 }

@@ -1,5 +1,5 @@
 /*
-@Time : 2019-07-24 20:52
+@Time : 2019-07-24 20:52 
 @Author : Tenlu
 @File : composite
 @Software: GoLand
@@ -26,10 +26,10 @@ func (m *MenuDesc) Description() string {
 }
 
 
-// 菜单组
+// 菜单组合
 type MenuItem struct {
 	MenuDesc
-	price float32  //套菜组价格
+	price float32
 }
 
 func (m *MenuItem) Price() float32 {
@@ -38,7 +38,7 @@ func (m *MenuItem) Price() float32 {
 
 func (m *MenuItem) Print() {
 	fmt.Printf("  %s, ￥%.2f\n", m.name, m.price)
-	fmt.Printf("  -- %s\n", m.description)
+	fmt.Printf("    -- %s\n", m.description)
 }
 func NewMenuItem(name, description string, price float32) *MenuItem {
 	return &MenuItem{
@@ -65,7 +65,7 @@ type Menu struct {
 	MenuDesc
 	MenuGroup
 }
-// 添加菜单组合详情
+
 func (m *Menu) Add(c MenuComponent) {
 	m.children = append(m.children, c)
 }

@@ -1,5 +1,5 @@
 /*
-@Time : 2019-07-24 17:24 
+@Time : 2019-07-24 17:24
 @Author : Tenlu
 @File : single
 @Software: GoLand
@@ -11,33 +11,26 @@ import (
 	"sync"
 )
 
-type UserInfo struct {
-	age int
+type singleton struct {
+	Name string
 }
 
-func (u *UserInfo) setAge(age int) {
-	u.age = age
+var ins *singleton
+
+var once sync.Once
+
+func GetIns() *singleton {
+	once.Do(func() {
+		ins = &singleton{}
+	})
+	return ins
 }
+
 func main() {
-	var once sync.Once
-	for i := 1; i < 10; i++ {
-		once.Do(func() {
-			fmt.Println(i)
-		})
-	}
-	var groupOnce sync.Once
-	var user = new(UserInfo)
-	var group sync.WaitGroup
-	group.Add(10)
-	for i := 0; i < 10; i++ {
-		go func() {
-			// 只执行一次
-			groupOnce.Do(func() {
-				user.setAge(i)
-				fmt.Println(user.age)
-			})
-			group.Done()
-		}()
-	}
-	group.Wait()
+	singleA := GetIns()
+	singleA.Name = "toms"
+	singleB := GetIns()
+	singleB.Name = "jack"
+	fmt.Println(singleA.Name)  //
+	fmt.Println(singleB.Name) // 我们申请了两次实例.在改变一个第二个实例的字段之后，第一个也随之改变了
 }
