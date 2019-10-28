@@ -19,18 +19,4 @@ func main() {
 		}
 	}
 	fmt.Println(sum)
-	fmt.Println(fbnq(30))
-}
-
-func fbnq(n int) int {
-	if n == 0 {
-		return 0
-	}
-	if n == 1 {
-		return 1
-	}
-	if n >= 2 {
-		return fbnq(n-1) + fbnq(n-2)
-	}
-	return -1
 }
