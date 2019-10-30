@@ -8,6 +8,7 @@ package main
 
 import "fmt"
 
+// 字符串反转
 func main() {
 	fmt.Println(strrev("nba"))
 }
