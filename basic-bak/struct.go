@@ -100,12 +100,6 @@ func (t *Teacher) ShowB() {
 	fmt.Println("teacher showB")
 }
 
-
-
-
-
-
-
 type MyPeople interface {
 	Show()
 }

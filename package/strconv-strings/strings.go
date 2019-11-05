@@ -88,9 +88,14 @@ func main() {
 	// 字符串分割成字符串类型切片
 	fmt.Println(strings.Split("a,b,c", ","))
 	// n 小于0,替换所有旧字符串,大于0,则只替换第一个旧字符串,等于0则不替换
-	fmt.Println(strings.Replace("hello world,i love world","world","china",-1))
+	fmt.Println(strings.Replace("hello world,i love world", "world", "china", -1))
 
 	fmt.Println(getMinVer(runtime.Version()))
+
+	// Compare函数，区分大小写，自建方法“==”的速度要比Compare快
+	fmt.Println(strings.Compare("nba", "Nba")) // -1
+	fmt.Println(strings.Compare("nba", "nba")) // 0
+	fmt.Println(strings.IndexByte("nba",'c'))
 
 }
 

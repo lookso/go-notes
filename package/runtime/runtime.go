@@ -7,7 +7,11 @@
 
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"runtime"
+	"time"
+)
 
 //runtime包中有几个处理goroutine的函数：
 //Goexit
@@ -48,4 +52,34 @@ func main() {
 		quit <- 0
 	}()
 	fibonacci(c, quit)
+
+	var pipline = make(chan bool)
+	var mch = make(chan bool)
+	go func() {
+		fmt.Println(time.Now().Format("2006-01-01 15:03:04"))
+		pipline <- true
+	}()
+
+	go func() {
+		<-pipline
+		fmt.Println(time.Now().Format("2006-01-01 15:03:04"))
+		mch <- true
+	}()
+	<-mch
+
+	fmt.Println("------------")
+	gosched()
+}
+
+func gosched() {
+	go output("goroutine 2")
+	
+	runtime.Gosched()
+	output("goroutine 1")
+}
+
+func output(s string) {
+	for i := 0; i < 3; i++ {
+		fmt.Println(s)
+	}
 }
