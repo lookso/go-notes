@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net"
 	"os"
+	"time"
 )
 
 func main() {
@@ -17,6 +18,7 @@ func main() {
 	list := append([]net.Listener{}, l1)
 
 	fmt.Println(list[0].Addr())
+	fmt.Println(time.Now().Format("2006-01-02 13:04:05"))
 	
 	//// 加载初始化值
 	//Init(os.Args[1], list)
