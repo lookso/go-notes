@@ -7,6 +7,7 @@
 package util
 
 import (
+	"strings"
 	"testing"
 )
 
@@ -68,6 +69,20 @@ Fatal	打印致命日志，同时结束测试
 Fatalf	格式化打印致命日志，同时结束测试
 **/
 
-
 // go 单元测试
 // http://objcoding.com/2018/09/14/go-test/
+
+// 基准测试
+func BenchmarkStringJoin(b *testing.B) {
+	b.ReportAllocs()
+	input := []string{"Hello", "World"}
+	for i := 0; i < b.N; i++ {
+		result := strings.Join(input, " ")
+		if result != "Hello World" {
+			b.Error("Unexpected result: " + result)
+		}
+	}
+}
+
+// go test -run=xxx -bench=. -benchtime="3s" -cpuprofile profile_cpu.out
+// go test 命令 带了 -bench参数之后，就只会跑BenchmarkXxx的函数，普通的单元测试函数TestXxx之类的不会跑
