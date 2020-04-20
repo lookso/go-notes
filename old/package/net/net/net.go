@@ -19,6 +19,11 @@ func main() {
 
 	fmt.Println(list[0].Addr())
 	fmt.Println(time.Now().Format("2006-01-02 13:04:05"))
+	fmt.Println(1)
+	fmt.Println(2)
+	fmt.Println(3)
+	fmt.Println(4)
+
 	
 	//// 加载初始化值
 	//Init(os.Args[1], list)
