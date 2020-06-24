@@ -6,7 +6,7 @@ import (
 	"os"
 	"time"
 
-	pb "code.itech8.com/go-notes/assembly/grpc/helloworld/helloworld"
+	pb "go-notes/assembly/grpc/helloworld/helloworld"
 	"google.golang.org/grpc"
 )
 

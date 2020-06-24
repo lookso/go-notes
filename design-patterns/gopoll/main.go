@@ -7,7 +7,7 @@
 package main
 
 import (
-	"code.itech8.com/go-notes/design-patterns/gopoll/work"
+	"go-notes/design-patterns/gopoll/work"
 	"log"
 	"sync"
 	"time"
