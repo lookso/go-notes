@@ -12,8 +12,8 @@ import (
 )
 
 func main() {
-	//QrCode()
-	Auth()
+	QrCode()
+	//Auth()
 	//Awesome()
 }
 
@@ -128,8 +128,8 @@ func Awesome() {
 }
 
 var (
-	PID  = "xx"
-	PKey = "xx"
+	PID  = "200031"
+	PKey = "59508a47621c4a81b8710598d84202ac"
 )
 
 type Response struct {
