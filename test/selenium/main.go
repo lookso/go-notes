@@ -181,9 +181,9 @@ func main() {
 	defer wd.Quit()
 
 	//wd.Get("https://y.qq.com/n/yqq/toplist/27.html#stat=y_new.toplist.menu.27")
-	wd.Get("http://learn.itech8.com/")
+	wd.Get("https://blog.csdn.net/u014633966/article/details/84027419")
 	fmt.Println(wd.Title())
-	elem, err := wd.FindElement(selenium.ByClassName, "home blog wp-custom-logo hfeed")
+	elem, err := wd.FindElement(selenium.ByClassName, "nodata")
 	if err != nil {
 		panic(err)
 	}
