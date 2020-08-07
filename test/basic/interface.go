@@ -9,8 +9,13 @@ type Food struct {
 	Name string `json:"name"`
 }
 
+type Mss map[string]string
+
 func (f *Food) Eat() {
 	fmt.Println("to eat " + f.Name)
+}
+func (m Mss) Eat() {
+	fmt.Println("to eat " + m["name"])
 }
 
 func interType(name interface{}) {
@@ -35,5 +40,7 @@ func main() {
 		Name: "peanut",
 	}
 	d.Eat()
+	var m Duck = Mss{"name": "banner"}
+	m.Eat()
 	interType(321)
 }
