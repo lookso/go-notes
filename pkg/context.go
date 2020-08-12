@@ -7,48 +7,17 @@ import (
 )
 
 func main() {
-	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
+	// 根节点
+	rootCtx := context.Background()
+	// 子节点
+	ctx1 := context.WithValue(rootCtx, "name", "jack")
+	// 子子节点,一层层向下传递
+	ctx2, cancel := context.WithCancel(ctx1)
 	defer cancel()
-	go handle(ctx, 500*time.Millisecond)
-	select {
-	case <-ctx.Done():
-		fmt.Println("main", ctx.Err())
-	}
-	fmt.Println("-------")
-	doSelect()
-}
-
-func handle(ctx context.Context, duration time.Duration) {
-	select {
-	case <-ctx.Done():
-		fmt.Println("handle", ctx.Err())
-	case <-time.After(duration):
-		fmt.Println("process request with", duration)
-	}
-}
-
-func doSelect() {
-	chan1 := make(chan int)
-	chan2 := make(chan int)
-
-	go func() {
-		chan1 <- 1
-		time.Sleep(5 * time.Second)
-	}()
-
-	go func() {
-		chan2 <- 1
-		time.Sleep(5 * time.Second)
-	}()
-
-	select {
-	case <-chan1:
-		fmt.Println("select chan1 ready.")
-	case <-chan2:
-		fmt.Println("select chan2 ready.")
-	default:
-		fmt.Println("select default")
+	name, ok := ctx2.Value("name").(string)
+	if ok {
+		fmt.Println(name)
 	}
 
-	fmt.Println("select  main exit.")
+
 }
