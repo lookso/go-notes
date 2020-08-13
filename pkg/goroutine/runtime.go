@@ -2,9 +2,11 @@ package main
 
 import (
 	"fmt"
+	"runtime"
 	"sync"
 )
 
+// 通过channel保证协程顺序输出
 func runtimeMain() {
 	var wg sync.WaitGroup
 	var ch = make(chan int)
@@ -15,13 +17,15 @@ func runtimeMain() {
 			fmt.Println(k)
 			defer wg.Done()
 		}(k)
-		//fmt.Println("NumGoroutine", runtime.NumGoroutine())
 		ch <- k
+		fmt.Println("NumGoroutine", runtime.NumGoroutine())
 	}
-
 	wg.Wait()
 }
 
 func main() {
+	fmt.Println(runtime.NumCPU())
+	fmt.Println("------------------------")
 	runtimeMain()
 }
+
