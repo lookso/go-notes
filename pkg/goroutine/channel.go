@@ -91,10 +91,12 @@ func ctxForChanT() {
 		}
 	}
 }
-func main() {
+func channelMain() {
 	ctxForChanT()
 	defer func() {
 		fmt.Println("当前运行的goroutine-num: ", runtime.NumGoroutine())
 	}()
-
+}
+func main() {
+	channelMain()
 }
