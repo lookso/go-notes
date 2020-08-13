@@ -11,7 +11,6 @@ func mm() {
 	close(ch8)
 }
 func main() {
-
 	go mm()
 	for {
 		for data := range ch8 {
