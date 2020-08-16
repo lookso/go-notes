@@ -1,21 +1,25 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"runtime"
+	"strconv"
+	"time"
+)
 
-var ch8 = make(chan int, 6)
+var ch chan int
 
-func mm() {
-	for i := 0; i < 10; i++ {
-		ch8 <- 8 * i
-	}
-	close(ch8)
+func work(i int) {
+	fmt.Println("work" + strconv.Itoa(i))
+	time.Sleep(time.Second)
+	ch <- i
 }
+
 func main() {
-	go mm()
-	for {
-		for data := range ch8 {
-			fmt.Print(data, "\t\n")
-		}
-		break
+	ch = make(chan int, 10)
+	for i := 0; i < 100; i++ {
+		go work(i)
+		<-ch
 	}
+	defer fmt.Println("NumGoroutine", runtime.NumGoroutine())
 }
