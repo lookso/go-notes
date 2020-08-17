@@ -19,7 +19,7 @@ func main() {
 	cancel()
 	wg.Wait()
 	fmt.Println("stop")
-
+	fmt.Println("-------------------------")
 	mc()
 }
 
@@ -59,8 +59,7 @@ func receive(ctx context.Context, ch chan int) {
 		}
 	}
 }
-
-
+//----------------------------------------
 var swg sync.WaitGroup
 func gen(ctx context.Context) <-chan int {
 	// 创建子context
@@ -69,7 +68,7 @@ func gen(ctx context.Context) <-chan int {
 	dst := make(chan int)
 	n := 1
 	go func() {
-		defer wg.Done()
+		defer swg.Done()
 		for {
 			select {
 			case <-ctx.Done():
