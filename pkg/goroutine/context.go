@@ -19,6 +19,8 @@ func main() {
 	cancel()
 	wg.Wait()
 	fmt.Println("stop")
+
+	mc()
 }
 
 func send(ctx context.Context, ch chan int) {
@@ -59,3 +61,50 @@ func receive(ctx context.Context, ch chan int) {
 }
 
 
+var swg sync.WaitGroup
+func gen(ctx context.Context) <-chan int {
+	// 创建子context
+	subCtx, _ := context.WithCancel(ctx)
+	go sub(subCtx)  // 这里使用ctx，也能给goroutine通知
+	dst := make(chan int)
+	n := 1
+	go func() {
+		defer wg.Done()
+		for {
+			select {
+			case <-ctx.Done():
+				fmt.Println("end")
+				return // return，防止goroutine泄露
+			case dst <- n:
+				n++
+			}
+		}
+	}()
+	return dst
+}
+
+func sub(ctx context.Context) {
+	defer swg.Done()
+	for {
+		select {
+		case <-ctx.Done():
+			fmt.Println("end too")
+			return // returning not to leak the goroutine
+		default:
+			fmt.Println("test")
+		}
+	}
+}
+
+func mc() {
+	swg.Add(2)
+	ctx, cancel := context.WithCancel(context.Background())
+	for n := range gen(ctx) {
+		fmt.Println(n)
+		if n == 5 {
+			break
+		}
+	}
+	cancel()
+	swg.Wait()
+}
