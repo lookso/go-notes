@@ -29,6 +29,7 @@ func main() {
 	}
 	quit <- true
 	group.Wait()
+	fmt.Println("------------------------")
 	mm()
 }
 
@@ -39,7 +40,6 @@ func subWork(in chan int, quit chan bool) {
 	quit <- true
 }
 func mm() {
-	fmt.Println("-----------")
 	var quit = make(chan bool)
 	var in = make(chan int)
 	go subWork(in, quit)
