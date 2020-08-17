@@ -4,26 +4,55 @@
 @File : basic
 @Software: GoLand
 */
-package etcd
+package main
 
 import (
+	"context"
+	"errors"
 	"fmt"
 	"go.etcd.io/etcd/clientv3"
 	"time"
 )
 
-func main() {
-	cli, err := clientv3.New(clientv3.Config{
-		Endpoints:   []string{"localhost:2379", "localhost:22379", "localhost:32379"},
-		DialTimeout: 5 * time.Second,
-	})
-	if err != nil {
-		fmt.Println("connect failed, err:", err)
-		return
-	}
+var cli *clientv3.Client
 
-	fmt.Println("connect etcd success")
+func conn() {
+	var err error
+	cli, err = clientv3.New(
+		clientv3.Config{
+			Endpoints:   []string{"localhost:2379"},
+			DialTimeout: 5 * time.Second,
+		})
 	defer cli.Close()
+	if err != nil {
+		fmt.Println(errors.New("connect failed"))
+	}
+	fmt.Println("connect Etcd success")
+}
+func mustInit() error {
+	if cli == nil {
+		return errors.New("config is not init")
+	}
+	return nil
+}
+func doSet() error {
+	if err := mustInit(); err != nil {
+		return err
+	}
+	ctx, cancel := context.WithTimeout(context.TODO(), 5*time.Second)
+	defer cancel()
+	// 设置key="/tizi365/url" 的值为 www.tizi365.com
+	_, err := cli.Put(ctx, "/tizi365/url", "www.tizi365.com")
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func main() {
+	conn()
+	if err := doSet(); err != nil {
+		fmt.Println("doGet", err)
+	}
 }
 
 // go大数据库日志
