@@ -1,21 +1,55 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sync"
+)
 
-var ch8 = make(chan int, 6)
+var group sync.WaitGroup
 
-func mm() {
-	for i := 0; i < 10; i++ {
-		ch8 <- 8 * i
+func work(in <-chan int, quit <-chan bool) {
+	defer group.Done()
+	for {
+		select {
+		case <-quit:
+			fmt.Println("work quit")
+			return
+		case <-in:
+			fmt.Println("working")
+		}
 	}
-	close(ch8)
 }
 func main() {
-	go mm()
+	var quit = make(chan bool)
+	var in = make(chan int)
+	group.Add(1)
+	go work(in, quit)
+	for i := 0; i < 3; i++ {
+		in <- i
+	}
+	quit <- true
+	group.Wait()
+	mm()
+}
+
+func subWork(in chan int, quit chan bool) {
+	for i := 0; i < 3; i++ {
+		in <- i
+	}
+	quit <- true
+}
+func mm() {
+	fmt.Println("-----------")
+	var quit = make(chan bool)
+	var in = make(chan int)
+	go subWork(in, quit)
 	for {
-		for data := range ch8 {
-			fmt.Print(data, "\t\n")
+		select {
+		case <-quit:
+			fmt.Println("work quit")
+			return
+		case <-in:
+			fmt.Println("working")
 		}
-		break
 	}
 }
