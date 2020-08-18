@@ -95,5 +95,5 @@ func main() {
 	if err := doWatch(); err != nil {
 		fmt.Println("doWatch", err)
 	}
-	defer cli.Close()
+	defer cli.Close() // 连接关闭要放在main函数里面
 }
