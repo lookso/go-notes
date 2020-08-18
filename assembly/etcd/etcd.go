@@ -83,6 +83,19 @@ func doWatch() error {
 	}
 	return nil
 }
+func doDel() error {
+	var err error
+	if err = mustInit(); err != nil {
+		return err
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+	_, err = cli.Delete(ctx, "name")
+	if err != nil {
+		return err
+	}
+	return nil
+}
 
 func main() {
 	conn()
@@ -94,6 +107,9 @@ func main() {
 	}
 	if err := doWatch(); err != nil {
 		fmt.Println("doWatch", err)
+	}
+	if err := doDel(); err != nil {
+		fmt.Println("doDel", err)
 	}
 	defer cli.Close() // 连接关闭要放在main函数里面
 }
