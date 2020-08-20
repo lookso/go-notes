@@ -12,30 +12,29 @@ import (
 	"fmt"
 )
 
-var rsaPrivateKey = `-----BEGIN PRIVATE KEY-----
-MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAO1JXIjANU3mShpe
-FGORAJ5/IYQT3Rna5ilsrDn8L4ujURriqEYufy0CoJnv+SqM6kscoM7gixd4E8jh
-tH16hFy7Sl+4Lw7/OrdS874UdpNo0EmkafPgxDc8G7o1HnOKDmNarJgWfE1bpb9u
-lEpHGuzAygtGbB6vSzC6Bk2PeRqhAgMBAAECgYAbiAuIgmSs6S9n58qN0uEzgqSs
-4nEg8tkJrWY+RBhwJz7d07aajgKLgmaH9eP/H+J/XI778emxi2kgQa/jbze0IYUN
-pSYzOid1gY4ctW9JPJyGQ1qpB23Asl6EQPDlJiMP+EyZOxAeO8GH/sQ1imVyl0jc
-4Pys8k61E5tVu7HnAQJBAPgcesHgmtZSeBW1BqTo36/fWaUxNwpYtDd1o0b/ao2D
-0j6KXtQswet84lKCJw31loK55PA+oBcpqzDCPwzZ+2kCQQD01MYMqo13DsXe/d2y
-Np4t6BZhfyexKJQd25krn/mIUUNLYd6BbHRHohJK7X+EMFikSv5HT+dmC/7tTw3e
-nFZ5AkA+EJG8sfzJpDOZ6oDQ+9gI3KxGIHuOQQZD4U+I0RfMcq9DKcXy+YdA6yqK
-TTiLy2VtKidU2bWeVbQXLGAtTNIRAkEAmgeO/gMC8ydRJ4SRyIACLiF4iygjQZqk
-7M/uYnrH05JEgxV0lfo0gaieV5NpiTGdYudnaFgF3baoUIZO1IGJCQJAU2UByCbz
-m2yQ1kc6xUVNIjs9w2YkGlmQTn2c8xholeyTznIJEiQK1VaCcDy+6Pjz5rX4zHzx
-KsP6+ka4UaefcQ==
+var rsaPrivateKey=`-----BEGIN PRIVATE KEY-----
+MIICeAIBADANBgkqhkiG9w0BAQEFAASCAmIwggJeAgEAAoGBAOXjOzU62cishxvY
+EhTDOP8fINljZUCg6eW29EZBYk2pOh5BEzXZYXe7CTU+N3ehdasU94Bq8/2UtRcf
+jSH5OeWiNI1DiFBEAGznSi0hmQHOHkPF9BlT79vBJfcjTEvtiIyrPSnxNIz2XZbi
+hhREC9VU8H19yjXH7x+zkqnuYtU5AgMBAAECgYEAnm9Hy/y+QaZeC1uTwol1S6a5
+bfkpvCvqZ2361jyTsnBR5K32vmMN4IWf5/j0I1e8j+cIWJHdjEOjtscA7owkUIdb
+cuDNgCXQAYR6gZOvkOH8MEWGcNkvggOgj2EBJDRrG1lRheJlvm1qhWUeD7U9HDZt
+kI83Wuld1oKkNA2si90CQQD1l/xbx+3VnJO0N/I0yh4SOdMWe2G+Ih6FaQgYxy16
+kkOVeSqj3DiSjdQ1+NQBlhZlshcbHXIAfXd6M1TSfY6bAkEA76DgwKnwqJkYl3ok
+8aoqEaQTFo3w7dFZNkJ2dEvVLuaTVN3Xb1Tj55y2DcOkB3baq4OfHE8V8pJ1K8hR
+4nieuwJBAIQkGLZRZlhu/NIU4A8jSPbJghgwnrCsrvtdPewHDyNKG28LWLP9w7qm
+8S1xCrEnzjk9j00ZlMNKvsRTZiozQE0CQQDgqqAuYuaM3EUvOEjM/3LD6WYwHlKG
+VmJjOfsfXD365Bm8VuX2rsuiys3xp7zxdqDcb+JMw2Vbca9DpmQHhnmjAkAPTKFW
+KXTKyMtxx4M+9tf8ynj+cLKK664ljy+9ow9VfOXEWn/8IavLUepZhnkXHW+G40LD
+B5P8BSn6eNFhXzY3
 -----END PRIVATE KEY-----`
 
-
-
-var rsaPublickey = `-----BEGIN RSA PUBLIC KEY-----
-MIGJAoGBAO1JXIjANU3mShpeFGORAJ5/IYQT3Rna5ilsrDn8L4ujURriqEYufy0C
-oJnv+SqM6kscoM7gixd4E8jhtH16hFy7Sl+4Lw7/OrdS874UdpNo0EmkafPgxDc8
-G7o1HnOKDmNarJgWfE1bpb9ulEpHGuzAygtGbB6vSzC6Bk2PeRqhAgMBAAE=
+var rsaPublickey =`-----BEGIN RSA PUBLIC KEY-----
+MIGJAoGBAOXjOzU62cishxvYEhTDOP8fINljZUCg6eW29EZBYk2pOh5BEzXZYXe7
+CTU+N3ehdasU94Bq8/2UtRcfjSH5OeWiNI1DiFBEAGznSi0hmQHOHkPF9BlT79vB
+JfcjTEvtiIyrPSnxNIz2XZbihhREC9VU8H19yjXH7x+zkqnuYtU5AgMBAAE=
 -----END RSA PUBLIC KEY-----`
+
 
 func main()  {
 	fmt.Println("-------------------------------进行签名与验证操作-----------------------------------------")
@@ -50,29 +49,7 @@ func main()  {
 		fmt.Println("签名信息验证成功，确定是正确私钥签名！！")
 	}
 }
-
-//签名
-//func RsaSignWithSha256(data []byte, keyBytes []byte) []byte {
-//	h := sha256.New()
-//	h.Write(data)
-//	hashed := h.Sum(nil)
-//	block, _ := pem.Decode(keyBytes)
-//	if block == nil {
-//		panic(errors.New("private key error"))
-//	}
-//	privateKey, err := x509.ParsePKCS1PrivateKey(block.Bytes)
-//	if err != nil {
-//		fmt.Println("ParsePKCS8PrivateKey err", err)
-//		panic(err)
-//	}
-//	signature, err := rsa.SignPKCS1v15(rand.Reader, privateKey, crypto.SHA256, hashed)
-//	if err != nil {
-//		fmt.Printf("Error from signing: %s\n", err)
-//		panic(err)
-//	}
-//	return signature
-//}
-//
+// 签名
 func RsaSignWithSha256(data []byte, keyBytes []byte) (sign []byte, err error) {
 	h := sha256.New()
 	h.Write(data)
@@ -113,8 +90,3 @@ func RsaVerySignWithSha256(data []byte, sg string, keyBytes []byte) bool {
 	}
 	return true
 }
-
-
-//openssl genrsa -out rsa_private_key.pem 1024
-//openssl pkcs8 -topk8 -inform PEM -in rsa_private_key.pem -outform PEM -nocrypt -out private_key.pem
-//openssl rsa -in rsa_private_key.pem -RSAPublicKey_out -out rsa_public_key.pem
