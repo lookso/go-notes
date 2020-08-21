@@ -6,6 +6,7 @@ import (
 )
 
 // 定时器
+// 可参考缓存自动失效机制
 func newTimer() {
 	t := time.NewTimer(2 * time.Second)
 	done := make(chan bool)
