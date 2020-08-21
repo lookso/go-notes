@@ -19,7 +19,7 @@ var rsaPublickey =`xxx`
 
 func main()  {
 	fmt.Println("-------------------------------进行签名与验证操作-----------------------------------------")
-	var data = `{"pid":"200021","sp":"KG","device_id":"MAA118908000L","client_ip":"127.0.0.1"}`
+	var data = `{"pid":"10086","device_id":"MAA118908000L","client_ip":"127.0.0.1"}`
 	fmt.Println("对消息进行签名操作...")
 	signData,_ := RsaSignWithSha256([]byte(data), []byte(rsaPrivateKey))
 	sg := base64.StdEncoding.EncodeToString(signData)
@@ -71,3 +71,7 @@ func RsaVerySignWithSha256(data []byte, sg string, keyBytes []byte) bool {
 	}
 	return true
 }
+
+//openssl genrsa -out rsa_private_key.pem 1024
+//openssl pkcs8 -topk8 -inform PEM -in rsa_private_key.pem -outform PEM -nocrypt -out private_key.pem
+//openssl rsa -in rsa_private_key.pem -RSAPublicKey_out -out rsa_public_key.pem
