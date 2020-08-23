@@ -19,7 +19,7 @@ var cli *clientv3.Client
 func conn() {
 	var err error
 	cli, err = clientv3.New(clientv3.Config{
-		Endpoints:   []string{"localhost:2379", "localhost:22379", "localhost:32379"},
+		Endpoints:   []string{"192.168.0.103:2379", "192.168.0.103:22379", "192.168.0.103:32379"},
 		DialTimeout: 5 * time.Second,
 	})
 	if err != nil {
@@ -39,11 +39,18 @@ func doSet() error {
 	if err := mustInit(); err != nil {
 		return err
 	}
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
-	_, err := cli.Put(ctx, "/config/grpc", "grpc.com")
+	//withPrevKV()是为了获取操作前已经有的key-value
+	putResp, err := cli.Put(ctx, "/config/golang", "golang.com", clientv3.WithPrevKV())
 	if err != nil {
 		return err
+	}
+	if putResp.PrevKv == nil {
+		_, err := cli.Put(ctx, "/config/etcd", "etcd.io")
+		if err != nil {
+			return err
+		}
 	}
 	return nil
 }
@@ -52,7 +59,7 @@ func doGet() error {
 	if err := mustInit(); err != nil {
 		return err
 	}
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
 	resp, err := cli.Get(ctx, "/config", clientv3.WithPrefix())
 	if err != nil {
@@ -70,7 +77,7 @@ func doWatch() error {
 		return err
 	}
 	// 监听etcd集群键的改变：
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
 	wc := cli.Watch(ctx, "/config", clientv3.WithPrefix(), clientv3.WithPrevKV())
 	for v := range wc {
