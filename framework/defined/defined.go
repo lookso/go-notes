@@ -1,0 +1,5 @@
+package defined
+
+const (
+
+)
