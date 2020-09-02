@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"go-notes/framework/libs/jwt"
 	"go-notes/framework/libs/structs"
@@ -18,7 +17,6 @@ var (
 func Login(c *gin.Context) {
 	var urq resource.LoginRequest
 	if err := c.ShouldBind(&urq); err != nil {
-		fmt.Println(err)
 		c.JSON(structs.BadRequest(""))
 		return
 	}
