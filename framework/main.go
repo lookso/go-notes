@@ -7,6 +7,7 @@ import (
 
 func main() {
 	engine := gin.New()
-	router.Router(engine)
+	router.All(engine)
+
 	engine.Run(":8090")
 }
