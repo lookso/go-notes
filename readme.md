@@ -5,7 +5,7 @@
 ```
 1.grpc grpc-getway
 2.etcd 服务注册与发现
-3.jwt
+3.jwt  refresh token
 4.snowflow+uuid
 5.docker+k8s
 6.zipkin apm
