@@ -17,10 +17,6 @@ var (
 func Login(c *gin.Context) {
 	var urq resource.LoginRequest
 	if err := c.ShouldBind(&urq); err != nil {
-		c.JSON(structs.BadRequest(""))
-		return
-	}
-	if urq.UserName != username || urq.Password != password {
 		c.JSON(structs.BadRequest("参数错误"))
 		return
 	}
