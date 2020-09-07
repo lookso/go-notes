@@ -41,6 +41,11 @@ func main() {
 	//atomic.Value{}
 	//atomic.StoreInt32()
 	//atomic.SwapInt32()
+
+	var a=12
+	fmt.Println(a)
+	var a="432"
+	fmt.Println(a)
 }
 
 func addValue(delta int32) {
