@@ -12,6 +12,7 @@
 7.es
 8.sentry
 9.prometheus+grefana+elk
+10.kafka
 10.kong 限流,降级,鉴权
 
 ```
