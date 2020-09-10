@@ -37,6 +37,7 @@ require (
 	github.com/soheilhy/cmux v0.1.4 // indirect
 	github.com/tebeka/selenium v0.9.9 // indirect
 	github.com/tmc/grpc-websocket-proxy v0.0.0-20200122045848-3419fae592fc // indirect
+	github.com/urfave/cli v1.22.4 // indirect
 	github.com/wangbin/jiebago v0.3.2 // indirect
 	github.com/xiang90/probing v0.0.0-20190116061207-43a291ad63a2 // indirect
 	github.com/yanyiwu/gojieba v1.1.2 // indirect
