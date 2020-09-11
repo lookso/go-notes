@@ -56,6 +56,7 @@ func main() {
 		fmt.Printf("env=%v \n", env)
 		return nil
 	}
+
 	//启动
 	if err := oApp.Run(os.Args); err != nil {
 		log.Fatal(err)
