@@ -25,14 +25,14 @@ require (
 	github.com/gocolly/colly v1.2.0 // indirect
 	github.com/gogo/protobuf v1.3.1 // indirect
 	github.com/golang/groupcache v0.0.0-20200121045136-8c9f03a8e57e // indirect
-	github.com/golang/protobuf v1.3.3
+	github.com/golang/protobuf v1.4.1
 	github.com/google/btree v1.0.0 // indirect
 	github.com/google/gops v0.3.11
 	github.com/google/uuid v1.1.1
 	github.com/gorilla/websocket v1.4.1 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware v1.1.0 // indirect
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0 // indirect
-	github.com/grpc-ecosystem/grpc-gateway v1.12.2 // indirect
+	github.com/grpc-ecosystem/grpc-gateway v1.12.2
 	github.com/jonboulle/clockwork v0.1.0 // indirect
 	github.com/kennygrant/sanitize v1.2.4 // indirect
 	github.com/liujiawm/gocalendar v1.0.1 // indirect
@@ -55,7 +55,9 @@ require (
 	go.uber.org/zap v1.13.0
 	golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e
 	golang.org/x/time v0.0.0-20191024005414-555d28b269f0
-	google.golang.org/grpc v1.26.0
+	google.golang.org/genproto v0.0.0-20200526211855-cb27e3aa2013
+	google.golang.org/grpc v1.27.0
+	google.golang.org/protobuf v1.25.0
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
 	sigs.k8s.io/yaml v1.1.0 // indirect
 )
