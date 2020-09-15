@@ -25,7 +25,7 @@ require (
 	github.com/gocolly/colly v1.2.0 // indirect
 	github.com/gogo/protobuf v1.3.1 // indirect
 	github.com/golang/groupcache v0.0.0-20200121045136-8c9f03a8e57e // indirect
-	github.com/golang/protobuf v1.4.1
+	github.com/golang/protobuf v1.4.2
 	github.com/google/btree v1.0.0 // indirect
 	github.com/google/gops v0.3.11
 	github.com/google/uuid v1.1.1
@@ -37,6 +37,8 @@ require (
 	github.com/kennygrant/sanitize v1.2.4 // indirect
 	github.com/liujiawm/gocalendar v1.0.1 // indirect
 	github.com/mozillazg/go-pinyin v0.17.0 // indirect
+	github.com/openzipkin-contrib/zipkin-go-opentracing v0.4.5 // indirect
+	github.com/openzipkin/zipkin-go v0.2.4 // indirect
 	github.com/oschwald/geoip2-golang v1.4.0 // indirect
 	github.com/prometheus/client_golang v1.3.0 // indirect
 	github.com/saintfish/chardet v0.0.0-20120816061221-3af4cd4741ca // indirect
@@ -56,7 +58,7 @@ require (
 	golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e
 	golang.org/x/time v0.0.0-20191024005414-555d28b269f0
 	google.golang.org/genproto v0.0.0-20200526211855-cb27e3aa2013
-	google.golang.org/grpc v1.27.0
+	google.golang.org/grpc v1.30.0
 	google.golang.org/protobuf v1.25.0
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
 	sigs.k8s.io/yaml v1.1.0 // indirect
