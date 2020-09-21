@@ -3,6 +3,8 @@ module go-notes
 go 1.14
 
 require (
+	contrib.go.opencensus.io/exporter/zipkin v0.1.2 // indirect
+	github.com/EDDYCJY/go-grpc-example v0.0.0-20181014074047-0f68708edbcb // indirect
 	github.com/PuerkitoBio/goquery v1.5.1 // indirect
 	github.com/afex/hystrix-go v0.0.0-20180502004556-fa1af6a1f4f5
 	github.com/antchfx/htmlquery v1.2.3 // indirect
@@ -33,6 +35,7 @@ require (
 	github.com/grpc-ecosystem/go-grpc-middleware v1.1.0 // indirect
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway v1.12.2
+	github.com/grpc-ecosystem/grpc-opentracing v0.0.0-20180507213350-8e809c8a8645 // indirect
 	github.com/jonboulle/clockwork v0.1.0 // indirect
 	github.com/kennygrant/sanitize v1.2.4 // indirect
 	github.com/liujiawm/gocalendar v1.0.1 // indirect
