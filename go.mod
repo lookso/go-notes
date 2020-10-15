@@ -3,9 +3,9 @@ module go-notes
 go 1.14
 
 require (
-	contrib.go.opencensus.io/exporter/zipkin v0.1.2 // indirect
+	contrib.go.opencensus.io/exporter/zipkin v0.1.2
 	github.com/EDDYCJY/go-grpc-example v0.0.0-20181014074047-0f68708edbcb // indirect
-	github.com/PuerkitoBio/goquery v1.5.1 // indirect
+	github.com/PuerkitoBio/goquery v1.5.1
 	github.com/afex/hystrix-go v0.0.0-20180502004556-fa1af6a1f4f5
 	github.com/antchfx/htmlquery v1.2.3 // indirect
 	github.com/antchfx/xmlquery v1.3.0 // indirect
@@ -24,8 +24,9 @@ require (
 	github.com/go-redis/redis/v7 v7.0.0-beta.5
 	github.com/go-redis/redis_rate/v7 v7.0.1
 	github.com/gobwas/glob v0.2.3 // indirect
-	github.com/gocolly/colly v1.2.0 // indirect
+	github.com/gocolly/colly v1.2.0
 	github.com/gogo/protobuf v1.3.1 // indirect
+	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
 	github.com/golang/groupcache v0.0.0-20200121045136-8c9f03a8e57e // indirect
 	github.com/golang/protobuf v1.4.2
 	github.com/google/btree v1.0.0 // indirect
@@ -40,8 +41,9 @@ require (
 	github.com/kennygrant/sanitize v1.2.4 // indirect
 	github.com/liujiawm/gocalendar v1.0.1 // indirect
 	github.com/mozillazg/go-pinyin v0.17.0 // indirect
-	github.com/openzipkin-contrib/zipkin-go-opentracing v0.4.5 // indirect
-	github.com/openzipkin/zipkin-go v0.2.4 // indirect
+	github.com/opentracing/opentracing-go v1.1.0
+	github.com/openzipkin-contrib/zipkin-go-opentracing v0.4.5
+	github.com/openzipkin/zipkin-go v0.2.4
 	github.com/oschwald/geoip2-golang v1.4.0 // indirect
 	github.com/prometheus/client_golang v1.3.0 // indirect
 	github.com/saintfish/chardet v0.0.0-20120816061221-3af4cd4741ca // indirect
@@ -50,19 +52,25 @@ require (
 	github.com/tebeka/selenium v0.9.9 // indirect
 	github.com/temoto/robotstxt v1.1.1 // indirect
 	github.com/tmc/grpc-websocket-proxy v0.0.0-20200122045848-3419fae592fc // indirect
-	github.com/urfave/cli v1.22.4 // indirect
+	github.com/urfave/cli v1.22.4
 	github.com/wangbin/jiebago v0.3.2 // indirect
 	github.com/xiang90/probing v0.0.0-20190116061207-43a291ad63a2 // indirect
 	github.com/yanyiwu/gojieba v1.1.2 // indirect
 	github.com/yuin/gopher-lua v0.0.0-20200521060427-6ff375d91eab
 	go.etcd.io/bbolt v1.3.3 // indirect
 	go.etcd.io/etcd v3.3.18+incompatible
+	go.opencensus.io v0.22.4
 	go.uber.org/zap v1.13.0
-	golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e
+	golang.org/x/net v0.0.0-20200813134508-3edf25e44fcc
+	golang.org/x/sync v0.0.0-20200625203802-6e8e738ad208
 	golang.org/x/time v0.0.0-20191024005414-555d28b269f0
-	google.golang.org/genproto v0.0.0-20200526211855-cb27e3aa2013
-	google.golang.org/grpc v1.30.0
+	google.golang.org/genproto v0.0.0-20200806141610-86f49bd18e98
+	google.golang.org/grpc v1.31.0
+	google.golang.org/grpc/examples v0.0.0-20201013205100-7745e521ff61 // indirect
 	google.golang.org/protobuf v1.25.0
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
 	sigs.k8s.io/yaml v1.1.0 // indirect
+
 )
+
+replace google.golang.org/grpc => google.golang.org/grpc v1.26.0
