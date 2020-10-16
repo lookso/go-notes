@@ -19,7 +19,7 @@ var (
 func conn() {
 	var err error
 	cli, err = clientv3.New(clientv3.Config{
-		Endpoints:   []string{"localhost:112379", "localhost:122379", "localhost:132379"},
+		Endpoints:   []string{"localhost:12379", "localhost:22379", "localhost:32379"},
 		DialTimeout: 5 * time.Second,
 	})
 	if err != nil {
