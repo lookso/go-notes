@@ -3,7 +3,7 @@ module go-notes
 go 1.14
 
 require (
-	github.com/PuerkitoBio/goquery v1.5.1 // indirect
+	github.com/PuerkitoBio/goquery v1.5.1
 	github.com/afex/hystrix-go v0.0.0-20180502004556-fa1af6a1f4f5
 	github.com/antchfx/htmlquery v1.2.3 // indirect
 	github.com/antchfx/xmlquery v1.3.0 // indirect
@@ -22,9 +22,11 @@ require (
 	github.com/go-redis/redis/v7 v7.0.0-beta.5
 	github.com/go-redis/redis_rate/v7 v7.0.1
 	github.com/gobwas/glob v0.2.3 // indirect
-	github.com/gocolly/colly v1.2.0 // indirect
+	github.com/gocolly/colly v1.2.0
 	github.com/gogo/protobuf v1.3.1 // indirect
+	github.com/goinggo/mapstructure v0.0.0-20140717182941-194205d9b4a9
 	github.com/golang/groupcache v0.0.0-20200121045136-8c9f03a8e57e // indirect
+	github.com/golang/mock v1.3.1
 	github.com/golang/protobuf v1.3.3
 	github.com/google/btree v1.0.0 // indirect
 	github.com/google/gops v0.3.11
@@ -33,11 +35,13 @@ require (
 	github.com/grpc-ecosystem/go-grpc-middleware v1.1.0 // indirect
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway v1.12.2 // indirect
+	github.com/jinzhu/gorm v1.9.16
 	github.com/jonboulle/clockwork v0.1.0 // indirect
 	github.com/kennygrant/sanitize v1.2.4 // indirect
 	github.com/liujiawm/gocalendar v1.0.1 // indirect
 	github.com/mozillazg/go-pinyin v0.17.0 // indirect
 	github.com/oschwald/geoip2-golang v1.4.0 // indirect
+	github.com/pkg/errors v0.8.1
 	github.com/prometheus/client_golang v1.3.0 // indirect
 	github.com/saintfish/chardet v0.0.0-20120816061221-3af4cd4741ca // indirect
 	github.com/smartystreets/goconvey v1.6.4 // indirect
@@ -45,7 +49,7 @@ require (
 	github.com/tebeka/selenium v0.9.9 // indirect
 	github.com/temoto/robotstxt v1.1.1 // indirect
 	github.com/tmc/grpc-websocket-proxy v0.0.0-20200122045848-3419fae592fc // indirect
-	github.com/urfave/cli v1.22.4 // indirect
+	github.com/urfave/cli v1.22.4
 	github.com/wangbin/jiebago v0.3.2 // indirect
 	github.com/xiang90/probing v0.0.0-20190116061207-43a291ad63a2 // indirect
 	github.com/yanyiwu/gojieba v1.1.2 // indirect
@@ -53,6 +57,7 @@ require (
 	go.etcd.io/bbolt v1.3.3 // indirect
 	go.etcd.io/etcd v3.3.18+incompatible
 	go.uber.org/zap v1.13.0
+	golang.org/x/net v0.0.0-20200813134508-3edf25e44fcc
 	golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e
 	golang.org/x/time v0.0.0-20191024005414-555d28b269f0
 	google.golang.org/grpc v1.26.0
