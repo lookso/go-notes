@@ -32,20 +32,18 @@ func main() {
 	// 为了原子的读取某个值sync/atomic代码包同样为我们提供了一系列的函数。这些函数都以"Load"为前缀，意为载入
 	// 有了“原子的”这个形容词就意味着，在这里读取value的值的同时，当前计算机中的任何CPU都不会进行其它的针对此值的读或写操作。
 	// 这样的约束是受到底层硬件的支持的
-	var count int32 = 2
 	// 原子读取count变量的内容
-	pv := atomic.LoadInt32(&count)
-	fmt.Println("pv", pv)
+	var pv int32 = 2
 	addValue(pv)
+	fmt.Println("pv", pv)
+	// 在原子的存储某个值的过程中，任何cpu都不会进行针对进行同一个值的读或写操作。
+	// 如果我们把所有针对此值的写操作都改为原子操作，那么就不会出现针对此值的读操作读操作因被并发的进行而读到修改了一半的情况。
+	atomic.StoreInt32(&pv,4)
+	fmt.Println(pv)
 
 	//atomic.Value{}
 	//atomic.StoreInt32()
 	//atomic.SwapInt32()
-
-	var a=12
-	fmt.Println(a)
-	var a="432"
-	fmt.Println(a)
 }
 
 func addValue(delta int32) {
@@ -53,9 +51,8 @@ func addValue(delta int32) {
 	for {
 		v := atomic.LoadInt32(&value)
 		if atomic.CompareAndSwapInt32(&value, v, v+delta) {
-			fmt.Println("value",value)
+			fmt.Println("value", value)
 			break
 		}
 	}
-
 }

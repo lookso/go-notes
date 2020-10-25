@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"sync"
 )
-
+// 比较一下下面的两段程序,第一段不使用Waitgroup 需要在子协程里往channel里塞数据,主协程取channel数据
 var group sync.WaitGroup
 
 func work(in <-chan int, quit <-chan bool) {

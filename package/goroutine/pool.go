@@ -34,7 +34,7 @@ func (p *Pool) Done() {
 func (p *Pool) Wait() {
 	p.wg.Wait()
 }
-
+// 实现协程池
 func main() {
 	pool := NewPool(1)
 	println("main before NumGoroutine ", runtime.NumGoroutine())
@@ -49,3 +49,6 @@ func main() {
 	pool.Wait()
 	defer println("main defer NumGoroutine ", runtime.NumGoroutine())
 }
+
+//Go语言-并发模式-goroutine池实例（work）
+//https://www.cnblogs.com/limaosheng/p/11070819.html

@@ -1,0 +1,90 @@
+OpenJDK 64-Bit Server VM warning: Option UseConcMarkSweepGC was deprecated in version 9.0 and will likely be removed in a future release.
+
+
+ ====================================================
+ =======        Jetbrains License Crack       =======
+ =======           https://zhile.io           =======
+ ====================================================
+
+ @See: https://zhile.io/2018/08/17/jetbrains-license-server-crack.html
+
+ @Version: 3.2.1, @Build Date: 2020-04-11
+
+
+2020-10-09 19:30:28,855 [   1869]   WARN - nSystem.impl.ActionManagerImpl - keymap "Visual Studio" not found [Plugin: com.intellij] 
+2020-10-09 19:30:28,858 [   1872]   WARN - nSystem.impl.ActionManagerImpl - keymap "Eclipse" not found [Plugin: com.intellij] 
+2020-10-09 19:30:28,858 [   1872]   WARN - nSystem.impl.ActionManagerImpl - keymap "NetBeans 6.5" not found [Plugin: com.intellij] 
+2020-10-09 19:30:28,858 [   1872]   WARN - nSystem.impl.ActionManagerImpl - keymap "Visual Studio" not found [Plugin: com.intellij] 
+2020-10-09 19:30:28,874 [   1888]   WARN - nSystem.impl.ActionManagerImpl - keymap "Visual Studio" not found [Plugin: HtmlTools] 
+2020-10-09 19:30:29,127 [   2141]   WARN - nSystem.impl.ActionManagerImpl - keymap "Eclipse" not found [Plugin: JavaScript] 
+2020-10-09 19:30:29,127 [   2141]   WARN - nSystem.impl.ActionManagerImpl - keymap "Visual Studio" not found [Plugin: JavaScript] 
+2020-10-09 19:30:42,880 [  15894]   WARN - openapi.wm.impl.ToolWindowImpl - ToolWindow icons should be 13x13. Please fix ToolWindow (ID:  Problems View) or icon jar:file:/home/lukun/data/netcode/apps/GoLand-2020.1.2/lib/icons.jar!/general/warning.svg 
+2020-10-09 19:30:45,048 [  18062]   WARN - .AbstractProgressIndicatorBase - This progress indicator is indeterminate, this may lead to visual inconsistency. Please call setIndeterminate(false) before you start progress.
+com.sylvanaar.idea.Lua.lang.psi.LuaPsiManager$MyBackgroundableInferencer.run(LuaPsiManager.java:407) 
+2020-10-09 19:30:45,222 [  18236]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;../package/sync 
+2020-10-09 19:30:45,233 [  18247]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004h
+bytes read                    :ESC[ 
+2020-10-09 19:30:48,927 [  21941]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004l
+bytes read                    :ESC[ 
+2020-10-09 19:30:48,930 [  21944]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;git 
+2020-10-09 19:30:48,976 [  21990]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;../package/sync 
+2020-10-09 19:30:49,090 [  22104]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004h
+bytes read                    :ESC[ 
+2020-10-09 19:38:17,750 [ 470764]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004l
+bytes read                    :ESC[ 
+2020-10-09 19:38:17,765 [ 470779]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;../package/sync 
+2020-10-09 19:38:17,790 [ 470804]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004h
+bytes read                    :ESC[ 
+2020-10-09 19:38:17,899 [ 470913]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004l
+bytes read                    :ESC[ 
+2020-10-09 19:38:17,905 [ 470919]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;../package/sync 
+2020-10-09 19:38:17,920 [ 470934]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004h
+bytes read                    :ESC[ 
+2020-10-09 19:38:18,021 [ 471035]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004l
+bytes read                    :ESC[ 
+2020-10-09 19:38:18,035 [ 471049]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;../package/sync 
+2020-10-09 19:38:18,063 [ 471077]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004h
+bytes read                    :ESC[ 
+2020-10-09 19:38:20,045 [ 473059]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004l
+bytes read                    :ESC[ 
+2020-10-09 19:38:20,046 [ 473060]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;ls 
+2020-10-09 19:38:20,062 [ 473076]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;../package/sync 
+2020-10-09 19:38:20,086 [ 473100]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004h
+bytes read                    :ESC[ 
+2020-10-09 19:38:23,629 [ 476643]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004l
+bytes read                    :ESC[ 
+2020-10-09 19:38:23,631 [ 476645]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;go 
+2020-10-09 19:38:26,519 [ 479533]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;../package/sync 
+2020-10-09 19:38:26,525 [ 479539]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004h
+bytes read                    :ESC[ 
+2020-10-09 19:39:28,773 [ 541787]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004l
+bytes read                    :ESC[ 
+2020-10-09 19:39:28,774 [ 541788]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;go 
+2020-10-09 19:39:30,664 [ 543678]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;../package/sync 
+2020-10-09 19:39:30,669 [ 543683]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004h
+bytes read                    :ESC[ 
+2020-10-09 19:39:38,732 [ 551746]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004l
+bytes read                    :ESC[ 
+2020-10-09 19:39:38,734 [ 551748]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;go 
+2020-10-09 19:39:40,001 [ 553015]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;../package/sync 
+2020-10-09 19:39:40,006 [ 553020]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004h
+bytes read                    :ESC[ 
+free(): corrupted unsorted chunks
+/home/lukun/data/netcode/apps/GoLand-2020.1.2/bin/goland.sh：行 224: 57715 已放弃               （核心已转储）"$JAVA_BIN" -classpath "$CLASSPATH" ${VM_OPTIONS} "-XX:ErrorFile=$HOME/java_error_in_GOLAND_%p.log" "-XX:HeapDumpPath=$HOME/java_error_in_GOLAND.hprof" -Didea.paths.selector=GoLand2020.1 "-Djb.vmOptionsFile=$VM_OPTIONS_FILE" ${IDE_PROPERTIES_PROPERTY} -Didea.platform.prefix=GoLand com.intellij.idea.Main "$@"

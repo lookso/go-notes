@@ -1,10 +1,10 @@
 package main
 
 import (
-	dl "code.itech8.com/go-notes/download/download"
 	"fmt"
+	dl "go-notes/project/download/download"
 )
-
+// 协程池
 func main() {
 	end := make(chan bool)
 	u := dl.Urls{
@@ -35,6 +35,5 @@ func main() {
 
 // Golang通过Goroutine+Channel指定同时下载的数量
 // https://my.oschina.net/90design/blog/1607131
-
 
 // https://studygolang.com/articles/12242?fr=sidebar
