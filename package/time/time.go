@@ -17,4 +17,14 @@ func main() {
 		fmt.Println("ParseInLocation err", err)
 	}
 	fmt.Println(ty.Unix())
+	// 计时器
+	limiter := time.Tick(time.Second * 5)
+	for {
+		select {
+		case <-limiter:
+			fmt.Println(time.Now().Format("2006-01-02 15:04:05"))
+		}
+	}
 }
+
+// time.tick()和time.sleep() 区别:https://blog.csdn.net/Star_CSU/article/details/86650684
