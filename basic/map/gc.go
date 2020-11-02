@@ -42,3 +42,4 @@ func printMemStats(mag string) {
 	runtime.ReadMemStats(&m)
 	log.Printf("%v：分配的内存 = %vKB, GC的次数 = %v\n", mag, m.Alloc/1024, m.NumGC)
 }
+
