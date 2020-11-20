@@ -8,6 +8,13 @@ import (
 )
 
 func main() {
+	var ts = []string{"你", "好"}
+	var tt string
+	for _, v := range ts {
+		tt += v
+	}
+	fmt.Println(tt)
+	
 	var rw = new(sync.RWMutex)
 	var mt = make(map[int]string)
 	var wg = new(sync.WaitGroup)
@@ -91,10 +98,11 @@ func channelMap() {
 func modifyByChan(i int) {
 	chMap <- i
 }
+
 // 专门处理chMap的服务程序
 func chanServ(max int) {
 	for {
-		i := <- chMap
+		i := <-chMap
 		dataCh[i] = i
 		if len(dataCh) == max {
 			return
