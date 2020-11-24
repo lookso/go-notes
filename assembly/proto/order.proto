@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+message Person //message为关键字，作用为定义一种消息类型
+{
+  string name = 1;    //姓名
+  int32 id = 2;       //id
+  string email = 3;   //邮件
+}
+message SearchOrderRequest {
+  string query = 1;
+  int32 page_number = 2;
+  int32 result_per_page = 3;
+  repeated Person person = 4;
+  repeated string snippets = 5;
+  double num = 6;
+  float price = 7;
+  bool status = 8;
+}
+// --------创建订单------------
+message OneofMessage {
+  oneof test_oneof {
+    string name = 4;
+    int64 value = 9;
+  }
+}
+
+message CreateOrderRequest {
+  OneofMessage om = 1;
+  map<int64, string> mp_values = 2;
+  enum Corpus {
+    UNIVERSAL = 0;
+    WEB = 1;
+    IMAGES = 2;
+    LOCAL = 3;
+    NEWS = 4;
+    PRODUCTS = 5;
+    VIDEO = 6;
+  }
+  Corpus corpus = 4;
+}
