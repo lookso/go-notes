@@ -11,7 +11,9 @@ import (
 )
 
 func main() {
-
+	var mp = []int{1, 2, 3, 4, 5}
+	fmt.Println(mp[:0])
+	fmt.Println("---------------------")
 	s := make([]string, 3,3)
 	fmt.Println("emp:", s)
 	fmt.Printf("len:%d,cap:%d:\n",len(s),cap(s))
