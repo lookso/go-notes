@@ -29,7 +29,6 @@ func main() {
 	config.Producer.RequiredAcks = sarama.WaitForAll
 	config.Producer.Retry.Max = 3
 	config.Producer.Timeout = 5 * time.Second
-	config.Producer.Return.Successes = true
 	config.Version = sarama.V0_10_2_1 // 指定kafka 版本,不然写入timestamp字段为空
 	producer, err := sarama.NewSyncProducer(brokers, config)
 	if err != nil {
@@ -43,6 +42,7 @@ func main() {
 		defer wg.Done()
 		consumer, err := sarama.NewConsumer(brokers, nil)
 		config := sarama.NewConfig()
+		config.Consumer.MaxWaitTime = 5 * time.Second
 		if err != nil {
 			fmt.Println("Could not create consumer: ", err)
 		}
