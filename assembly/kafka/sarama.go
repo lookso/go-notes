@@ -1,11 +1,14 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/Shopify/sarama"
 	"html"
 	"log"
 	"net/http"
+	"strconv"
+	"sync"
 	"time"
 )
 
@@ -24,17 +27,28 @@ func main() {
 	config.Producer.Return.Successes = true
 	config.Producer.Partitioner = sarama.NewRandomPartitioner
 	config.Producer.RequiredAcks = sarama.WaitForAll
+	config.Producer.Retry.Max = 3
+	config.Producer.Timeout = 5 * time.Second
+	config.Producer.Return.Successes = true
+	config.Version = sarama.V0_10_2_1 // 指定kafka 版本,不然写入timestamp字段为空
 	producer, err := sarama.NewSyncProducer(brokers, config)
 	if err != nil {
 		fmt.Println("producer err: ", err)
 	}
 
-	consumer, err := sarama.NewConsumer(brokers, nil)
-	if err != nil {
-		fmt.Println("Could not create consumer: ", err)
-	}
-
-	subscribe(topic, consumer)
+	var wg sync.WaitGroup
+	wg.Add(1)
+	// 消费者
+	go func(brokers []string) {
+		defer wg.Done()
+		consumer, err := sarama.NewConsumer(brokers, nil)
+		config := sarama.NewConfig()
+		if err != nil {
+			fmt.Println("Could not create consumer: ", err)
+		}
+		subscribe(topic, consumer)
+	}(brokers)
+	wg.Wait()
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) { fmt.Fprint(w, "Hello Sarama!") })
 
@@ -54,11 +68,17 @@ func main() {
 }
 
 func prepareMessage(topic, message string) *sarama.ProducerMessage {
-	fmt.Println(message)
+	dt := map[string]interface{}{
+		"message":   message,
+		"timestamp": time.Now(),
+		"meg":       "20201214-test-go-kafka",
+	}
+	value, _ := json.Marshal(&dt)
 	msg := &sarama.ProducerMessage{
+		Key:       sarama.StringEncoder(strconv.FormatInt(time.Now().UTC().UnixNano(), 10)),
 		Topic:     topic,
 		Partition: -1,
-		Value:     sarama.StringEncoder(message),
+		Value:     sarama.ByteEncoder(value),
 		Timestamp: time.Now(),
 	}
 	return msg
@@ -70,10 +90,8 @@ func subscribe(topic string, consumer sarama.Consumer) {
 		fmt.Println("Error retrieving partitionList ", err)
 	}
 	initialOffset := sarama.OffsetOldest //get offset for the oldest message on the topic
-
 	for _, partition := range partitionList {
 		pc, _ := consumer.ConsumePartition(topic, partition, initialOffset)
-
 		go func(pc sarama.PartitionConsumer) {
 			for message := range pc.Messages() {
 				messageReceived(message)
@@ -83,5 +101,6 @@ func subscribe(topic string, consumer sarama.Consumer) {
 }
 
 func messageReceived(message *sarama.ConsumerMessage) {
+	fmt.Println("consumer-received-value", string(message.Value))
 	saveMessage(string(message.Value))
 }
