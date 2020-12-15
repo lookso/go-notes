@@ -11,46 +11,21 @@ import "fmt"
 // 求出最长回文子串
 
 func main() {
-	str := longestPalindrome("bbbabcba")
-	fmt.Println("func1:str:",str)
-	fmt.Println("---------func2----------")
-	str2 := longestPalindrome2("bbbabcba")
-	fmt.Println("func2:str2:",str2)
-
-	fmt.Println("---------func3----------")
-	str3 := longestPalindrome3("bbbabcba")
-	fmt.Println("func3:str3:",str3)
-}
-
-// check whether a string is palindromic
-func isPalindromic(s string) bool {
-	mid := len(s) / 2
-	last := len(s) - 1
-	for i := 0; i < mid; i++ {
-		if s[i] != s[last-i] {
-			return false
-		}
-	}
-	return true
-}
-// 穷举法 时间复杂度On的三次方
-// longest palindromic substring
-func longestPalindrome(s string) string {
-	last := len(s) - 1
-	longest := string(s[0])  //a
-	fmt.Println(longest)
-	for i := 0; i < last; i++ {
-		for j := i + 1; j <= last; j++ {
-			if isPalindromic(s[i:j+1]) && j+1-i > len(longest) {
-				longest = s[i : j+1]
-			}
-		}
-	}
-	return longest
+	fmt.Println("---------func----------")
+	str := longestPalindrome("bbabcbad")
+	fmt.Println("func:str:",str)
+	//
+	//str2 := longestPalindrome2("bbbabcba")
+	//fmt.Println("func2:str1:",str2)
+	//
+	//fmt.Println("---------func3----------")
+	//str3 := longestPalindrome3("bbbabcba")
+	//fmt.Println("func3:str3:",str3)
 }
 
 // 对二维状态数组𝑐采取“之”字形赋值，增加gap来扩大子串长度；有两层for循环，故复杂度为𝑂(𝑛2次方).
-func longestPalindrome2(s string) string {
+func longestPalindrome(s string) string {
+	// bbabcbad
 	length := len(s)
 	// longest palindromic substring
 	longest := string(s[0])
@@ -73,6 +48,35 @@ func longestPalindrome2(s string) string {
 	}
 	return longest
 }
+
+
+// check whether a string is palindromic
+func isPalindromic(s string) bool {
+	mid := len(s) / 2
+	last := len(s) - 1
+	for i := 0; i < mid; i++ {
+		if s[i] != s[last-i] {
+			return false
+		}
+	}
+	return true
+}
+// 穷举法 时间复杂度O(n的三次方)
+// longest palindromic substring
+func longestPalindrome2(s string) string {
+	last := len(s) - 1
+	longest := string(s[0])  //a
+	fmt.Println(longest)
+	for i := 0; i < last; i++ {
+		for j := i + 1; j <= last; j++ {
+			if isPalindromic(s[i:j+1]) && j+1-i > len(longest) {
+				longest = s[i : j+1]
+			}
+		}
+	}
+	return longest
+}
+
 
 
 // given a center, find the longest palindromic substring

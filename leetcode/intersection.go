@@ -1,5 +1,5 @@
 /*
-@Time : 2019-08-15 21:21 
+@Time : 2019-08-15 21:21
 @Author : Tenlu
 @File : intersection
 @Software: GoLand
@@ -7,9 +7,9 @@
 package main
 
 import "fmt"
-
+// 获取两个数组中相同的元素
 func main() {
-	var num1 = []int{1, 4, 3, 6, 7, 3,9,6,4,3,10}
+	var num1 = []int{1, 4, 3, 6, 7, 3, 9, 6, 4, 3, 10}
 	var num2 = []int{5, 4, 2, 3, 4, 5, 6, 3}
 	fmt.Println(intersection(num1, num2))
 }
