@@ -1,0 +1,366 @@
+OpenJDK 64-Bit Server VM warning: Option UseConcMarkSweepGC was deprecated in version 9.0 and will likely be removed in a future release.
+
+
+ ====================================================
+ =======        Jetbrains License Crack       =======
+ =======           https://zhile.io           =======
+ ====================================================
+
+ @See: https://zhile.io/2018/08/17/jetbrains-license-server-crack.html
+
+ @Version: 3.2.1, @Build Date: 2020-04-11
+
+
+2020-12-15 19:09:46,003 [   1895]   WARN - nSystem.impl.ActionManagerImpl - keymap "Visual Studio" not found [Plugin: com.intellij] 
+2020-12-15 19:09:46,005 [   1897]   WARN - nSystem.impl.ActionManagerImpl - keymap "Eclipse" not found [Plugin: com.intellij] 
+2020-12-15 19:09:46,005 [   1897]   WARN - nSystem.impl.ActionManagerImpl - keymap "NetBeans 6.5" not found [Plugin: com.intellij] 
+2020-12-15 19:09:46,006 [   1898]   WARN - nSystem.impl.ActionManagerImpl - keymap "Visual Studio" not found [Plugin: com.intellij] 
+2020-12-15 19:09:46,034 [   1926]   WARN - nSystem.impl.ActionManagerImpl - keymap "Visual Studio" not found [Plugin: HtmlTools] 
+2020-12-15 19:09:46,283 [   2175]   WARN - nSystem.impl.ActionManagerImpl - keymap "Eclipse" not found [Plugin: JavaScript] 
+2020-12-15 19:09:46,283 [   2175]   WARN - nSystem.impl.ActionManagerImpl - keymap "Visual Studio" not found [Plugin: JavaScript] 
+character class has ']' without escape
+2020-12-15 19:09:49,551 [   5443]   WARN - openapi.wm.impl.ToolWindowImpl - ToolWindow icons should be 13x13. Please fix ToolWindow (ID:  Problems View) or icon jar:file:/home/lukun/data/netcode/apps/GoLand-2020.1.2/lib/icons.jar!/general/warning.svg 
+2020-12-15 19:09:50,054 [   5946]   WARN - ion.impl.NotificationCollector - Notification group 'System Messages' is already registered in whitelist 
+2020-12-15 19:09:50,949 [   6841]   WARN - .AbstractProgressIndicatorBase - This progress indicator is indeterminate, this may lead to visual inconsistency. Please call setIndeterminate(false) before you start progress.
+com.sylvanaar.idea.Lua.lang.psi.LuaPsiManager$MyBackgroundableInferencer.run(LuaPsiManager.java:407) 
+2020-12-15 19:10:13,343 [  29235]   WARN - util.DeprecatedMethodException - The default implementation of ConfigurationFactory.getId is deprecated, you need to override it in com.sylvanaar.idea.Lua.run.LuaConfigurationType$1. The default implementation delegates to 'getName' which may be localized but return value of this method must not depend on current localization. 
+com.intellij.util.DeprecatedMethodException: The default implementation of ConfigurationFactory.getId is deprecated, you need to override it in com.sylvanaar.idea.Lua.run.LuaConfigurationType$1. The default implementation delegates to 'getName' which may be localized but return value of this method must not depend on current localization.
+	at com.intellij.util.DeprecatedMethodException.reportDefaultImplementation(DeprecatedMethodException.java:28)
+	at com.intellij.execution.configurations.ConfigurationFactory.getId(ConfigurationFactory.java:80)
+	at com.intellij.execution.impl.RunManagerImplKt.getFactoryKey(RunManagerImpl.kt:1296)
+	at com.intellij.execution.impl.RunManagerImplKt.access$getFactoryKey(RunManagerImpl.kt:1)
+	at com.intellij.execution.impl.RunManagerImpl.getConfigurationTemplate(RunManagerImpl.kt:313)
+	at com.intellij.execution.impl.RunManagerImpl.createConfiguration(RunManagerImpl.kt:238)
+	at com.intellij.execution.actions.RunConfigurationProducer.cloneTemplateConfigurationStatic(RunConfigurationProducer.java:258)
+	at com.intellij.execution.actions.RunConfigurationProducer.cloneTemplateConfiguration(RunConfigurationProducer.java:248)
+	at com.intellij.execution.actions.RunConfigurationProducer.createConfigurationFromContext(RunConfigurationProducer.java:97)
+	at com.intellij.execution.actions.RunConfigurationProducer.findOrCreateConfigurationFromContext(RunConfigurationProducer.java:198)
+	at com.intellij.execution.actions.PreferredProducerFind.doGetConfigurationsFromContext(PreferredProducerFind.java:110)
+	at com.intellij.execution.actions.PreferredProducerFind.getConfigurationsFromContext(PreferredProducerFind.java:93)
+	at com.intellij.execution.actions.PreferredProducerFind.findConfigurationFromContext(PreferredProducerFind.java:135)
+	at com.intellij.execution.actions.PreferredProducerFind.createConfiguration(PreferredProducerFind.java:32)
+	at com.intellij.execution.actions.ConfigurationContext.createConfiguration(ConfigurationContext.java:150)
+	at com.intellij.execution.actions.ConfigurationContext.getConfiguration(ConfigurationContext.java:141)
+	at com.intellij.execution.actions.BaseRunConfigurationAction.fullUpdate(BaseRunConfigurationAction.java:238)
+	at com.intellij.execution.actions.BaseRunConfigurationAction.lambda$update$1(BaseRunConfigurationAction.java:209)
+	at com.intellij.openapi.progress.ProgressManager.lambda$runProcess$0(ProgressManager.java:54)
+	at com.intellij.openapi.progress.impl.CoreProgressManager.lambda$runProcess$2(CoreProgressManager.java:166)
+	at com.intellij.openapi.progress.impl.CoreProgressManager.registerIndicatorAndRun(CoreProgressManager.java:627)
+	at com.intellij.openapi.progress.impl.CoreProgressManager.executeProcessUnderProgress(CoreProgressManager.java:572)
+	at com.intellij.openapi.progress.impl.ProgressManagerImpl.executeProcessUnderProgress(ProgressManagerImpl.java:61)
+	at com.intellij.openapi.progress.impl.CoreProgressManager.runProcess(CoreProgressManager.java:153)
+	at com.intellij.openapi.progress.ProgressManager.runProcess(ProgressManager.java:54)
+	at com.intellij.openapi.progress.util.ProgressIndicatorUtils.withTimeout(ProgressIndicatorUtils.java:281)
+	at com.intellij.execution.actions.BaseRunConfigurationAction.update(BaseRunConfigurationAction.java:208)
+	at com.intellij.openapi.actionSystem.ex.ActionUtil.performDumbAwareUpdate(ActionUtil.java:177)
+	at com.intellij.openapi.actionSystem.impl.ActionUpdater.doUpdate(ActionUpdater.java:453)
+	at com.intellij.openapi.actionSystem.impl.ActionUpdater.lambda$null$1(ActionUpdater.java:93)
+	at com.intellij.openapi.actionSystem.impl.ActionUpdater.callAction(ActionUpdater.java:133)
+	at com.intellij.openapi.actionSystem.impl.ActionUpdater.lambda$new$2(ActionUpdater.java:94)
+	at com.intellij.openapi.actionSystem.impl.ActionUpdater.update(ActionUpdater.java:435)
+	at com.intellij.openapi.actionSystem.impl.ActionUpdater.expandGroupChild(ActionUpdater.java:296)
+	at com.intellij.openapi.actionSystem.impl.ActionUpdater.lambda$doExpandActionGroup$19(ActionUpdater.java:275)
+	at com.intellij.util.containers.ContainerUtil.concat(ContainerUtil.java:1712)
+	at com.intellij.openapi.actionSystem.impl.ActionUpdater.doExpandActionGroup(ActionUpdater.java:275)
+	at com.intellij.openapi.actionSystem.impl.ActionUpdater.expandGroupChild(ActionUpdater.java:326)
+	at com.intellij.openapi.actionSystem.impl.ActionUpdater.lambda$doExpandActionGroup$19(ActionUpdater.java:275)
+	at com.intellij.util.containers.ContainerUtil.concat(ContainerUtil.java:1712)
+	at com.intellij.openapi.actionSystem.impl.ActionUpdater.doExpandActionGroup(ActionUpdater.java:275)
+	at com.intellij.openapi.actionSystem.impl.ActionUpdater.expandGroupChild(ActionUpdater.java:326)
+	at com.intellij.openapi.actionSystem.impl.ActionUpdater.lambda$doExpandActionGroup$19(ActionUpdater.java:275)
+	at com.intellij.util.containers.ContainerUtil.concat(ContainerUtil.java:1712)
+	at com.intellij.openapi.actionSystem.impl.ActionUpdater.doExpandActionGroup(ActionUpdater.java:275)
+	at com.intellij.openapi.actionSystem.impl.ActionUpdater.expandGroupChild(ActionUpdater.java:326)
+	at com.intellij.openapi.actionSystem.impl.ActionUpdater.lambda$doExpandActionGroup$19(ActionUpdater.java:275)
+	at com.intellij.util.containers.ContainerUtil.concat(ContainerUtil.java:1712)
+	at com.intellij.openapi.actionSystem.impl.ActionUpdater.doExpandActionGroup(ActionUpdater.java:275)
+	at com.intellij.openapi.actionSystem.impl.ActionUpdater.expandGroupChild(ActionUpdater.java:326)
+	at com.intellij.openapi.actionSystem.impl.ActionUpdater.lambda$doExpandActionGroup$19(ActionUpdater.java:275)
+	at com.intellij.util.containers.ContainerUtil.concat(ContainerUtil.java:1712)
+	at com.intellij.openapi.actionSystem.impl.ActionUpdater.doExpandActionGroup(ActionUpdater.java:275)
+	at com.intellij.openapi.actionSystem.impl.ActionUpdater.expandActionGroup(ActionUpdater.java:185)
+	at com.intellij.openapi.actionSystem.impl.ActionUpdater.expandActionGroup(ActionUpdater.java:159)
+	at com.intellij.openapi.actionSystem.impl.ActionUpdater.lambda$expandActionGroupWithTimeout$11(ActionUpdater.java:201)
+	at com.intellij.openapi.progress.ProgressManager.lambda$runProcess$0(ProgressManager.java:54)
+	at com.intellij.openapi.progress.impl.CoreProgressManager.lambda$runProcess$2(CoreProgressManager.java:166)
+	at com.intellij.openapi.progress.impl.CoreProgressManager.registerIndicatorAndRun(CoreProgressManager.java:627)
+	at com.intellij.openapi.progress.impl.CoreProgressManager.executeProcessUnderProgress(CoreProgressManager.java:572)
+	at com.intellij.openapi.progress.impl.ProgressManagerImpl.executeProcessUnderProgress(ProgressManagerImpl.java:61)
+	at com.intellij.openapi.progress.impl.CoreProgressManager.runProcess(CoreProgressManager.java:153)
+	at com.intellij.openapi.progress.ProgressManager.runProcess(ProgressManager.java:54)
+	at com.intellij.openapi.progress.util.ProgressIndicatorUtils.withTimeout(ProgressIndicatorUtils.java:281)
+	at com.intellij.openapi.actionSystem.impl.ActionUpdater.expandActionGroupWithTimeout(ActionUpdater.java:201)
+	at com.intellij.openapi.actionSystem.impl.ActionUpdater.expandActionGroupWithTimeout(ActionUpdater.java:193)
+	at com.intellij.openapi.actionSystem.impl.Utils.fillMenu(Utils.java:98)
+	at com.intellij.openapi.actionSystem.impl.ActionPopupMenuImpl$MyMenu.show(ActionPopupMenuImpl.java:118)
+	at com.intellij.ui.PopupHandler$2.invokePopup(PopupHandler.java:88)
+	at com.intellij.ui.PopupHandler.mousePressed(PopupHandler.java:40)
+	at java.desktop/java.awt.AWTEventMulticaster.mousePressed(AWTEventMulticaster.java:288)
+	at java.desktop/java.awt.AWTEventMulticaster.mousePressed(AWTEventMulticaster.java:287)
+	at java.desktop/java.awt.Component.processMouseEvent(Component.java:6648)
+	at java.desktop/javax.swing.JComponent.processMouseEvent(JComponent.java:3345)
+	at com.intellij.ui.treeStructure.Tree.processMouseEvent(Tree.java:394)
+	at com.intellij.ide.dnd.aware.DnDAwareTree.processMouseEvent(DnDAwareTree.java:44)
+	at java.desktop/java.awt.Component.processEvent(Component.java:6416)
+	at java.desktop/java.awt.Container.processEvent(Container.java:2263)
+	at java.desktop/java.awt.Component.dispatchEventImpl(Component.java:5026)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2321)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4858)
+	at java.desktop/java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4918)
+	at java.desktop/java.awt.LightweightDispatcher.processMouseEvent(Container.java:4544)
+	at java.desktop/java.awt.LightweightDispatcher.dispatchEvent(Container.java:4488)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2307)
+	at java.desktop/java.awt.Window.dispatchEventImpl(Window.java:2773)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4858)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:778)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:727)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:721)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:85)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:95)
+	at java.desktop/java.awt.EventQueue$5.run(EventQueue.java:751)
+	at java.desktop/java.awt.EventQueue$5.run(EventQueue.java:749)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:85)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:748)
+	at com.intellij.ide.IdeEventQueue.defaultDispatchEvent(IdeEventQueue.java:974)
+	at com.intellij.ide.IdeEventQueue.dispatchMouseEvent(IdeEventQueue.java:912)
+	at com.intellij.ide.IdeEventQueue._dispatchEvent(IdeEventQueue.java:844)
+	at com.intellij.ide.IdeEventQueue.lambda$null$8(IdeEventQueue.java:449)
+	at com.intellij.openapi.progress.impl.CoreProgressManager.computePrioritized(CoreProgressManager.java:741)
+	at com.intellij.ide.IdeEventQueue.lambda$dispatchEvent$9(IdeEventQueue.java:448)
+	at com.intellij.openapi.application.impl.ApplicationImpl.runIntendedWriteActionOnCurrentThread(ApplicationImpl.java:831)
+	at com.intellij.ide.IdeEventQueue.dispatchEvent(IdeEventQueue.java:502)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+2020-12-15 19:10:16,831 [  32723]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;..otes/leetcode 
+2020-12-15 19:10:16,833 [  32725]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004h
+bytes read                    :ESC[ 
+2020-12-15 19:10:17,928 [  33820]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004l
+bytes read                    :ESC[ 
+2020-12-15 19:10:17,932 [  33824]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;..otes/leetcode 
+2020-12-15 19:10:17,948 [  33840]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004h
+bytes read                    :ESC[ 
+2020-12-15 19:10:18,045 [  33937]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004l
+bytes read                    :ESC[ 
+2020-12-15 19:10:18,069 [  33961]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;..otes/leetcode 
+2020-12-15 19:10:18,103 [  33995]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004h
+bytes read                    :ESC[ 
+2020-12-15 19:10:18,544 [  34436]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004l
+bytes read                    :ESC[ 
+2020-12-15 19:10:18,545 [  34437]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;ls 
+2020-12-15 19:10:18,582 [  34474]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;..otes/leetcode 
+2020-12-15 19:10:18,634 [  34526]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004h
+bytes read                    :ESC[ 
+2020-12-15 19:10:24,129 [  40021]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004l
+bytes read                    :ESC[ 
+2020-12-15 19:10:24,129 [  40021]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;go 
+2020-12-15 19:10:24,260 [  40152]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;..otes/leetcode 
+2020-12-15 19:10:24,266 [  40158]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004h
+bytes read                    :ESC[ 
+2020-12-15 19:14:38,391 [ 294283]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004l
+bytes read                    :ESC[ 
+2020-12-15 19:14:38,392 [ 294284]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;go 
+2020-12-15 19:14:38,522 [ 294414]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;..otes/leetcode 
+2020-12-15 19:14:38,528 [ 294420]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004h
+bytes read                    :ESC[ 
+2020-12-15 19:15:47,642 [ 363534]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004l
+bytes read                    :ESC[ 
+2020-12-15 19:15:47,644 [ 363536]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;go 
+2020-12-15 19:15:47,820 [ 363712]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;..otes/leetcode 
+2020-12-15 19:15:47,828 [ 363720]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004h
+bytes read                    :ESC[ 
+2020-12-15 19:19:32,842 [ 588734]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004l
+bytes read                    :ESC[ 
+2020-12-15 19:19:32,843 [ 588735]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;pwd 
+2020-12-15 19:19:32,854 [ 588746]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;..otes/leetcode 
+2020-12-15 19:19:32,884 [ 588776]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004h
+bytes read                    :ESC[ 
+2020-12-15 19:25:11,060 [ 926952]   WARN - openapi.wm.impl.ToolWindowImpl - ToolWindow icons should be 13x13. Please fix ToolWindow (ID:  Problems View) or icon jar:file:/home/lukun/data/netcode/apps/GoLand-2020.1.2/lib/icons.jar!/general/warning.svg 
+2020-12-15 19:25:11,687 [ 927579]   WARN - .AbstractProgressIndicatorBase - This progress indicator is indeterminate, this may lead to visual inconsistency. Please call setIndeterminate(false) before you start progress.
+com.sylvanaar.idea.Lua.lang.psi.LuaPsiManager$MyBackgroundableInferencer.run(LuaPsiManager.java:407) 
+2020-12-15 19:25:12,640 [ 928532]  ERROR - til.concurrency.QueueProcessor - Please change caller according to com.intellij.openapi.project.IndexNotReadyException documentation 
+com.intellij.openapi.project.IndexNotReadyException: Please change caller according to com.intellij.openapi.project.IndexNotReadyException documentation
+	at com.intellij.openapi.project.IndexNotReadyException.create(IndexNotReadyException.java:81)
+	at com.intellij.util.indexing.FileBasedIndexImpl.handleDumbMode(FileBasedIndexImpl.java:715)
+	at com.intellij.util.indexing.FileBasedIndexImpl.ensureUpToDate(FileBasedIndexImpl.java:665)
+	at com.intellij.psi.stubs.StubIndexImpl.getContainingIds(StubIndexImpl.java:540)
+	at com.intellij.psi.stubs.StubIndexImpl.processElements(StubIndexImpl.java:396)
+	at com.intellij.psi.stubs.StubIndex.processElements(StubIndex.java:51)
+	at com.intellij.psi.stubs.StubIndex.get(StubIndex.java:41)
+	at com.intellij.psi.stubs.AbstractStubIndex.get(AbstractStubIndex.java:22)
+	at com.sylvanaar.idea.Lua.lang.psi.stubs.index.LuaGlobalDeclarationIndex.get(LuaGlobalDeclarationIndex.java:47)
+	at com.sylvanaar.idea.Lua.lang.psi.resolve.LuaResolver._resolve(LuaResolver.java:62)
+	at com.sylvanaar.idea.Lua.lang.psi.resolve.LuaResolver.resolve(LuaResolver.java:24)
+	at com.sylvanaar.idea.Lua.lang.psi.resolve.LuaResolver.resolve(LuaResolver.java:18)
+	at com.intellij.psi.impl.source.resolve.ResolveCache.lambda$resolve$1(ResolveCache.java:152)
+	at com.intellij.openapi.util.Computable.get(Computable.java:17)
+	at com.intellij.psi.impl.source.resolve.ResolveCache.lambda$loggingResolver$3(ResolveCache.java:225)
+	at com.intellij.openapi.util.RecursionManager$1.doPreventingRecursion(RecursionManager.java:117)
+	at com.intellij.openapi.util.RecursionManager.doPreventingRecursion(RecursionManager.java:75)
+	at com.intellij.psi.impl.source.resolve.ResolveCache.resolve(ResolveCache.java:202)
+	at com.intellij.psi.impl.source.resolve.ResolveCache.resolve(ResolveCache.java:152)
+	at com.intellij.psi.impl.source.resolve.ResolveCache.resolveWithCaching(ResolveCache.java:167)
+	at com.intellij.psi.impl.source.resolve.ResolveCache.resolveWithCaching(ResolveCache.java:160)
+	at com.sylvanaar.idea.Lua.lang.psi.impl.symbols.LuaReferenceElementImpl.resolve(LuaReferenceElementImpl.java:128)
+	at com.sylvanaar.idea.Lua.lang.psi.impl.symbols.LuaReferenceElementImpl.getLuaType(LuaReferenceElementImpl.java:60)
+	at com.sylvanaar.idea.Lua.lang.psi.util.LuaAssignmentUtil.transferTypes(LuaAssignmentUtil.java:89)
+	at com.sylvanaar.idea.Lua.lang.psi.impl.statements.LuaAssignmentStatementImpl.inferTypes(LuaAssignmentStatementImpl.java:118)
+	at com.sylvanaar.idea.Lua.lang.psi.LuaPsiManager$InferenceQueue$1.run(LuaPsiManager.java:291)
+	at com.intellij.openapi.application.impl.ApplicationImpl.runReadAction(ApplicationImpl.java:869)
+	at com.sylvanaar.idea.Lua.lang.psi.LuaPsiManager$InferenceQueue.consume(LuaPsiManager.java:276)
+	at com.sylvanaar.idea.Lua.lang.psi.LuaPsiManager$InferenceQueue.consume(LuaPsiManager.java:255)
+	at com.intellij.util.concurrency.QueueProcessor.lambda$null$0(QueueProcessor.java:80)
+	at com.intellij.util.concurrency.QueueProcessor.runSafely(QueueProcessor.java:232)
+	at com.intellij.util.concurrency.QueueProcessor.lambda$wrappingProcessor$1(QueueProcessor.java:80)
+	at com.intellij.util.concurrency.QueueProcessor.lambda$null$3(QueueProcessor.java:213)
+	at com.intellij.util.concurrency.QueueProcessor.runSafely(QueueProcessor.java:232)
+	at com.intellij.util.concurrency.QueueProcessor.lambda$startProcessing$4(QueueProcessor.java:213)
+	at com.intellij.util.RunnableCallable.call(RunnableCallable.java:20)
+	at com.intellij.util.RunnableCallable.call(RunnableCallable.java:11)
+	at com.intellij.openapi.application.impl.ApplicationImpl$1.call(ApplicationImpl.java:255)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2020-12-15 19:25:12,640 [ 928532]  ERROR - til.concurrency.QueueProcessor - GoLand 2020.1.2  Build #GO-201.7223.97 
+2020-12-15 19:25:12,640 [ 928532]  ERROR - til.concurrency.QueueProcessor - JDK: 11.0.6; VM: OpenJDK 64-Bit Server VM; Vendor: JetBrains s.r.o 
+2020-12-15 19:25:12,640 [ 928532]  ERROR - til.concurrency.QueueProcessor - OS: Linux 
+2020-12-15 19:25:12,640 [ 928532]  ERROR - til.concurrency.QueueProcessor - Plugin to blame: Lua version: 1.0.124 
+2020-12-15 19:25:12,718 [ 928610]   WARN - try.DefaultSentryClientFactory - No 'stacktrace.app.packages' was configured, this option is highly recommended as it affects stacktrace grouping and display on Sentry. See documentation: https://docs.sentry.io/clients/java/config/#in-application-stack-frames 
+2020-12-15 19:25:12,722 [ 928614]   WARN - try.DefaultSentryClientFactory - No 'stacktrace.app.packages' was configured, this option is highly recommended as it affects stacktrace grouping and display on Sentry. See documentation: https://docs.sentry.io/clients/java/config/#in-application-stack-frames 
+2020-12-15 19:25:13,238 [ 929130]   WARN - eInsight.daemon.LineMarkerInfo - Performance warning: LineMarker is supposed to be registered for leaf elements only, but got: Tailcall Return statement (class com.sylvanaar.idea.Lua.lang.psi.impl.statements.LuaReturnStatementImpl) instead. First child: PsiElement(return) (class com.intellij.psi.impl.source.tree.LeafPsiElement)
+Please see LineMarkerProvider#getLineMarkerInfo(PsiElement) javadoc for detailed explanations. 
+2020-12-15 19:25:13,238 [ 929130]   WARN - eInsight.daemon.LineMarkerInfo - Performance warning: LineMarker is supposed to be registered for leaf elements only, but got: Tailcall Return statement (class com.sylvanaar.idea.Lua.lang.psi.impl.statements.LuaReturnStatementImpl) instead. First child: PsiElement(return) (class com.intellij.psi.impl.source.tree.LeafPsiElement)
+Please see LineMarkerProvider#getLineMarkerInfo(PsiElement) javadoc for detailed explanations. 
+2020-12-15 19:25:13,239 [ 929131]   WARN - eInsight.daemon.LineMarkerInfo - Performance warning: LineMarker is supposed to be registered for leaf elements only, but got: Tailcall Return statement (class com.sylvanaar.idea.Lua.lang.psi.impl.statements.LuaReturnStatementImpl) instead. First child: PsiElement(return) (class com.intellij.psi.impl.source.tree.LeafPsiElement)
+Please see LineMarkerProvider#getLineMarkerInfo(PsiElement) javadoc for detailed explanations. 
+2020-12-15 19:25:13,239 [ 929131]   WARN - eInsight.daemon.LineMarkerInfo - Performance warning: LineMarker is supposed to be registered for leaf elements only, but got: Tailcall Return statement (class com.sylvanaar.idea.Lua.lang.psi.impl.statements.LuaReturnStatementImpl) instead. First child: PsiElement(return) (class com.intellij.psi.impl.source.tree.LeafPsiElement)
+Please see LineMarkerProvider#getLineMarkerInfo(PsiElement) javadoc for detailed explanations. 
+2020-12-15 19:25:13,239 [ 929131]   WARN - eInsight.daemon.LineMarkerInfo - Performance warning: LineMarker is supposed to be registered for leaf elements only, but got: Tailcall Return statement (class com.sylvanaar.idea.Lua.lang.psi.impl.statements.LuaReturnStatementImpl) instead. First child: PsiElement(return) (class com.intellij.psi.impl.source.tree.LeafPsiElement)
+Please see LineMarkerProvider#getLineMarkerInfo(PsiElement) javadoc for detailed explanations. 
+2020-12-15 19:25:13,239 [ 929131]   WARN - eInsight.daemon.LineMarkerInfo - Performance warning: LineMarker is supposed to be registered for leaf elements only, but got: Tailcall Return statement (class com.sylvanaar.idea.Lua.lang.psi.impl.statements.LuaReturnStatementImpl) instead. First child: PsiElement(return) (class com.intellij.psi.impl.source.tree.LeafPsiElement)
+Please see LineMarkerProvider#getLineMarkerInfo(PsiElement) javadoc for detailed explanations. 
+2020-12-15 19:32:09,173 [1345065]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;..-mock/scripts 
+2020-12-15 19:32:09,187 [1345079]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004h
+bytes read                    :ESC[ 
+2020-12-15 19:32:23,514 [1359406]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004l
+bytes read                    :ESC[ 
+2020-12-15 19:32:23,516 [1359408]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;git 
+2020-12-15 19:32:23,547 [1359439]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;..-mock/scripts 
+2020-12-15 19:32:23,558 [1359450]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004h
+bytes read                    :ESC[ 
+2020-12-15 20:05:43,335 [3359227]   WARN - openapi.wm.impl.ToolWindowImpl - ToolWindow icons should be 13x13. Please fix ToolWindow (ID:  Problems View) or icon jar:file:/home/lukun/data/netcode/apps/GoLand-2020.1.2/lib/icons.jar!/general/warning.svg 
+2020-12-15 20:05:43,759 [3359651]   WARN - .AbstractProgressIndicatorBase - This progress indicator is indeterminate, this may lead to visual inconsistency. Please call setIndeterminate(false) before you start progress.
+com.sylvanaar.idea.Lua.lang.psi.LuaPsiManager$MyBackgroundableInferencer.run(LuaPsiManager.java:417) 
+2020-12-15 20:05:50,211 [3366103]   WARN - openapi.wm.impl.ToolWindowImpl - ToolWindow icons should be 13x13. Please fix ToolWindow (ID:  Problems View) or icon jar:file:/home/lukun/data/netcode/apps/GoLand-2020.1.2/lib/icons.jar!/general/warning.svg 
+2020-12-15 20:05:50,487 [3366379]   WARN - .AbstractProgressIndicatorBase - This progress indicator is indeterminate, this may lead to visual inconsistency. Please call setIndeterminate(false) before you start progress.
+com.sylvanaar.idea.Lua.lang.psi.LuaPsiManager$MyBackgroundableInferencer.run(LuaPsiManager.java:407) 
+character class has ']' without escape
+2020-12-15 20:05:56,073 [3371965]   WARN - openapi.wm.impl.ToolWindowImpl - ToolWindow icons should be 13x13. Please fix ToolWindow (ID:  Problems View) or icon jar:file:/home/lukun/data/netcode/apps/GoLand-2020.1.2/lib/icons.jar!/general/warning.svg 
+2020-12-15 20:05:56,292 [3372184]   WARN - .AbstractProgressIndicatorBase - This progress indicator is indeterminate, this may lead to visual inconsistency. Please call setIndeterminate(false) before you start progress.
+com.sylvanaar.idea.Lua.lang.psi.LuaPsiManager$MyBackgroundableInferencer.run(LuaPsiManager.java:407) 
+2020-12-15 20:15:13,722 [3929614]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;..otes/leetcode 
+2020-12-15 20:15:13,736 [3929628]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004h
+bytes read                    :ESC[ 
+2020-12-15 20:15:14,629 [3930521]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004l
+bytes read                    :ESC[ 
+2020-12-15 20:15:14,636 [3930528]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;..otes/leetcode 
+2020-12-15 20:15:14,649 [3930541]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004h
+bytes read                    :ESC[ 
+2020-12-15 20:15:14,756 [3930648]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004l
+bytes read                    :ESC[ 
+2020-12-15 20:15:14,765 [3930657]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;..otes/leetcode 
+2020-12-15 20:15:14,779 [3930671]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004h
+bytes read                    :ESC[ 
+2020-12-15 20:15:14,868 [3930760]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004l
+bytes read                    :ESC[ 
+2020-12-15 20:15:14,879 [3930771]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;..otes/leetcode 
+2020-12-15 20:15:14,893 [3930785]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004h
+bytes read                    :ESC[ 
+2020-12-15 20:15:17,068 [3932960]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004l
+bytes read                    :ESC[ 
+2020-12-15 20:15:17,069 [3932961]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;git 
+2020-12-15 20:15:17,082 [3932974]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;..otes/leetcode 
+2020-12-15 20:15:17,180 [3933072]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004h
+bytes read                    :ESC[ 
+2020-12-15 20:15:25,139 [3941031]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004l
+bytes read                    :ESC[ 
+2020-12-15 20:15:25,142 [3941034]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;git 
+2020-12-15 20:15:25,156 [3941048]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;..otes/leetcode 
+2020-12-15 20:15:25,175 [3941067]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004h
+bytes read                    :ESC[ 
+2020-12-15 20:15:27,940 [3943832]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004l
+bytes read                    :ESC[ 
+2020-12-15 20:15:27,941 [3943833]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;git 
+2020-12-15 20:15:27,952 [3943844]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;..otes/leetcode 
+2020-12-15 20:15:27,959 [3943851]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004h
+bytes read                    :ESC[ 
+2020-12-15 20:15:30,611 [3946503]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004l
+bytes read                    :ESC[ 
+2020-12-15 20:15:30,613 [3946505]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;git 
+2020-12-15 20:15:30,622 [3946514]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;..otes/leetcode 
+2020-12-15 20:15:30,629 [3946521]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004h
+bytes read                    :ESC[ 
+2020-12-15 20:15:33,307 [3949199]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004l
+bytes read                    :ESC[ 
+2020-12-15 20:15:33,309 [3949201]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;git 
+2020-12-15 20:15:33,321 [3949213]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;..otes/leetcode 
+2020-12-15 20:15:33,328 [3949220]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004h
+bytes read                    :ESC[ 
+2020-12-15 20:15:39,195 [3955087]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004l
+bytes read                    :ESC[ 
+2020-12-15 20:15:39,197 [3955089]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;git 
+2020-12-15 20:15:45,286 [3961178]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;..otes/leetcode 
+2020-12-15 20:15:45,294 [3961186]  ERROR - terminal.emulator.JediEmulator - Unhandled Control sequence
+parsed                        :ESC[?2004h
+bytes read                    :ESC[ 
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x00007f48cdc9bd86, pid=52746, tid=52784
+#
+# JRE version: OpenJDK Runtime Environment (11.0.6+8) (build 11.0.6+8-b765.40)
+# Java VM: OpenJDK 64-Bit Server VM (11.0.6+8-b765.40, mixed mode, tiered, compressed oops, concurrent mark sweep gc, linux-amd64)
+# Problematic frame:
+# 

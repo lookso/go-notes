@@ -23,6 +23,7 @@ require (
 	github.com/dlclark/regexp2 v1.4.0
 	github.com/dustin/go-humanize v1.0.0 // indirect
 	github.com/gin-gonic/gin v1.6.3
+	github.com/go-basic/uuid v1.0.0 // indirect
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/go-redis/redis/v7 v7.4.0
 	github.com/go-redis/redis_rate/v7 v7.0.1
