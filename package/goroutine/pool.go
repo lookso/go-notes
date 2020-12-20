@@ -36,9 +36,9 @@ func (p *Pool) Wait() {
 }
 // 实现协程池
 func main() {
-	pool := NewPool(1)
+	pool := NewPool(10)
 	println("main before NumGoroutine ", runtime.NumGoroutine())
-	for k := 0; k < 1; k++ {
+	for k := 0; k < 50; k++ {
 		pool.Add(1)
 		go func() {
 			time.Sleep(time.Second)
