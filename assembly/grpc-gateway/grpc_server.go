@@ -4,8 +4,8 @@ import (
 	"log"
 	"net"
 
+	"context"
 	pb "go-notes/assembly/grpc-gateway/proto/hello"
-	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 )
 

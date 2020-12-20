@@ -5,10 +5,10 @@ import (
 	"log"
 	"net/http"
 
+	"context"
 	"github.com/golang/glog"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	gw "go-notes/assembly/grpc-gateway/proto/hello"
-	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 )
 

@@ -2,15 +2,15 @@ package main
 
 import (
 	"fmt"
-	"github.com/go-basic/uuid"
 	"github.com/go-redis/redis"
+	"github.com/google/uuid"
 	"sync"
 	"time"
 ) //redis package
 
 //connect redis
 var client = redis.NewClient(&redis.Options{
-	Addr:     "localhost:6379",
+	Addr:     ":6379",
 	Password: "",
 	DB:       0,
 })
@@ -20,16 +20,16 @@ func init() {
 		panic(err)
 	}
 }
+
 func getUuid() string {
-	uuid := uuid.New()
-	return uuid
+	return uuid.New().String()
 }
 
 //lock
 func lock(myfunc func()) {
-	var lockKey = "my-lockr"
-	//lock
 	uuid := getUuid()
+	var lockKey = "mylockr"
+	//lock
 	lockSuccess, err := client.SetNX(lockKey, uuid, time.Second*5).Result()
 	if err != nil || !lockSuccess {
 		fmt.Println("get lock fail")
@@ -40,9 +40,11 @@ func lock(myfunc func()) {
 	//run func
 	myfunc()
 	//unlock
+	// get和del不是原子性,考虑放到lua脚本
 	value, _ := client.Get(lockKey).Result()
-	if value == uuid { //compare value,if equal then del
-		_, err := client.Del(lockKey).Result()
+	if value == uuid {
+		_, err = client.Del(lockKey).Result()
+
 		if err != nil {
 			fmt.Println("unlock fail")
 		} else {
@@ -56,7 +58,7 @@ var counter int64
 
 func incr() {
 	counter++
-	time.Sleep(1 * time.Second)
+	time.Sleep(6 * time.Second)
 	fmt.Printf("after incr is %d\n", counter)
 }
 
@@ -68,6 +70,7 @@ func main() {
 		wg.Add(1)
 		go func() {
 			lock(incr)
+			defer wg.Done()
 		}()
 	}
 	wg.Wait()
