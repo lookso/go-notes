@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"reflect"
 )
 
 //接口是一个规范
@@ -31,4 +32,20 @@ func main() {
 	var p Usber = &Phone{Name: "华为手机"} // Golang 中接口就是一个数据类型,表示手机实现 Usb 接口
 	p.start()
 	p.stop()
+	interfaceTest(123)
+}
+func interfaceTest(it interface{}) {
+	if it, ok := it.(int); ok {
+		fmt.Println(it)
+	}
+	switch v := it.(type) {
+	case int:
+		fmt.Println("整型", v)
+		var s int
+		s = v
+		fmt.Println(s)
+	case string:
+		fmt.Println("字符串", v)
+	}
+	fmt.Println(reflect.TypeOf(it))
 }
