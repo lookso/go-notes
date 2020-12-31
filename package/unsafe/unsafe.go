@@ -13,6 +13,16 @@ func main() {
 	fmt.Println(fp)
 	var name = "jackBai"
 	fmt.Println(bytes2str(str2bytes(name)))
+	// Sizeof函数返回操作数在内存中的字节大小（返回该类型所占用的内存大小）
+	fmt.Println(unsafe.Sizeof("true"))                // 16
+	fmt.Println(unsafe.Sizeof(true))                  // 1
+	fmt.Println(unsafe.Sizeof(int(0)))                //8
+	fmt.Println(unsafe.Sizeof(int8(0)))               // 1
+	fmt.Println(unsafe.Sizeof(int16(10)))             // 2
+	fmt.Println(unsafe.Sizeof(int32(10000000)))       // 4
+	fmt.Println(unsafe.Sizeof(int64(10000000000000))) // 8
+	fmt.Println(unsafe.Sizeof(int(1)))                // 8
+	fmt.Println(unsafe.Sizeof(float64(0)))            // 8
 }
 
 func str2bytes(s string) []byte {
