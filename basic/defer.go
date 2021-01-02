@@ -1,16 +1,16 @@
 package main
 
-func test(x int) {
+func testDefer(x int) {
 	defer println("a")
 	defer println("b")
-
 	defer func() {
-		println(100 / x) // div0 异常未被捕获，逐步往外传递，最终终止进程。
+		if err := recover(); err != nil {
+			println(err.(string)) // 将 interface{} 转型为具体类型。 
+		}
 	}()
-
 	defer println("c")
+	panic("panic error!")
 }
-
 func main() {
-	test(0)
+	testDefer(0)
 }
