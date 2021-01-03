@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 func testDefer(x int) {
 	defer println("a")
 	defer println("b")
@@ -13,4 +15,15 @@ func testDefer(x int) {
 }
 func main() {
 	testDefer(0)
+	fmt.Println(foo())
+}
+
+func foo() (res int) {
+	var i int=1
+
+	defer func() {
+		res++
+	}()
+
+	return i
 }
