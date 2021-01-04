@@ -5,6 +5,14 @@ import (
 	"unsafe"
 )
 
+type NextYear struct {
+	Year int8    `json:"year"`
+	Moon int8 `json:"moon"`
+	Day  int  `json:"day"`
+}
+
+var ny = NextYear{}
+
 func main() {
 	var i = 10
 	ip := &i
@@ -23,6 +31,8 @@ func main() {
 	fmt.Println(unsafe.Sizeof(int64(10000000000000))) // 8
 	fmt.Println(unsafe.Sizeof(int(1)))                // 8
 	fmt.Println(unsafe.Sizeof(float64(0)))            // 8
+
+	fmt.Println("ny", unsafe.Alignof(ny))
 }
 
 func str2bytes(s string) []byte {

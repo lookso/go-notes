@@ -1,43 +1,23 @@
 package main
 
-import (
-	"fmt"
-	"strings"
-)
-
-/*
-for i := 1; i <= 10; i++ {
-	sum += i
-	go func() {
-		total += i
-	}()
+import "fmt"
+type People interface {
+	Speak(string) string
 }
-fmt.Printf("sum:%d,total:%d\n", sum, total)
-上面代码有啥问题？
-*/
-func main() {
-	var sp = "nlp_peanut"
-	var spArr = strings.Split(sp,"_")
-	if len(spArr)==2 {
-		fmt.Println(spArr[0], spArr[1])
-	}
-	//var wg = new(sync.WaitGroup)
-	//var lc = new(sync.Mutex)
-	//var (
-	//	total = 0
-	//	sum   = 0
-	//)
-	//for i := 1; i <= 10; i++ {
-	//	sum += i
-	//	lc.Lock()
-	//	wg.Add(1)
-	//	go func(i int) {
-	//		defer wg.Done()
-	//		defer lc.Unlock()
-	//		total += i
-	//	}(i)
-	//}
-	//wg.Wait()
-	//fmt.Printf("sum:%d,total:%d\n", sum, total)
 
+type Student struct{}
+
+func (stu *Student) Speak(think string) (talk string) {
+	if think == "sb" {
+		talk = "你是个大帅比"
+	} else {
+		talk = "您好"
+	}
+	return
+}
+
+func main() {
+	var peo People = &Student{}
+	think := "bitch"
+	fmt.Println(peo.Speak(think))
 }

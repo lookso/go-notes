@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package book;
+
+//import "hello.proto";
+
+message OrderGoods {
+    int64 ID = 1; //ID
+    int64 userID = 2; //用户ID
+    string tradeNO = 3; //
+    string orderNO = 4; //捐赠地址
+    int64 refundAt = 6; //退款时间，=0 表示未退款
+    int64 projectID = 7; //项目id
+    string projectName = 8; //项目名称
+    string projectState = 9; //项目状态，文案
+    string projectUUID = 10; //项目uuid
+    int64 projectType = 11; //项目类型，比如，红十字，微爱，其它公益等等
+    int64 refundState = 12; // 退款状态
+    string entity = 13;
+}
+message SearchRequest {
+    string query = 1;
+    string name=2;
+    int32 page_number = 3;
+    int32 result_per_page = 4;
+
+    enum Corpus {
+        UNIVERSAL = 0;
+        WEB = 1;
+        IMAGES = 2;
+        LOCAL = 3;
+        NEWS = 4;
+        PRODUCTS = 5;
+        VIDEO = 6;
+        PIC	=33;
+    }
+
+    reserved 11, 12, 13, 14;
+    reserved "hihi", "bar";
+    map<int32, OrderGoods> orderGoods = 5;
+
+}
