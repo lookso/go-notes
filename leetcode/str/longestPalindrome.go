@@ -4,7 +4,7 @@ import "fmt"
 
 func main()  {
 	fmt.Println("---------func----------")
-	str := longestPalindrome("abat")
+	str := longestPalindrome2("aa")
 	fmt.Println("func:str:", str)
 }
 
@@ -52,7 +52,7 @@ func maxlen(s string, start, end int) (int, int) {
 }
 
 //链接：https://leetcode-cn.com/problems/longest-palindromic-substring/solution/zhong-xin-kuo-zhan-he-dong-tai-gui-hua-suan-fa-qin/
-
+// abac
 func longestPalindrome2(s string) string {
 	if len(s) < 2 { // 肯定是回文，直接返回
 		return s
@@ -84,7 +84,6 @@ func longestPalindrome2(s string) string {
 			e++
 			// 循环结束后，s[b:e+1]是一串相同的字符串
 		}
-
 		// 下一个回文的`正中间段`的首字符只会是s[e+1]
 		// 为下一次循环做准备
 		i = e + 1
@@ -94,15 +93,16 @@ func longestPalindrome2(s string) string {
 			b--
 			// 循环结束后，s[b:e+1]是这次能找到的最长回文。
 		}
-
+		// abac
 		newLen := e + 1 - b
+
 		// 创新记录的话，就更新记录
 		if newLen > maxLen {
 			begin = b
 			maxLen = newLen
 		}
+		fmt.Println("len",begin,maxLen)
 	}
-
 	return s[begin : begin+maxLen]
 
 }
