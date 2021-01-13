@@ -1,4 +1,4 @@
-package pool
+package main
 
 import (
 	"sync"
@@ -10,15 +10,15 @@ type Worker interface {
 }
 
 //任务池
-type Pool struct {
+type Pool4 struct {
 	work chan Worker
 	wg   sync.WaitGroup
 }
 
 //新建
-func New(maxGoroutines int) *Pool {
+func New(maxGoroutines int) *Pool4 {
 	//任务池
-	p := Pool{
+	p := Pool4{
 		work: make(chan Worker),
 	}
 	p.wg.Add(maxGoroutines)
@@ -37,12 +37,12 @@ func New(maxGoroutines int) *Pool {
 }
 
 //运行
-func (p *Pool) Run(r Worker) {
+func (p *Pool4) Run(r Worker) {
 	p.work <- r
 }
 
 //停止
-func (p *Pool) Shutdown() {
+func (p *Pool4) Shutdown() {
 	close(p.work)
 	p.wg.Wait()
 }
