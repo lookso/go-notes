@@ -74,7 +74,7 @@ func topKFrequent(nums []int, k int) []int {
 	sort.Slice(s, func(i, j int) bool {
 		return m[s[i]] > m[s[j]]
 	})
-	sort.Ints(nums)
+	//sort.Ints(nums)
 	fmt.Println(nums)
 
 	return s[:k]
