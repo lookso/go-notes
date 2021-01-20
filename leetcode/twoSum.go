@@ -15,7 +15,7 @@ func main() {
 	existsKeys := twoSum(nums, 6)
 	fmt.Println("existsKey", existsKeys)
 
-	fmt.Println("addTwoNum", addTwoNum(10, 90))
+//	fmt.Println("addTwoNum", addTwoNum(10, 90))
 }
 
 func twoSum(nums []int, target int) []int {

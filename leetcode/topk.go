@@ -7,7 +7,7 @@ import (
 
 // https://leetcode-cn.com/problems/top-k-frequent-elements/
 func main() {
-	nums := []int{1, 1, 1,8,8,8,6,6,6, 2, 2, 3}
+	nums := []int{1, 1, 1, 2, 2, 3,8,8,8,6,6,6}
 	k := 2
 	fmt.Println(topKFrequent(nums, k))
 }
@@ -56,7 +56,7 @@ func main() {
 //著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 
 func topKFrequent(nums []int, k int) []int {
-	// []int{1, 1, 1,8,8,8,6,6,6, 2, 2, 3}
+	// []int{1, 1, 1, 2, 2, 3,8,8,8,6,6,6}
 	m := make(map[int]int)
 	s := make([]int, 0)
 	for _, v := range nums {
@@ -68,13 +68,13 @@ func topKFrequent(nums []int, k int) []int {
 			s = append(s, v)
 		}
 	}
-	fmt.Println(s)
-	fmt.Println(m)
+	fmt.Println("s",s)
+	fmt.Println("m",m)
 
 	sort.Slice(s, func(i, j int) bool {
 		return m[s[i]] > m[s[j]]
 	})
-	//sort.Ints(nums)
+	fmt.Println("ss",s)
 	fmt.Println(nums)
 
 	return s[:k]
