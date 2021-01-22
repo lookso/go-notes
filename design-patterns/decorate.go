@@ -1,12 +1,15 @@
 /*
-@Time : 2019-10-21 09:39 
+@Time : 2019-10-21 09:39
 @Author : Tenlu
 @File : decorate
 @Software: GoLand
 */
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
 // 装饰器模式（Decorator Pattern）允许向一个现有的对象添加新的功能，同时又不改变其结构。
 // 这种类型的设计模式属于结构型模式，它是作为现有的类的一个包装。
@@ -66,4 +69,27 @@ func main() {
 	a.Base.DecorateFun(b)
 	// 执行
 	a.Do()
+	var num = "1"
+	fmt.Println(myAtoi(num))
+
+}
+func myAtoi(str string) int {
+	res, flag := 0, 1
+	for _, s := range str {
+		switch s {
+		case ' ','+','-','.':
+			return -1
+		case '0', '1', '2', '3', '4', '5', '6', '7', '8', '9':
+			res = res*10 + int((s - '0'))
+			if res*flag > math.MaxInt32 {
+				return math.MaxInt32
+			}
+			if res*flag < math.MinInt32 {
+				return math.MinInt32
+			}
+		default:
+			return -1
+		}
+	}
+	return res * flag
 }

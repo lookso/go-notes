@@ -1,5 +1,5 @@
 /*
-@Time : 2019-10-30 19:55 
+@Time : 2019-10-30 19:55
 @Author : Tenlu
 @File : strce
 @Software: GoLand
@@ -22,8 +22,8 @@ import (
 //fmt.Println(res)
 
 func main() {
-	
-	status, err := strackClose("((()()))")
+
+	status, err := strackClose("((()()")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -46,18 +46,23 @@ func strackClose(str string) (b bool, err error) {
 	// golang中字符类型的实际数据类型为uint32
 	// golang中string底层是通过byte数组实现的。
 	// 中文字符在unicode下占2个字节,在utf-8编码下占3个字节,而golang默认编码正好是utf-8。
-
+	// )()()(
+	var count = 0
 	for _, v := range str {
 		if string(v) == "(" {
+			count += 1
 			strack = append(strack, "(")
 		}
 		if string(v) == ")" {
 			if len(strack) == 0 {
 				return false, nil
 			}
+			count -= 1
 			strack = strack[:len(strack)-1]
 		}
 	}
+	fmt.Println("count", count)
+	// ))()()((
 	if len(strack) != 0 {
 		return false, nil
 	}
