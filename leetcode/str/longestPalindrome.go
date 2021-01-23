@@ -2,56 +2,11 @@ package main
 
 import "fmt"
 
-func main()  {
+func main() {
 	fmt.Println("---------func----------")
-	str := longestPalindrome2("aa")
+	str := longestPalindrome2("ababababad")
 	fmt.Println("func:str:", str)
 }
-
-//1.选中中心点
-//2.先处理左右与中心点相同情况
-//3.处理左右与中心点不同，但左右相同情况
-//4.记住最长值
-//5.循环
-
-func longestPalindrome(s string) string {
-	maxLen := 0
-	maxLenStart := 0
-	for i := 0; i < len(s); i++ {
-		// 情况1：从单字符向外扩展
-		start1, len1 := maxlen(s, i, i)
-		fmt.Println(start1,len1)
-		// 情况2：从双字符向外扩展
-		start2, len2 := maxlen(s, i, i+1)
-
-		// 取较大的
-		start, theMax := start1, len1
-		if len2 > len1 {
-			start, theMax = start2, len2
-		}
-
-		// 如果是最大的，保存长度和开始位置
-		if theMax > maxLen {
-			maxLen = theMax
-			maxLenStart = start
-		}
-	}
-
-	// 截取
-	return s[maxLenStart : maxLenStart+maxLen]
-}
-
-func maxlen(s string, start, end int) (int, int) {
-	// 中心位置扩展，两边不同则停止，停止后两边位置各多扩展了一次
-	for start >= 0 && end < len(s) && s[start] == s[end] {
-		start--
-		end++
-	}
-	// 开始位置= start+1, 长度=(end-1) - (start+1) + 1
-	return start + 1, end - start - 1
-}
-
-//链接：https://leetcode-cn.com/problems/longest-palindromic-substring/solution/zhong-xin-kuo-zhan-he-dong-tai-gui-hua-suan-fa-qin/
 // abac
 func longestPalindrome2(s string) string {
 	if len(s) < 2 { // 肯定是回文，直接返回
@@ -86,8 +41,10 @@ func longestPalindrome2(s string) string {
 		}
 		// 下一个回文的`正中间段`的首字符只会是s[e+1]
 		// 为下一次循环做准备
+		fmt.Println("b", b)
 		i = e + 1
 
+		// abaabad
 		for e < len(s)-1 && b > 0 && s[e+1] == s[b-1] {
 			e++
 			b--
@@ -101,8 +58,53 @@ func longestPalindrome2(s string) string {
 			begin = b
 			maxLen = newLen
 		}
-		fmt.Println("len",begin,maxLen)
+		fmt.Println("len", begin, maxLen)
 	}
 	return s[begin : begin+maxLen]
 
 }
+//1.选中中心点
+//2.先处理左右与中心点相同情况
+//3.处理左右与中心点不同，但左右相同情况
+//4.记住最长值
+//5.循环
+
+func longestPalindrome(s string) string {
+	maxLen := 0
+	maxLenStart := 0
+	for i := 0; i < len(s); i++ {
+		// 情况1：从单字符向外扩展
+		start1, len1 := maxlen(s, i, i)
+		fmt.Println(start1, len1)
+		// 情况2：从双字符向外扩展
+		start2, len2 := maxlen(s, i, i+1)
+
+		// 取较大的
+		start, theMax := start1, len1
+		if len2 > len1 {
+			start, theMax = start2, len2
+		}
+
+		// 如果是最大的，保存长度和开始位置
+		if theMax > maxLen {
+			maxLen = theMax
+			maxLenStart = start
+		}
+	}
+
+	// 截取
+	return s[maxLenStart : maxLenStart+maxLen]
+}
+
+func maxlen(s string, start, end int) (int, int) {
+	// 中心位置扩展，两边不同则停止，停止后两边位置各多扩展了一次
+	for start >= 0 && end < len(s) && s[start] == s[end] {
+		start--
+		end++
+	}
+	// 开始位置= start+1, 长度=(end-1) - (start+1) + 1
+	return start + 1, end - start - 1
+}
+
+//链接：https://leetcode-cn.com/problems/longest-palindromic-substring/solution/zhong-xin-kuo-zhan-he-dong-tai-gui-hua-suan-fa-qin/
+
