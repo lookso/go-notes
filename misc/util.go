@@ -1,10 +1,10 @@
 /*
 @Time : 2020-01-01 19:29
 @Author : Tenlu
-@File : util
+@File : misc
 @Software: GoLand
 */
-package util
+package misc
 
 import (
 	"errors"

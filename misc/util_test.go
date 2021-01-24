@@ -4,7 +4,7 @@
 @File : util_test
 @Software: GoLand
 */
-package util
+package misc
 
 import (
 	"strings"
@@ -42,7 +42,7 @@ func TestDivision(t *testing.T) {
 	}
 }
 
-// go test -v util_test.go util.go
+// go test -v util_test.go misc.go
 
 // 参数-run对应一个正则表达式，只有测试函数名被它正确匹配的测试函数才会被go test测试命令运行
 // go test -v -run="TestSum"
