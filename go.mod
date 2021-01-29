@@ -10,6 +10,7 @@ replace (
 
 require (
 	contrib.go.opencensus.io/exporter/zipkin v0.1.2
+	github.com/ClickHouse/clickhouse-go v1.4.3
 	github.com/PuerkitoBio/goquery v1.6.0
 	github.com/Shopify/sarama v1.19.0
 	github.com/afex/hystrix-go v0.0.0-20180502004556-fa1af6a1f4f5

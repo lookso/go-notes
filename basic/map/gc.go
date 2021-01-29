@@ -15,7 +15,7 @@ func main() {
 	for i := 0; i < 10000; i++ {
 		intMap[i] = i
 	}
-
+	printMemStats("增加map数据后")
 	// 手动进行gc操作
 	runtime.GC()
 	// 再次查看数据

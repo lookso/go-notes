@@ -1,10 +1,11 @@
 package main
+
 import (
 	"fmt"
 	"github.com/yuin/gopher-lua"
 )
 
-func main()  {
+func main() {
 	L := lua.NewState()
 	defer L.Close()
 	if err := L.DoFile("hello.lua"); err != nil {
