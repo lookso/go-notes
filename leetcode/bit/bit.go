@@ -1,4 +1,4 @@
-package bit
+package main
 
 import "fmt"
 
@@ -8,6 +8,7 @@ func main() {
 
 // 位运算
 func bitRun() {
+	fmt.Println(10^0,10^10)
 	a := 60
 	b := 13
 	fmt.Printf("binary: %#b, decimal: %b\n", a, b) // 二进制
