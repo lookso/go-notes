@@ -1,7 +1,7 @@
 package main
 
 import "fmt"
-
+// 合并2个有序数组
 func main() {
 	var num1 = []int{1, 2, 3, 0, 0, 0}
 	var num2 = []int{2, 5, 6}
