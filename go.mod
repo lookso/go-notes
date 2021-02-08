@@ -63,5 +63,6 @@ require (
 	google.golang.org/grpc v1.32.0
 	google.golang.org/protobuf v1.25.0
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
+	labix.org/v2/mgo v0.0.0-20140701140051-000000000287
 	sigs.k8s.io/yaml v1.2.0 // indirect
 )
