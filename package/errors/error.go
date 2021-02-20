@@ -1,5 +1,5 @@
 /*
-@Time : 2019/2/20 11:21 AM 
+@Time : 2019/2/20 11:21 AM
 @Author : Tenlu
 @File : error
 @Software: GoLand
@@ -7,8 +7,8 @@
 package main
 
 import (
-	"fmt"
 	"errors"
+	"fmt"
 )
 
 type I interface {
@@ -32,7 +32,8 @@ func echo(request string) (reponse string, err error) {
 	return
 }
 func main() {
-	
+	fmt.Println(Validation())
+
 	for _, r := range []string{"hello", "world", ""} {
 		req, err := echo(r)
 		if err != nil {
@@ -74,3 +75,12 @@ func main() {
 	fmt.Println("Exit function main.")
 }
 
+func Validation() []error {
+	var errs = make([]error, 0)
+
+	errs = append(errs, errors.New("error 1"))
+	errs = append(errs, errors.New("error 2"))
+	errs = append(errs, errors.New("error 3"))
+
+	return errs
+}

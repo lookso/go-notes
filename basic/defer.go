@@ -55,4 +55,5 @@ func d3() {
 }
 func d() {
 	var f = []func() int{d2}
+	fmt.Println(f)
 }

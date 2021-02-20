@@ -36,6 +36,7 @@ func newTicker() {
 	aft := <-t.C
 	fmt.Println(aft.Format("2006-01-02 15:04:05"))
 }
+
 func newAfter() {
 	t := time.After(time.Second * 3)
 	fmt.Printf("t type=%T\n", t)
@@ -53,5 +54,5 @@ func newAfter() {
 func main() {
 	newAfter()
 	newTicker()
-	//newTimer()
+	newTimer()
 }
