@@ -8,7 +8,9 @@ func main() {
 	obj.AppendTail(2)
 	obj.AppendTail(3)
 	popValue := obj.DeleteHead()
+	popValue1 := obj.DeleteHead()
 	fmt.Println(popValue)
+	fmt.Println(popValue1)
 }
 
 type CQueue2 struct {
@@ -40,8 +42,8 @@ func (this *CQueue2) DeleteHead() int {
 			this.out = append(this.out, popValue)
 		}
 	}
-
-	fmt.Println(this.out)
+	fmt.Println("len(this.in)",len(this.in) )
+	fmt.Println("this.out",this.out)
 	// 弹出 out 栈顶元素
 	lastIndex := len(this.out) - 1
 	popValue := this.out[lastIndex]

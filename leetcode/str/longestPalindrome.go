@@ -33,7 +33,7 @@ func longestPalindrome2(s string) string {
 			// 所以，无需再找下去了。
 			break
 		}
-
+		// ababababad
 		b, e := i, i
 		for e < len(s)-1 && s[e+1] == s[e] {
 			e++
