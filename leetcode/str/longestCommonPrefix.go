@@ -7,6 +7,7 @@ import (
 
 // 最长公共前缀
 func main() {
+	fmt.Println( strings.Index("abc", "abc"))
 	var strs = []string{"flower", "flow", "flight"}
 	fmt.Println(longestCommonPrefix(strs))
 }

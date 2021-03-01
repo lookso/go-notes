@@ -1,5 +1,7 @@
 package erchashu
 
+import "fmt"
+
 //https://leetcode-cn.com/problems/binary-tree-level-order-traversal/solution/
 
 //二叉树：[3,9,20,null,null,15,7],
@@ -26,11 +28,13 @@ func dfs(root *TreeNode, level int, res [][]int) [][]int {
 	if root == nil {
 		return res
 	}
+	fmt.Println(len(res) , level )
 	if len(res) == level {
 		res = append(res, []int{root.Val})
 	} else {
 		res[level] = append(res[level], root.Val)
 	}
+
 	res = dfs(root.Left, level+1, res)
 	res = dfs(root.Right, level+1, res)
 	return res

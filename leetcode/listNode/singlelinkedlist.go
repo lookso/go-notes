@@ -4,7 +4,7 @@
 @File : singlelinkedlist
 @Software: GoLand
 */
-package main
+package listNode
 
 //单链表
 

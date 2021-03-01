@@ -7,6 +7,7 @@ import (
 )
 
 func main() {
+	fmt.Println('0')
 	fmt.Println(myAtoi("-123"))
 }
 func myAtoi(str string) int {

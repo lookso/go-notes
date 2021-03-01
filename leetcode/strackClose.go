@@ -23,7 +23,7 @@ import (
 
 func main() {
 
-	status, err := strackClose("((()()")
+	status, err := strackClose(")(")
 	if err != nil {
 		log.Fatal(err)
 	}
