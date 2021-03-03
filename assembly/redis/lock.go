@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/go-redis/redis"
 	"github.com/google/uuid"
+	"go-notes/assembly/redis/common"
 	"log"
 	"strconv"
 	"sync"
@@ -83,7 +84,7 @@ func main() {
 func lk(){
 	fmt.Println("This is a program for go to use go_redis.")
 	//connect
-	client,_:=RedisClient()
+	client,_:=common.RedisClient()
 	defer client.Close()
 
 	var rw sync.RWMutex
