@@ -9,7 +9,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"time"
 )
@@ -32,7 +31,7 @@ CREATE TABLE `mid_autumn_winners` (
 */
 
 type Winners struct {
-	ID         uint `gorm:"primary_key"`
+	ID         uint `gorm:"column:id; PRIMARY_KEY"`
 	UserId     int
 	Name       string
 	Phone      int
@@ -49,15 +48,16 @@ func (Winners) TableName() string {
 	return "mid_autumn_winners"
 }
 func main() {
-	db := connect()
+	db := GetDB()
 	//创建数据
 	//createWinner := Winners{UserId: 100861, Name: "jack", Phone: 15010549088, Province: "河南省", City: "南阳市", Area: "龙阳县", AddInfo: "龙阳县聚龙潭街108单元100861室", PrizeLevel: 1}
 	createWinner := Winners{UserId: 100861, Name: "jack", Phone: 15010549088, Province: "河南省", City: "南阳市", Area: "龙阳县", AddInfo: "龙阳县聚龙潭街108单元100861室", PrizeLevel: 1}
 
 	db.NewRecord(createWinner) // => 返回 `true` ，因为主键为空
 
-	db.Create(&createWinner)
-
+	if err := db.Create(&createWinner).Error; err != nil {
+		fmt.Println("create err", err)
+	}
 	db.NewRecord(createWinner) // => 在 `user` 之后创建返回 `false`
 
 	// 查询
@@ -93,15 +93,6 @@ func main() {
 	}
 
 	defer db.Close()
-}
-
-func connect() *gorm.DB {
-	db, err := gorm.Open("mysql", "root:lookfor@Dny8$@/activity?charset=utf8&parseTime=True&loc=Local")
-	if err != nil {
-		panic(err)
-	}
-	fmt.Printf("mysql Gorm Connect Success\n")
-	return db
 }
 
 //相关文档教程:

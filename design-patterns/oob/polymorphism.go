@@ -1,65 +1,48 @@
 package main
 
-import "fmt"
 // 多态
-type AnimalIF interface {
-	Sleep()
-	Age() int
-	Type() string
-}
-type Animal struct {
-	MaxAge int
+/* 多态行为的例子 */
+
+import "fmt"
+
+type Notifier interface {
+	notify()
 }
 
-/*=======================================================*/
-
-type Cat struct {
-	Animal Animal
+type user struct {
+	name  string
+	email string
 }
 
-func (this *Cat) Sleep() {
-	fmt.Println("Cat need sleep")
-}
-func (this *Cat) Age() int {
-	return this.Animal.MaxAge
-}
-func (this *Cat) Type() string {
-	return "Cat"
+type admin struct {
+	name string
+	age  int
 }
 
-/*=======================================================*/
-
-type Dog struct {
-	Animal Animal
+//使用指针接收者实现了notofy接口,方法会共享接收者所指向的值user
+func (u *user) notify() {
+	fmt.Println("sendNotify to user", u.name)
 }
 
-func (this *Dog) Sleep() {
-	fmt.Println("Dog need sleep")
-}
-func (this *Dog) Age() int {
-	return this.Animal.MaxAge
-}
-func (this *Dog) Type() string {
-	return "Dog"
+//使用值接收者实现了notofy接口,方法使用u值的副本,对u的修改不会影响原值
+func (u admin) notify() {
+	fmt.Println("sendNotify to admin:", u.name)
 }
 
-/*=======================================================*/
-
-func Factory(name string) AnimalIF {
-	switch name {
-	case "dog":
-		return &Dog{Animal{MaxAge: 20}}
-	case "cat":
-		return &Cat{Animal{MaxAge: 10}}
-	default:
-		panic("No such animal")
-	}
+//接收一个notifer接口类型的值，如果一个实体类型实现了该接口，
+//sendNotify函数会根据实体类型的值类执行notifer接口的notify行为，这个函数具有多态的能力。
+func sendNotify(n Notifier) {
+	n.notify()
 }
-
-/*======================================================*/
 
 func main() {
-	animal := Factory("dog")
-	animal.Sleep()
-	fmt.Printf("%s max age is: %d", animal.Type(), animal.Age())
+	user1 := user{"张三", "qq@qq.com"}
+	sendNotify(&user1)
+
+	user2 := admin{"李四", 25}
+	sendNotify(user2)
+
+	var n Notifier
+	n = &user1
+	n.notify()
 }
