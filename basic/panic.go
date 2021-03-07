@@ -14,7 +14,9 @@ func main() {
 	var wg sync.WaitGroup
 	go func() {
 		wg.Add(1)
-		fmt.Println(1/0)
+		go func() {
+			panic("err") // 因为goroutine不确定是哪个先执行,所以也可能出现panic
+		}()
 		defer wg.Done()
 	}()
 	fmt.Println(12345)

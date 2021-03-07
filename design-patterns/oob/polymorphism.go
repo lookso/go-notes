@@ -46,3 +46,4 @@ func main() {
 	n = &user1
 	n.notify()
 }
+
