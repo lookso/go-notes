@@ -15,7 +15,7 @@ func RedisClient() (*redis.Client, error) {
 	// 通过 cient.Ping() 来检查是否成功连接到了 redis 服务器
 	pong, err := client.Ping().Result()
 	if err != nil {
-		fmt.Println("err", err)
+		panic(err)
 		return nil, err
 	}
 	fmt.Println("connect", pong)

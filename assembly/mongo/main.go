@@ -70,7 +70,7 @@ func main() {
 	for _, v := range batch {
 		fmt.Println("batch", v.Name)
 	}
-	
+
 	// UpdateOne one
 	err = cli.UpdateOne(ctx, bson.M{"name": "d4"}, bson.M{"$set": bson.M{"age": 7}})
 	if err != nil {
