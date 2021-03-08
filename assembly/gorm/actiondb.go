@@ -8,7 +8,9 @@
 package main
 
 import (
+	"errors"
 	"fmt"
+	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"time"
 )
@@ -48,6 +50,9 @@ func (Winners) TableName() string {
 	return "mid_autumn_winners"
 }
 func main() {
+	doDb()
+}
+func doDb() error {
 	db := GetDB()
 	//创建数据
 	//createWinner := Winners{UserId: 100861, Name: "jack", Phone: 15010549088, Province: "河南省", City: "南阳市", Area: "龙阳县", AddInfo: "龙阳县聚龙潭街108单元100861室", PrizeLevel: 1}
@@ -56,21 +61,27 @@ func main() {
 	db.NewRecord(createWinner) // => 返回 `true` ，因为主键为空
 
 	if err := db.Create(&createWinner).Error; err != nil {
-		fmt.Println("create err", err)
+		return errors.New(fmt.Sprintf("create err %v", err))
 	}
 	db.NewRecord(createWinner) // => 在 `user` 之后创建返回 `false`
 
 	// 查询
 	var winner Winners
-	db.First(&winner)
+	if err := db.First(&winner).Error; err != nil {
+		return errors.New(fmt.Sprintf("first err %v", err))
+	}
 	fmt.Printf("id:%d,userId:%d,name:%s,phone:%d\n", winner.ID, winner.UserId, winner.Name, winner.Phone)
 
 	var myWin Winners
-	db.First(&myWin, "id = ?", 16)
+	if err := db.First(&myWin, "id = ?", 16).Error; err != nil {
+		return errors.New(fmt.Sprintf("first err %v", err))
+	}
 	fmt.Printf("id:%d,userId:%d,name:%s,phone:%d\n", myWin.ID, myWin.UserId, myWin.Name, myWin.Phone)
 
 	var findWinner Winners
-	db.Where("name = ?", "jack").Find(&findWinner)
+	if err := db.Where("name = ?", "jack").Find(&findWinner).Error; err != nil && err != gorm.ErrRecordNotFound {
+		return errors.New(fmt.Sprintf("find err %v", err))
+	}
 	// SELECT * FROM `mid_autumn_winners`  WHERE (name = 'jack')
 	fmt.Printf("id:%d,userId:%d,name:%s,phone:%d\n", findWinner.ID, findWinner.UserId, findWinner.Name, findWinner.Phone)
 
@@ -93,6 +104,7 @@ func main() {
 	}
 
 	defer db.Close()
+	return nil
 }
 
 //相关文档教程:
