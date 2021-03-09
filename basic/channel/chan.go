@@ -11,7 +11,7 @@ import "fmt"
 */
 func main() {
 	defer func() {
-		if errMsg:=recover();errMsg!=nil{
+		if errMsg := recover(); errMsg != nil {
 			fmt.Println(errMsg)
 		}
 	}()
@@ -19,7 +19,7 @@ func main() {
 	if status == nil {
 		fmt.Println("未初始化的chan 值是nil")
 	}
-	status = make(chan int,3)
+	status = make(chan int, 3)
 
 	fmt.Println("init value:", status)
 	status <- 1
@@ -34,7 +34,7 @@ func main() {
 			fmt.Println("status chan closed!")
 			break
 		}
-		fmt.Println("status value:",value)
+		fmt.Println("status value:", value)
 	}
 
 	pingc := make(chan string, 1)
@@ -44,13 +44,13 @@ func main() {
 	go pong(pingc, pongc)
 	fmt.Println(<-pongc)
 
-	ch1:=make(chan int,10)
-	ch2:=make(chan int,10)
+	ch1 := make(chan int, 10)
+	ch2 := make(chan int, 10)
 
-	done:=make(chan bool)
+	done := make(chan bool)
 
-	go sendChan(ch1,done)
-	go reveChan(ch1,ch2,done)
+	go sendChan(ch1, done)
+	go reveChan(ch1, ch2, done)
 
 	<-done
 	<-done
@@ -64,25 +64,24 @@ func pong(pings <-chan string, pongs chan<- string) {
 	pongs <- msg
 }
 
-func sendChan(ch1 chan int,done chan bool)  {
+func sendChan(ch1 chan int, done chan bool) {
 	fmt.Println("------sendChan--------")
 
-	for i:=1;i<=10;i++{
-		ch1<-i
+	for i := 1; i <= 10; i++ {
+		ch1 <- i
 	}
 	close(ch1)
-	done<-true
+	done <- true
 }
 
-func reveChan(ch1 chan int,ch2 chan int,done chan bool)  {
+func reveChan(ch1 chan int, ch2 chan int, done chan bool) {
 	fmt.Println("------receChan--------")
-	for c:=range ch1 {
-		ch2<-c
-		fmt.Println("ch1:",c)
+	for c := range ch1 {
+		ch2 <- c
+		fmt.Println("ch1:", c)
 	}
-	if _,ok:=<-ch1;!ok{
+	if _, ok := <-ch1; !ok {
 		fmt.Println("ch1 is closed")
 	}
-	done<-true
+	done <- true
 }
-

@@ -8,6 +8,7 @@ func main() {
 	var ch = make(chan int, 10)
 	go product(ch)
 	consumer(ch)
+	ct()
 }
 
 func product(send chan int) {
@@ -29,4 +30,17 @@ func consumer(recv chan int) {
 			fmt.Printf("Bob gets product, ID is : %d \n", p)
 		}
 	}
+}
+
+func ct() {
+	fmt.Println("------ct-------")
+	var ch = make(chan int, 3)
+	ch <- 1
+	ch <- 2
+	ch <- 3
+	close(ch)
+	for i := 0; i < 10; i++ {
+		fmt.Println(<-ch)
+	}
+
 }
