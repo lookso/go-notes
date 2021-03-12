@@ -8,10 +8,11 @@ import (
 func TestLru(t *testing.T) {
 	lru := Constructor(2)
 	lru.Put(1, 1)
+	vv := lru.Get(2)
 	lru.Put(2, 2)
 	lru.Put(3, 3)
 	lru.Put(4, 4)
 	lru.Put(5, 5)
 	v := lru.Get(4)
-	fmt.Println("v", v)
+	fmt.Println("v", v,vv)
 }

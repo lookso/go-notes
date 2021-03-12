@@ -42,6 +42,9 @@ require (
 	github.com/jonboulle/clockwork v0.2.2 // indirect
 	github.com/kennygrant/sanitize v1.2.4 // indirect
 	github.com/lifei6671/gocache v0.0.0-20190301061331-3d635a1235ba
+	github.com/mailru/easyjson v0.7.7 // indirect
+	github.com/olivere/elastic v6.2.35+incompatible
+	github.com/olivere/elastic/v7 v7.0.22
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/openzipkin-contrib/zipkin-go-opentracing v0.4.5
 	github.com/openzipkin/zipkin-go v0.2.5
