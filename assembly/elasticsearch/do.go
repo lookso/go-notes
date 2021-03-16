@@ -16,7 +16,7 @@ type Es struct {
 	Ctx    context.Context
 }
 
-var myIndexName = "my_es_first_index"
+var indexName = "my_es_first_index"
 
 // 索引mapping定义，这里仿微博消息结构定义
 const mapping = `{
@@ -93,10 +93,10 @@ func NewEs() *Es {
 }
 
 func (es *Es) CreateIndex() error {
-	_, err := es.Client.DeleteIndex(myIndexName).Do(es.Ctx)
+	_, err := es.Client.DeleteIndex(indexName).Do(es.Ctx)
 	// 执行ES请求需要提供一个上下文对象
 	// 首先检测下my_weibo_index索引是否存在
-	exists, err := es.Client.IndexExists(myIndexName).Do(es.Ctx)
+	exists, err := es.Client.IndexExists(indexName).Do(es.Ctx)
 	fmt.Println("index exists", exists)
 	if err != nil {
 		// Handle error
@@ -104,7 +104,7 @@ func (es *Es) CreateIndex() error {
 	}
 	if !exists {
 		// weibo索引不存在，则创建一个
-		_, err := es.Client.CreateIndex(myIndexName).BodyString(mapping).Do(es.Ctx)
+		_, err := es.Client.CreateIndex(indexName).BodyString(mapping).Do(es.Ctx)
 		if err != nil {
 			// Handle error
 			return err
@@ -120,7 +120,7 @@ func (es *Es) Insert() error {
 		docIdStr := strconv.Itoa(docId)
 		msg := MappingIndex{Name: "jack" + docIdStr, Country: "打酱油的一天", Age: int64(10 + docId)}
 		put, err := es.Client.Index().
-			Index(myIndexName). // 设置索引名称
+			Index(indexName). // 设置索引名称
 			Type("_doc"). // 默认使用_doc type
 			Id(docIdStr). // 设置文档id
 			BodyJson(msg). // 指定前面声明的微博内容
@@ -137,7 +137,7 @@ func (es *Es) Insert() error {
 
 func (es *Es) Search() error {
 	get, err := es.Client.Get().
-		Index(myIndexName). // 指定索引名
+		Index(indexName). // 指定索引名
 		Type("_doc").
 		Id("1"). // 设置文档id
 		Do(es.Ctx) // 执行请求
@@ -150,7 +150,7 @@ func (es *Es) Search() error {
 	// 创建term查询条件，用于精确查询
 	termQuery := elastic.NewMatchQuery("name", "jack11")
 	searchResult, err := es.Client.Search().
-		Index(myIndexName). // 设置索引名
+		Index(indexName). // 设置索引名
 		Query(termQuery). // 设置查询条件
 		Sort("age", true). // 设置排序字段，根据age字段升序排序，第二个参数false表示逆序
 		From(0). // 设置分页参数 - 起始偏移量，从第0行记录开始
