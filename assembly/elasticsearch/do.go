@@ -6,6 +6,8 @@ import (
 	"github.com/olivere/elastic"
 	"log"
 	"os"
+	"reflect"
+	"strconv"
 	"time"
 )
 
@@ -14,23 +16,20 @@ type Es struct {
 	Ctx    context.Context
 }
 
-var MyIndexName = "my_es_first_index"
+var myIndexName = "my_es_first_index"
 
 // 索引mapping定义，这里仿微博消息结构定义
 const mapping = `{
  "mappings": {
    "properties": {
      "name": {
-       "type": "keyword"
+       "type": "text"
      },
      "country": {
-       "type": "keyword"
+       "type": "text"
      },
 	 "age": {
        "type": "long"
-     },
-	 "date": {
-       "type": "text"
      }
    }
  }
@@ -39,19 +38,21 @@ const mapping = `{
 type MappingIndex struct {
 	Name    string `json:"name"`
 	Country string `json:"country"`
-	Age     int    `json:"age"`
-	Date    string `json:"date"`
+	Age     int64  `json:"age"`
 }
 
 var doHost = "http://127.0.0.1:9200"
 
 func main() {
 	EsClient := NewEs()
-	if err := EsClient.createIndex(); err != nil {
+	if err := EsClient.CreateIndex(); err != nil {
 		fmt.Println("createIndex err", err)
 	}
-	if err := EsClient.insert(); err != nil {
+	if err := EsClient.Insert(); err != nil {
 		fmt.Println("insert err", err)
+	}
+	if err := EsClient.Search(); err != nil {
+		fmt.Println("search err", err)
 	}
 }
 func NewEs() *Es {
@@ -80,24 +81,30 @@ func NewEs() *Es {
 	if err != nil {
 		panic(err)
 	}
+	esVersion, err := client.ElasticsearchVersion(doHost)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("Elasticsearch version %s\n", esVersion) // Elasticsearch version 7.10.0
 	return &Es{
 		Client: client,
 		Ctx:    context.Background(),
 	}
 }
 
-func (es *Es) createIndex() error {
+func (es *Es) CreateIndex() error {
+	_, err := es.Client.DeleteIndex(myIndexName).Do(es.Ctx)
 	// 执行ES请求需要提供一个上下文对象
-	es.Client.DeleteIndex(MyIndexName).Do(es.Ctx)
 	// 首先检测下my_weibo_index索引是否存在
-	exists, err := es.Client.IndexExists(MyIndexName).Do(es.Ctx)
+	exists, err := es.Client.IndexExists(myIndexName).Do(es.Ctx)
+	fmt.Println("index exists", exists)
 	if err != nil {
 		// Handle error
 		return err
 	}
 	if !exists {
 		// weibo索引不存在，则创建一个
-		_, err := es.Client.CreateIndex(MyIndexName).BodyString(mapping).Do(es.Ctx)
+		_, err := es.Client.CreateIndex(myIndexName).BodyString(mapping).Do(es.Ctx)
 		if err != nil {
 			// Handle error
 			return err
@@ -106,18 +113,67 @@ func (es *Es) createIndex() error {
 	return nil
 }
 
-func (es *Es) insert() error {
-	// 创建创建一条数据
-	msg := MappingIndex{Name: "jack", Country: "打酱油的一天", Age: 11, Date: "2021-12-12"}
+func (es *Es) Insert() error {
 	// 使用client创建一个新的文档
-	put, err := es.Client.Index().
-		Type(MyIndexName). // 设置索引名称
+	for docId := 1; docId <= 100; {
+		// 创建创建一条数据
+		docIdStr := strconv.Itoa(docId)
+		msg := MappingIndex{Name: "jack" + docIdStr, Country: "打酱油的一天", Age: int64(10 + docId)}
+		put, err := es.Client.Index().
+			Index(myIndexName). // 设置索引名称
+			Type("_doc"). // 默认使用_doc type
+			Id(docIdStr). // 设置文档id
+			BodyJson(msg). // 指定前面声明的微博内容
+			Do(es.Ctx) // 执行请求，需要传入一个上下文对象
+		if err != nil {
+			return err
+		}
+		fmt.Printf("文档Id %s, 索引名 %s\n", put.Id, put.Index)
+		docId = docId + 1
+	}
+
+	return nil
+}
+
+func (es *Es) Search() error {
+	get, err := es.Client.Get().
+		Index(myIndexName). // 指定索引名
+		Type("_doc").
 		Id("1"). // 设置文档id
-		BodyJson(msg). // 指定前面声明的微博内容
-		Do(es.Ctx) // 执行请求，需要传入一个上下文对象
+		Do(es.Ctx) // 执行请求
 	if err != nil {
 		return err
 	}
-	fmt.Printf("文档Id %s, 索引名 %s\n", put.Id, put.Index)
+	if get.Found {
+		fmt.Printf("search 文档id=%s 版本号=%d 索引名=%s\n", get.Id, get.Version, get.Index)
+	}
+	// 创建term查询条件，用于精确查询
+	termQuery := elastic.NewMatchQuery("name", "jack11")
+	searchResult, err := es.Client.Search().
+		Index(myIndexName). // 设置索引名
+		Query(termQuery). // 设置查询条件
+		Sort("age", true). // 设置排序字段，根据age字段升序排序，第二个参数false表示逆序
+		From(0). // 设置分页参数 - 起始偏移量，从第0行记录开始
+		Size(10). // 设置分页参数 - 每页大小
+		Pretty(true). // 查询结果返回可读性较好的JSON格式
+		Do(es.Ctx) // 执行请求
+	if err != nil {
+		return err
+	}
+	fmt.Printf("查询消耗时间 %d ms, 结果总数: %d\n", searchResult.TookInMillis, searchResult.TotalHits())
+	if searchResult.TotalHits() > 0 {
+		// 查询结果不为空，则遍历结果
+		var b1 MappingIndex
+		// 通过Each方法，将es结果的json结构转换成struct对象
+		for _, item := range searchResult.Each(reflect.TypeOf(b1)) {
+			// 转换成MappingIndex对象
+			if t, ok := item.(MappingIndex); ok {
+				fmt.Println(t.Name, t.Country, t.Age)
+			}
+		}
+	}
 	return nil
 }
+
+// 参考文档:
+// https://www.tizi365.com/archives/850.html
