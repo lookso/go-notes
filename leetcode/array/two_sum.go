@@ -1,7 +1,10 @@
 package main
 
+import "fmt"
+
+// https://leetcode-cn.com/problems/two-sum/
 func main(){
-	twoSum()
+	fmt.Println(twoSum([]int{1,2,3,4,5},6))
 }
 
 func twoSum(nums []int, target int) []int {
