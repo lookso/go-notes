@@ -24,6 +24,7 @@ require (
 	github.com/dengsgo/math-engine v0.0.0-20200627074419-8918d8f8ea02
 	github.com/dlclark/regexp2 v1.4.0
 	github.com/dustin/go-humanize v1.0.0 // indirect
+	github.com/eclipse/paho.mqtt.golang v1.3.2
 	github.com/gin-gonic/gin v1.6.3
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/go-redis/redis/v7 v7.4.0
