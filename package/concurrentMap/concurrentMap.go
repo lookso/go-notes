@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"sync"
 )
-
+// https://segmentfault.com/a/1190000018448064
 // 总的map
 type ConcurrentMap []*ConcurrentMapShared
 
