@@ -5,6 +5,7 @@ import (
 	"sync"
 )
 // https://segmentfault.com/a/1190000018448064
+// https://blog.csdn.net/yzf279533105/article/details/98636679
 // 总的map
 type ConcurrentMap []*ConcurrentMapShared
 
