@@ -2,10 +2,10 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"golang.org/x/sync/errgroup"
 	"os"
-	"errors"
 )
 
 func main() {
@@ -26,7 +26,7 @@ func getSum() (sum int, err error) {
 			if index == 2 {
 				return errors.New("fetch err")
 			}
-			fmt.Println("index",index)
+			fmt.Println("index", index)
 			sum = index + sum
 			return nil
 		})
