@@ -41,7 +41,7 @@ func intersectDuplicate2(nums1 []int, nums2 []int) []int {
 		m[num]++ //遍历较长数组，并记录各元素出现次数
 	}
 
-	res := []int{}
+	res := make([]int, 0)
 	for _, num := range nums2 {
 		if m[num] > 0 {
 			res = append(res, num) //遍历较短数组，如果出现的元素次数大于0，将其放到第三个数组中

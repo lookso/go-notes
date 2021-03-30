@@ -1,5 +1,6 @@
 package listNode
 
+import "fmt"
 
 /**
  * Definition for singly-linked list.
@@ -11,10 +12,19 @@ package listNode
 func reverseList(head *ListNode) *ListNode {
 	var temp *ListNode
 	for head != nil {
-		temp = &ListNode{Val:head.Val, Next:temp}
+		temp = &ListNode{Val: head.Val, Next: temp}
 		head = head.Next
 	}
 	return temp
+}
+func reverseList2(head *ListNode) *ListNode {
+	cur := head
+	var pre *ListNode = nil
+	for cur != nil {
+		fmt.Println(cur.Val)
+		pre, cur, cur.Next = cur, cur.Next, pre
+	}
+	return pre
 }
 
 //链接：https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/solution/wo-ye-bu-zhi-dao-zen-yao-jiu-shuang-bai-liao-by-ea/

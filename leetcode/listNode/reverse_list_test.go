@@ -16,6 +16,10 @@ func TestReverseList(t *testing.T) {
 			},
 		},
 	}
-	reverLn:=reverseList(&ln)
-	fmt.Println(reverLn.Val)
+	reverseLn := reverseList(&ln)
+	fmt.Println(reverseLn.Val)
+
+	reverseLn2 := reverseList2(&ln)
+	fmt.Println(reverseLn2.Val)
+
 }
