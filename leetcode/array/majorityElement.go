@@ -5,7 +5,7 @@ import "fmt"
 // https://leetcode-cn.com/problems/majority-element/
 
 func main() {
-	var num = []int{2, 3, 1, 2, 1, 6, 5, 9, 10, 3, 3}
+	var num = []int{2, 3,2,2,2, 1,4, 3}
 	fmt.Println(majorityElement(num))
 }
 func majorityElement(nums []int) int {
