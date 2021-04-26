@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	str := "中国牛逼"
+	str := "中国 牛逼"
 	if Sp(str){
 		fmt.Println("ok")
 	}else{
