@@ -40,14 +40,11 @@ require (
 	github.com/grpc-ecosystem/go-grpc-middleware v1.2.2 // indirect
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway v1.15.2
-	github.com/hashicorp/go.net v0.0.1 // indirect
 	github.com/jinzhu/gorm v1.9.16
 	github.com/jonboulle/clockwork v0.2.2 // indirect
 	github.com/kennygrant/sanitize v1.2.4 // indirect
 	github.com/lifei6671/gocache v0.0.0-20190301061331-3d635a1235ba
 	github.com/mailru/easyjson v0.7.7 // indirect
-	github.com/mitchellh/gox v0.4.0 // indirect
-	github.com/mitchellh/iochan v1.0.0 // indirect
 	github.com/olivere/elastic v6.2.35+incompatible
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/openzipkin-contrib/zipkin-go-opentracing v0.4.5
@@ -61,10 +58,12 @@ require (
 	github.com/smallnest/rpcx v1.6.2
 	github.com/smartystreets/assertions v1.1.1 // indirect
 	github.com/soheilhy/cmux v0.1.5 // indirect
+	github.com/spf13/cast v1.3.1
 	github.com/temoto/robotstxt v1.1.1 // indirect
 	github.com/tmc/grpc-websocket-proxy v0.0.0-20200427203606-3cfed13b9966 // indirect
 	github.com/urfave/cli v1.22.4
 	github.com/xiang90/probing v0.0.0-20190116061207-43a291ad63a2 // indirect
+	github.com/xtaci/lossyconn v0.0.0-20200209145036-adba10fffc37 // indirect
 	github.com/yuin/gopher-lua v0.0.0-20200816102855-ee81675732da
 	go.etcd.io/bbolt v1.3.4 // indirect
 	go.etcd.io/etcd v3.3.25+incompatible
