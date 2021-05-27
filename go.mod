@@ -10,9 +10,12 @@ replace (
 
 require (
 	contrib.go.opencensus.io/exporter/zipkin v0.1.2
+	git.100tal.com/wangxiao_go_lib/xesLogger v1.1.13 // indirect
+	git.100tal.com/wangxiao_go_lib/xesTools v1.1.0
 	github.com/ClickHouse/clickhouse-go v1.4.3
 	github.com/PuerkitoBio/goquery v1.6.0
 	github.com/Shopify/sarama v1.19.0
+	github.com/Unknwon/goconfig v0.0.0-20200908083735-df7de6a44db8 // indirect
 	github.com/afex/hystrix-go v0.0.0-20180502004556-fa1af6a1f4f5
 	github.com/antchfx/htmlquery v1.2.3 // indirect
 	github.com/antchfx/xmlquery v1.3.3 // indirect
@@ -42,6 +45,7 @@ require (
 	github.com/grpc-ecosystem/grpc-gateway v1.15.2
 	github.com/jinzhu/gorm v1.9.16
 	github.com/jonboulle/clockwork v0.2.2 // indirect
+	github.com/kardianos/osext v0.0.0-20190222173326-2bc1f35cddc0 // indirect
 	github.com/kennygrant/sanitize v1.2.4 // indirect
 	github.com/lifei6671/gocache v0.0.0-20190301061331-3d635a1235ba
 	github.com/mailru/easyjson v0.7.7 // indirect
@@ -49,12 +53,14 @@ require (
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/openzipkin-contrib/zipkin-go-opentracing v0.4.5
 	github.com/openzipkin/zipkin-go v0.2.5
+	github.com/petermattis/goid v0.0.0-20180202154549-b0b1615b78e5 // indirect
 	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.8.0 // indirect
 	github.com/qiniu/qmgo v0.8.0
 	github.com/rcrowley/go-metrics v0.0.0-20200313005456-10cdbea86bc0
 	github.com/rpcxio/rpcx-examples v1.1.6
 	github.com/saintfish/chardet v0.0.0-20120816061221-3af4cd4741ca // indirect
+	github.com/satori/go.uuid v1.2.0 // indirect
 	github.com/smallnest/rpcx v1.6.2
 	github.com/smartystreets/assertions v1.1.1 // indirect
 	github.com/soheilhy/cmux v0.1.5 // indirect
