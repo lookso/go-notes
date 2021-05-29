@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	//"git.100tal.com/wangxiao_go_lib/xesTools/httputil"
 	"github.com/spf13/cast"
 	"net/http"
 	"net/url"

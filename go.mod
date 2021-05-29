@@ -10,12 +10,9 @@ replace (
 
 require (
 	contrib.go.opencensus.io/exporter/zipkin v0.1.2
-	git.100tal.com/wangxiao_go_lib/xesLogger v1.1.13 // indirect
-	git.100tal.com/wangxiao_go_lib/xesTools v1.1.0
 	github.com/ClickHouse/clickhouse-go v1.4.3
 	github.com/PuerkitoBio/goquery v1.6.0
 	github.com/Shopify/sarama v1.19.0
-	github.com/Unknwon/goconfig v0.0.0-20200908083735-df7de6a44db8 // indirect
 	github.com/afex/hystrix-go v0.0.0-20180502004556-fa1af6a1f4f5
 	github.com/antchfx/htmlquery v1.2.3 // indirect
 	github.com/antchfx/xmlquery v1.3.3 // indirect
@@ -37,15 +34,12 @@ require (
 	github.com/gocolly/colly v1.2.0
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
 	github.com/golang/protobuf v1.4.3
-	github.com/google/btree v1.0.0 // indirect
 	github.com/google/gops v0.3.12
 	github.com/google/uuid v1.1.2
 	github.com/grpc-ecosystem/go-grpc-middleware v1.2.2 // indirect
-	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway v1.15.2
 	github.com/jinzhu/gorm v1.9.16
 	github.com/jonboulle/clockwork v0.2.2 // indirect
-	github.com/kardianos/osext v0.0.0-20190222173326-2bc1f35cddc0 // indirect
 	github.com/kennygrant/sanitize v1.2.4 // indirect
 	github.com/lifei6671/gocache v0.0.0-20190301061331-3d635a1235ba
 	github.com/mailru/easyjson v0.7.7 // indirect
@@ -53,14 +47,12 @@ require (
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/openzipkin-contrib/zipkin-go-opentracing v0.4.5
 	github.com/openzipkin/zipkin-go v0.2.5
-	github.com/petermattis/goid v0.0.0-20180202154549-b0b1615b78e5 // indirect
 	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.8.0 // indirect
 	github.com/qiniu/qmgo v0.8.0
 	github.com/rcrowley/go-metrics v0.0.0-20200313005456-10cdbea86bc0
 	github.com/rpcxio/rpcx-examples v1.1.6
 	github.com/saintfish/chardet v0.0.0-20120816061221-3af4cd4741ca // indirect
-	github.com/satori/go.uuid v1.2.0 // indirect
 	github.com/smallnest/rpcx v1.6.2
 	github.com/smartystreets/assertions v1.1.1 // indirect
 	github.com/soheilhy/cmux v0.1.5 // indirect
@@ -68,7 +60,6 @@ require (
 	github.com/temoto/robotstxt v1.1.1 // indirect
 	github.com/tmc/grpc-websocket-proxy v0.0.0-20200427203606-3cfed13b9966 // indirect
 	github.com/urfave/cli v1.22.4
-	github.com/xiang90/probing v0.0.0-20190116061207-43a291ad63a2 // indirect
 	github.com/xtaci/lossyconn v0.0.0-20200209145036-adba10fffc37 // indirect
 	github.com/yuin/gopher-lua v0.0.0-20200816102855-ee81675732da
 	go.etcd.io/bbolt v1.3.4 // indirect
@@ -79,7 +70,6 @@ require (
 	golang.org/x/net v0.0.0-20201202161906-c7110b5ffcbb
 	golang.org/x/sync v0.0.0-20201020160332-67f06af15bc9
 	golang.org/x/time v0.0.0-20200630173020-3af7569d3a1e
-	google.golang.org/api v0.3.1 // indirect
 	google.golang.org/genproto v0.0.0-20201026171402-d4b8fe4fd877
 	google.golang.org/grpc v1.32.0
 	google.golang.org/protobuf v1.25.0
