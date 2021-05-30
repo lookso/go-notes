@@ -32,7 +32,7 @@ func getSum() (sum int, err error) {
 		})
 	}
 	if err := group.Wait(); err != nil {
-		//return sum, err
+		return sum, err
 	}
 	return sum, nil
 }
