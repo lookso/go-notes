@@ -16,23 +16,32 @@ type Es struct {
 	Ctx    context.Context
 }
 
-var indexName = "my_es_first_index"
+//var indexName = "my_es_first_index_test"
+var indexName = "my_weibo_index_test"
 
 // 索引mapping定义，这里仿微博消息结构定义
+// settings是修改分片和副本数的。
+// mappings是修改字段和类型的。
 const mapping = `{
- "mappings": {
-   "properties": {
-     "name": {
-       "type": "text"
-     },
-     "country": {
-       "type": "text"
-     },
-	 "age": {
-       "type": "long"
-     }
-   }
- }
+    "settings": {
+        "index": {
+            "number_of_shards": 1,
+            "number_of_replicas": 0
+        }
+    },
+    "mappings": {
+        "properties": {
+            "name": {
+                "type": "text"
+            },
+            "country": {
+                "type": "text"
+            },
+            "age": {
+                "type": "long"
+            }
+        }
+    }
 }`
 
 type MappingIndex struct {
@@ -59,6 +68,7 @@ func NewEs() *Es {
 	var err error
 	// 创建ES client用于后续操作ES
 	client, err := elastic.NewClient(
+		elastic.SetSniff(false),
 		// 设置ES服务地址，支持多个地址
 		elastic.SetURL(doHost),
 		// 设置基于http base auth验证的账号和密码
@@ -177,3 +187,8 @@ func (es *Es) Search() error {
 
 // 参考文档:
 // https://www.tizi365.com/archives/850.html
+// https://www.cnblogs.com/zlslch/p/6474424.html
+
+// 定位解决 UNASSIGNED
+// https://www.imzcy.cn/2186.html
+// https://www.cnblogs.com/storyawine/p/13408248.html

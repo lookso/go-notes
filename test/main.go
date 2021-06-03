@@ -17,6 +17,9 @@ type Names struct {
 }
 
 func main() {
+	fmt.Println("time.Now().Hour()",time.Now().Hour())
+
+
 	cast.ToInt(time.Now().Unix())
 
 	var m = make(map[int]Names)

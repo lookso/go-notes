@@ -34,6 +34,7 @@ require (
 	github.com/gocolly/colly v1.2.0
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
 	github.com/golang/protobuf v1.4.3
+	github.com/google/btree v1.0.0 // indirect
 	github.com/google/gops v0.3.12
 	github.com/google/uuid v1.1.2
 	github.com/grpc-ecosystem/go-grpc-middleware v1.2.2 // indirect
@@ -70,6 +71,7 @@ require (
 	golang.org/x/net v0.0.0-20201202161906-c7110b5ffcbb
 	golang.org/x/sync v0.0.0-20201020160332-67f06af15bc9
 	golang.org/x/time v0.0.0-20200630173020-3af7569d3a1e
+	google.golang.org/api v0.3.1 // indirect
 	google.golang.org/genproto v0.0.0-20201026171402-d4b8fe4fd877
 	google.golang.org/grpc v1.32.0
 	google.golang.org/protobuf v1.25.0
