@@ -17,8 +17,13 @@ type Names struct {
 }
 
 func main() {
-	fmt.Println("time.Now().Hour()",time.Now().Hour())
 
+	timestamp := cast.ToInt(time.Now().Unix())
+	if 1622773399-timestamp > 30 {
+		fmt.Println("任务执行时间超过当前时间30分钟不可执行")
+	}
+
+	fmt.Println("time.Now().Hour()", time.Now().Hour())
 
 	cast.ToInt(time.Now().Unix())
 
