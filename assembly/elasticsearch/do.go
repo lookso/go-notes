@@ -15,13 +15,14 @@ type Es struct {
 	Client *elastic.Client
 	Ctx    context.Context
 }
-
+// 唐诗300首
 //var indexName = "my_es_first_index_test"
-var indexName = "my_weibo_index_test"
+var indexName = "my_ts300_index"
 
 // 索引mapping定义，这里仿微博消息结构定义
 // settings是修改分片和副本数的。
 // mappings是修改字段和类型的。
+// text和keyword区别是text 会先分词再成为索引,keyword是直接成为索引
 const mapping = `{
     "settings": {
         "index": {
@@ -31,23 +32,31 @@ const mapping = `{
     },
     "mappings": {
         "properties": {
-            "name": {
+            "title": {
+                "type": "keyword"
+            },
+			"name":{
+				 "type": "keyword"
+			},
+			"dynasty":{
+				 "type": "keyword"
+			},
+            "content": {
                 "type": "text"
             },
-            "country": {
-                "type": "text"
-            },
-            "age": {
-                "type": "long"
+            "word": {
+                "type": "int"
             }
         }
     }
-}`
+} `
 
-type MappingIndex struct {
+type Scheme struct {
+	Title   string `json:"title`
+	Dynasty string `json:"dynasty"`
 	Name    string `json:"name"`
-	Country string `json:"country"`
-	Age     int64  `json:"age"`
+	Content string `json:"content"`
+	Word    int64  `json:"word"`
 }
 
 var doHost = "http://127.0.0.1:9200"
@@ -128,7 +137,7 @@ func (es *Es) Insert() error {
 	for docId := 1; docId <= 100; {
 		// 创建创建一条数据
 		docIdStr := strconv.Itoa(docId)
-		msg := MappingIndex{Name: "jack" + docIdStr, Country: "打酱油的一天", Age: int64(10 + docId)}
+		msg := Scheme{Title: "静夜思", Name: "李白" + docIdStr, Content: "打酱油的一天", Word: int64(10 + docId), Dynasty: "唐"}
 		put, err := es.Client.Index().
 			Index(indexName). // 设置索引名称
 			Type("_doc"). // 默认使用_doc type
@@ -173,12 +182,12 @@ func (es *Es) Search() error {
 	fmt.Printf("查询消耗时间 %d ms, 结果总数: %d\n", searchResult.TookInMillis, searchResult.TotalHits())
 	if searchResult.TotalHits() > 0 {
 		// 查询结果不为空，则遍历结果
-		var b1 MappingIndex
+		var b1 Scheme
 		// 通过Each方法，将es结果的json结构转换成struct对象
 		for _, item := range searchResult.Each(reflect.TypeOf(b1)) {
 			// 转换成MappingIndex对象
-			if t, ok := item.(MappingIndex); ok {
-				fmt.Println(t.Name, t.Country, t.Age)
+			if t, ok := item.(Scheme); ok {
+				fmt.Println(t.Name, t.Content, t.Word)
 			}
 		}
 	}
