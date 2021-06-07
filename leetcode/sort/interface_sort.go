@@ -35,19 +35,19 @@ var us = []User{
 }
 
 func (u Users) Len() int {
-	return len(u)
+	return len(u) // 待排序的元素个数
 }
 func (u Users) Less(i, j int) bool {
-	return u[i].Age > u[j].Age
+	return u[i].Age > u[j].Age // 第i个和第j个元素比较
 }
 func (u Users) Swap(i, j int) {
-	u[i], u[j] = u[j], u[i]
+	u[i], u[j] = u[j], u[i] //第i个和第j个元素交换
 }
 
 func sortSort() {
 	fmt.Println("----------sortSort----------")
 	sort.Sort(Users(us))
-	fmt.Println("us",us)
+	fmt.Println("us", us)
 }
 
 // sort.Reverse
@@ -83,4 +83,3 @@ func sortSliceStable() {
 	})
 	fmt.Println(family) // [{David 2} {Eve 2} {Alice 23} {Bob 25}]
 }
-

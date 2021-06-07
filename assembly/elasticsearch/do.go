@@ -67,12 +67,12 @@ var doHost = "http://127.0.0.1:9200"
 
 func main() {
 	EsClient := NewEs()
-	if err := EsClient.CreateIndex(); err != nil {
-		fmt.Println("createIndex err", err)
-	}
-	if err := EsClient.Insert(); err != nil {
-		fmt.Println("insert err", err)
-	}
+	//if err := EsClient.CreateIndex(); err != nil {
+	//	fmt.Println("createIndex err", err)
+	//}
+	//if err := EsClient.Insert(); err != nil {
+	//	fmt.Println("insert err", err)
+	//}
 	if err := EsClient.Search(); err != nil {
 		fmt.Println("search err", err)
 	}
