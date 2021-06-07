@@ -76,30 +76,30 @@ func selectSort(arr []int) {
 
 }
 
-func quickSort(values []int) []int {
-	if len(values) <= 1 {
-		return nil
-	}
-	mid := values[0]
-	tail := len(values) - 1
-	head := 0
-	i := 1
-	for head < tail {
-		if values[i] > mid {
-			values[i], values[tail] = values[tail], values[i]
-			tail--
-		} else {
-			values[i], values[head] = values[head], values[i]
-			head++
-			i++
-		}
-	}
-	values[head] = mid
-	//  []int{4, 3, 1, 5, 7, 2, 8, 6}
-	quickSort(values[:head])
-	quickSort(values[head+1:])
-	return values
-}
+//func quickSort(values []int) []int {
+//	if len(values) <= 1 {
+//		return nil
+//	}
+//	mid := values[0]
+//	tail := len(values) - 1
+//	head := 0
+//	i := 1
+//	for head < tail {
+//		if values[i] > mid {
+//			values[i], values[tail] = values[tail], values[i]
+//			tail--
+//		} else {
+//			values[i], values[head] = values[head], values[i]
+//			head++
+//			i++
+//		}
+//	}
+//	values[head] = mid
+//	//  []int{4, 3, 1, 5, 7, 2, 8, 6}
+//	quickSort(values[:head])
+//	quickSort(values[head+1:])
+//	return values
+//}
 func insertSort(arr []int) {
 	if arr == nil || len(arr) < 2 {
 		fmt.Println("数组不满足要求")

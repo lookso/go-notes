@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/olivere/elastic"
+	"github.com/spf13/cast"
 	"log"
 	"os"
 	"reflect"
@@ -15,6 +16,7 @@ type Es struct {
 	Client *elastic.Client
 	Ctx    context.Context
 }
+
 // 唐诗300首
 //var indexName = "my_es_first_index_test"
 var indexName = "my_ts300_index"
@@ -22,8 +24,9 @@ var indexName = "my_ts300_index"
 // 索引mapping定义，这里仿微博消息结构定义
 // settings是修改分片和副本数的。
 // mappings是修改字段和类型的。
-// text和keyword区别是text 会先分词再成为索引,keyword是直接成为索引
-const mapping = `{
+// text和keyword区别是text存储数据时候，会自动分词，并生成索引,keyword是存储数据时候，不会分词建立索引
+// ignore_above 超过长度后将不被索引
+const indexMap = `{
     "settings": {
         "index": {
             "number_of_shards": 1,
@@ -39,6 +42,7 @@ const mapping = `{
 				 "type": "keyword"
 			},
 			"dynasty":{
+				"ignore_above":256,	
 				 "type": "keyword"
 			},
             "content": {
@@ -51,12 +55,12 @@ const mapping = `{
     }
 } `
 
-type Scheme struct {
+type Mapping struct {
 	Title   string `json:"title`
 	Dynasty string `json:"dynasty"`
 	Name    string `json:"name"`
 	Content string `json:"content"`
-	Word    int64  `json:"word"`
+	Word    int    `json:"word"`
 }
 
 var doHost = "http://127.0.0.1:9200"
@@ -123,7 +127,7 @@ func (es *Es) CreateIndex() error {
 	}
 	if !exists {
 		// weibo索引不存在，则创建一个
-		_, err := es.Client.CreateIndex(indexName).BodyString(mapping).Do(es.Ctx)
+		_, err := es.Client.CreateIndex(indexName).BodyString(indexMap).Do(es.Ctx)
 		if err != nil {
 			// Handle error
 			return err
@@ -137,7 +141,7 @@ func (es *Es) Insert() error {
 	for docId := 1; docId <= 100; {
 		// 创建创建一条数据
 		docIdStr := strconv.Itoa(docId)
-		msg := Scheme{Title: "静夜思", Name: "李白" + docIdStr, Content: "打酱油的一天", Word: int64(10 + docId), Dynasty: "唐"}
+		msg := Mapping{Title: "静夜思", Name: "李白" + docIdStr, Content: "打酱油的一天", Word: 10 + docId, Dynasty: "唐"}
 		put, err := es.Client.Index().
 			Index(indexName). // 设置索引名称
 			Type("_doc"). // 默认使用_doc type
@@ -167,26 +171,27 @@ func (es *Es) Search() error {
 		fmt.Printf("search 文档id=%s 版本号=%d 索引名=%s\n", get.Id, get.Version, get.Index)
 	}
 	// 创建term查询条件，用于精确查询
-	termQuery := elastic.NewMatchQuery("name", "jack11")
+	termQuery := elastic.NewMatchQuery("name", "李白")
 	searchResult, err := es.Client.Search().
 		Index(indexName). // 设置索引名
 		Query(termQuery). // 设置查询条件
-		Sort("age", true). // 设置排序字段，根据age字段升序排序，第二个参数false表示逆序
-		From(0). // 设置分页参数 - 起始偏移量，从第0行记录开始
+		Sort("word", true). // 设置排序字段，根据age字段升序排序，第二个参数false表示逆序
+		From(0). // 设置分页参数 - 起始偏移量,从第0行记录开始
 		Size(10). // 设置分页参数 - 每页大小
 		Pretty(true). // 查询结果返回可读性较好的JSON格式
 		Do(es.Ctx) // 执行请求
 	if err != nil {
+		fmt.Println("123213213")
 		return err
 	}
 	fmt.Printf("查询消耗时间 %d ms, 结果总数: %d\n", searchResult.TookInMillis, searchResult.TotalHits())
-	if searchResult.TotalHits() > 0 {
+	if cast.ToInt(searchResult.TotalHits()) > 0 {
 		// 查询结果不为空，则遍历结果
-		var b1 Scheme
+		var b1 Mapping
 		// 通过Each方法，将es结果的json结构转换成struct对象
 		for _, item := range searchResult.Each(reflect.TypeOf(b1)) {
 			// 转换成MappingIndex对象
-			if t, ok := item.(Scheme); ok {
+			if t, ok := item.(Mapping); ok {
 				fmt.Println(t.Name, t.Content, t.Word)
 			}
 		}
