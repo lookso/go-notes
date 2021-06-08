@@ -5,7 +5,7 @@ import (
 	"github.com/patrickmn/go-cache"
 	"time"
 )
-
+// http://www.iamlintao.com/7228.html
 type My struct {
 	Name string `json:"name"`
 	Age  int    `json:"age"`
