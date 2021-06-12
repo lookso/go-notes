@@ -17,24 +17,25 @@ func (o *Our) She() string {
 	return o.Class
 }
 
-func NewOurs(class string) IOurs {
+func NewOurs(class string) *Our {
 	return &Our{
 		Class: class,
 	}
 }
 
 type IMy interface {
-	Human(o IOurs) string
+	Human(o IOurs) (*Our, string)
 	GetDay() int
 	SetDays(day int) func() int // 生活了多少天
 }
 type My struct {
 	Height int `json:"height"`
 	Days   int `json:"days"`
+	Ours   IOurs
 }
 
-func (m *My) Human(ours IOurs) string {
-	return ours.She() +":"+ strconv.Itoa(m.Days)
+func (m *My) Human(ours IOurs) (*Our, string) {
+	return NewOurs("me"), ours.She() + ":" + strconv.Itoa(m.Days)
 }
 
 func (m *My) GetDay() int {
@@ -51,11 +52,12 @@ func (m *My) SetDays(day int) func() int {
 }
 
 func NewMy() IMy {
-	return &My{Height: 110, Days: 10}
+	return &My{Height: 110, Days: 10, Ours: NewOurs("he")}
 }
 
 func Your(my IMy) {
 	fmt.Println(my.GetDay())
+	fmt.Println()
 }
 
 func main() {
@@ -65,5 +67,7 @@ func main() {
 
 	Your(md)
 	fmt.Println(md.Human(NewOurs("she")))
+	our, _ := md.Human(NewOurs("your"))
+	fmt.Println(our.Class)
 
 }
