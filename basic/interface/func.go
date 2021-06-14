@@ -6,14 +6,14 @@ import (
 )
 
 type IOurs interface {
-	She() string
+	GetClass() string
 }
 
 type Our struct {
 	Class string `json:"class"`
 }
 
-func (o *Our) She() string {
+func (o *Our) GetClass() string {
 	return o.Class
 }
 
@@ -35,7 +35,7 @@ type My struct {
 }
 
 func (m *My) Human(ours IOurs) (*Our, string) {
-	return NewOurs("me"), ours.She() + ":" + strconv.Itoa(m.Days)
+	return NewOurs(ours.GetClass()), ours.GetClass() + ":" + strconv.Itoa(m.Days)
 }
 
 func (m *My) GetDay() int {
