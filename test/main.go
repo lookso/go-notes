@@ -11,12 +11,30 @@ import (
 )
 
 var stuList = []int{13, 12, 22, 21, 44}
-
 type Names struct {
 	Name string
 }
 
+type Info struct {
+	Name    string `json:"name"`
+	Address string `json:"address"`
+}
+type Ret map[string]Info
+var res Ret
+var s = `{
+    "12": {
+        "name": "2",
+        "address": "12"
+    }
+}`
+
 func main() {
+	err:=json.Unmarshal([]byte(s),&res)
+	fmt.Println("5555",res["12"].Name)
+
+
+	//bt, err := json.Marshal(&resp)
+	//fmt.Println("resp", string(bt))
 
 	timestamp := cast.ToInt(time.Now().Unix())
 	if 1622773399-timestamp > 30 {
@@ -44,7 +62,7 @@ func main() {
 
 	str := `[{"name":"a"},{"name":"b"}]`
 	var st = make([]Names, 0)
-	err := json.Unmarshal([]byte(str), &st)
+	err = json.Unmarshal([]byte(str), &st)
 	fmt.Println(st, len(st))
 	fmt.Println("err", err)
 	fmt.Println("------------aaaa--------")
