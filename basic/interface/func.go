@@ -57,7 +57,6 @@ func NewMy() IMy {
 
 func Your(my IMy) {
 	fmt.Println(my.GetDay())
-	fmt.Println()
 }
 
 func main() {
