@@ -42,6 +42,7 @@ func statusHandler(w http.ResponseWriter, req *http.Request, rateLimiter *redis_
 	fmt.Fprintf(w, "Allowed: %v", allowed)
 }
 
+
 func main() {
 	ring := redis.NewRing(&redis.RingOptions{
 		Addrs: map[string]string{

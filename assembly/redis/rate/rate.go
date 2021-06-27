@@ -1,0 +1,39 @@
+package main
+
+import (
+	"fmt"
+	"github.com/spf13/cast"
+	"go-notes/assembly/redis/common"
+	"time"
+)
+
+// 100s内最多允许5个请求
+func main() {
+	rate()
+}
+
+func rate() {
+	client, _ := common.RedisClient()
+	key := fmt.Sprintf("user_id_%v", 10086)
+
+	len, _ := client.LLen(key).Result()
+	if len < 5 {
+		err := client.LPush(key, time.Now().Unix()).Err()
+		if err != nil {
+			fmt.Println("err", err)
+		}
+	} else {
+		t, _ := client.LIndex(key, -1).Result()
+		if time.Now().Unix()-cast.ToInt64(t) < 100 {
+			fmt.Println("请求过多，请稍后再试")
+		} else {
+			err := client.LPush(key, time.Now().Unix()).Err()
+			if err != nil {
+				fmt.Println("err", err)
+			}
+			if err := client.LTrim(key, 0, 10).Err(); err != nil {
+				fmt.Println("err", err)
+			}
+		}
+	}
+}

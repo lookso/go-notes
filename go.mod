@@ -1,6 +1,6 @@
 module go-notes
 
-go 1.12
+go 1.16
 
 replace (
 	github.com/coreos/bbolt v1.3.4 => go.etcd.io/bbolt v1.3.4
@@ -34,7 +34,6 @@ require (
 	github.com/gocolly/colly v1.2.0
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
 	github.com/golang/protobuf v1.4.3
-	github.com/google/btree v1.0.0 // indirect
 	github.com/google/gops v0.3.12
 	github.com/google/uuid v1.1.2
 	github.com/grpc-ecosystem/go-grpc-middleware v1.2.2 // indirect
@@ -42,7 +41,6 @@ require (
 	github.com/jinzhu/gorm v1.9.16
 	github.com/jonboulle/clockwork v0.2.2 // indirect
 	github.com/kennygrant/sanitize v1.2.4 // indirect
-	github.com/lifei6671/gocache v0.0.0-20190301061331-3d635a1235ba // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/olivere/elastic v6.2.35+incompatible
 	github.com/opentracing/opentracing-go v1.2.0
@@ -64,7 +62,6 @@ require (
 	github.com/urfave/cli v1.22.4
 	github.com/xtaci/lossyconn v0.0.0-20200209145036-adba10fffc37 // indirect
 	github.com/yuin/gopher-lua v0.0.0-20200816102855-ee81675732da
-	go.etcd.io/bbolt v1.3.4 // indirect
 	go.etcd.io/etcd v3.3.25+incompatible
 	go.mongodb.org/mongo-driver v1.4.0
 	go.opencensus.io v0.22.5
@@ -72,7 +69,6 @@ require (
 	golang.org/x/net v0.0.0-20201202161906-c7110b5ffcbb
 	golang.org/x/sync v0.0.0-20201020160332-67f06af15bc9
 	golang.org/x/time v0.0.0-20200630173020-3af7569d3a1e
-	google.golang.org/api v0.3.1 // indirect
 	google.golang.org/genproto v0.0.0-20201026171402-d4b8fe4fd877
 	google.golang.org/grpc v1.32.0
 	google.golang.org/protobuf v1.25.0
