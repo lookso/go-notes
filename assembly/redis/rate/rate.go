@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-// 100s内最多允许5个请求
+// 100s内最多允许50个请求
 func main() {
 	rate()
 }
@@ -31,7 +31,8 @@ func rate() {
 			if err != nil {
 				fmt.Println("err", err)
 			}
-			if err := client.LTrim(key, 0, 10).Err(); err != nil {
+			// ltrim 裁剪 让列表只保留指定区间内的元素，不在指定区间之内的元素都将被删除
+			if err := client.LTrim(key, 0, 50).Err(); err != nil {
 				fmt.Println("err", err)
 			}
 		}
