@@ -29,6 +29,7 @@ var s = `{
 }`
 
 func main() {
+
 	err:=json.Unmarshal([]byte(s),&res)
 	fmt.Println("5555",res["12"].Name)
 
