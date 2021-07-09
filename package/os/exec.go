@@ -28,6 +28,9 @@ func main() {
 	fmt.Println(findName.Username)
 
 	fmt.Println("---------os--------")
+	fmt.Println("GOPATH",os.Getenv("GOPATH"))
+	// 获取所有环境变量
+	fmt.Println("Environ",os.Environ())
 	fmt.Println(os.Hostname())    // Hostname返回内核提供的主机名。
 	fmt.Println(os.Getpagesize()) // Getpagesize返回底层的系统内存页的尺寸。
 	fmt.Println(os.Getegid())     // Getuid返回调用者的用户ID。
@@ -36,9 +39,9 @@ func main() {
 
 	// Getwd返回一个对应当前工作目录的根路径。如果当前目录可以经过多条路径抵达（因为硬链接），Getwd会返回其中一个
 	dir, _ := os.Getwd()
-	fmt.Println(dir) // /Users/itech8/data/app/my_app/go/src/go_package/os
+	fmt.Println("dir",dir)
 
-	timeFile := dir + "/../time/basic.go"
+	timeFile := dir + "/package/os/hello.go"
 
 	file, err := os.Open(timeFile)
 	if err != nil {
