@@ -2,20 +2,24 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 	"time"
 )
 
 // 定时器
 // 可参考缓存自动失效机制
 func newTimer() {
+	fmt.Println("------------------timer----------------")
 	t := time.NewTimer(2 * time.Second)
+	count := 0
 	done := make(chan bool)
-	go func(tm *time.Timer) {
+	go func(tm *time.Timer, count int) {
 		defer tm.Stop()
 		for {
 			select {
 			case <-t.C:
-				fmt.Println("timer running....")
+				count++
+				fmt.Println("timer running...." + strconv.Itoa(count))
 				t.Reset(2 * time.Second)
 			case _, ok := <-done:
 				if ok {
@@ -24,20 +28,14 @@ func newTimer() {
 				}
 			}
 		}
-	}(t)
+	}(t, count)
 	done <- true
 	close(done)
 	select {}
 }
-func newTicker() {
-	t := time.NewTicker(2 * time.Second)
-	fmt.Println(time.Now().Format("2006-01-02 15:04:05"))
-	defer t.Stop()
-	aft := <-t.C
-	fmt.Println(aft.Format("2006-01-02 15:04:05"))
-}
 
 func newAfter() {
+	fmt.Println("------------------- time.After---------------")
 	t := time.After(time.Second * 3)
 	fmt.Printf("t type=%T\n", t)
 	//阻塞3秒
@@ -48,11 +46,10 @@ func newAfter() {
 	time.AfterFunc(2*time.Second, func() {
 		ch <- true
 	})
-	fmt.Println("ch",<-ch)
+	fmt.Println("ch", <-ch)
 }
 
 func main() {
 	newAfter()
-	newTicker()
 	newTimer()
 }
