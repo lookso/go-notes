@@ -17,22 +17,24 @@ func main() {
 		fmt.Println("ParseInLocation err", err)
 	}
 	fmt.Println(ty.Unix())
+	MyFormat()
 	// 计时器
-	limiter := time.Tick(time.Second * 5)
+	limiter := time.NewTicker(time.Second * 2)
+	defer limiter.Stop()
 	for {
 		select {
-		case <-limiter:
+		case <-limiter.C:
 			fmt.Println(time.Now().Format("2006-01-02 15:04:05"))
 		}
 	}
-	MyFormat()
+
 }
 
 // go time时间包
 type Weekday int
 
 const (
-	Sunday    Weekday = iota
+	Sunday Weekday = iota
 	Monday
 	Tuesday
 	Wednesday
@@ -41,7 +43,23 @@ const (
 	Saturday
 )
 
-func MyFormat()  {
+func MyFormat() {
+
+	fmt.Printf("今天是%d年,第%d天\n", time.Now().Year(), time.Now().YearDay())
+
+	//一年中的第几周
+	year, week := time.Now().ISOWeek()
+	fmt.Println("一年中的第几周: ", year, " | ", week)
+
+	//当前是周几
+	fmt.Println("当前是周几: ", time.Now().Weekday().String())
+
+	hBefor, _ := time.ParseDuration("-24h")
+	fmt.Println("24h前:", time.Now().Add(hBefor).Format("2006-01-02 15:04:05"))
+
+	hAfter, _ := time.ParseDuration("24h")
+	fmt.Println("24h后:", time.Now().Add(hAfter).Format("2006-01-02 15:04:05"))
+
 	fmt.Println(Monday)
 	year, month, day := time.Now().Date()
 	if month != time.August && day == 01 {
@@ -69,7 +87,7 @@ func MyFormat()  {
 	now := time.Now()
 	nowYear, nowMonth, nowDay := now.Date()
 	fmt.Printf("今天是:%d-%d-%d\n", nowYear, nowMonth, nowDay)
-	fmt.Printf("当前时间戳精确到秒:%v\n", time.Now().Unix())       // 当前时间戳
+	fmt.Printf("当前时间戳精确到秒:%v\n", time.Now().Unix())      // 当前时间戳
 	fmt.Printf("当前时间戳精确到纳秒:%v\n", time.Now().UnixNano()) // 当前时间戳
 	fmt.Printf("格式化当前日期:%v\n", time.Now().Format("2006-01-02 15:04:05"))
 	fmt.Printf("%v\n", time.Now().Format("2006-01-02"))
@@ -77,7 +95,6 @@ func MyFormat()  {
 	currentTimeData := time.Date(t1, t2, t3, t4, t5, t6, t7, time.Local)
 	fmt.Printf("%v\n", currentTimeData)
 
-	fmt.Printf("今天是周%d\n", Friday)
 	formatTimeStr := time.Unix(time.Now().Unix(), 0).Format("2006-01-02 15:04:05")
 	fmt.Println("将当前时间戳转换为格式化日期:", formatTimeStr)
 
@@ -85,4 +102,5 @@ func MyFormat()  {
 	p, _ := time.Parse("2006-01-02 15:04:05", nowDate)
 	fmt.Println("将指定日期转换为时间戳:", p.Unix())
 }
+
 // time.tick()和time.sleep() 区别:https://blog.csdn.net/Star_CSU/article/details/86650684
