@@ -18,8 +18,8 @@ func newTicker() {
 	}
 }
 func main() {
+	newTicker()
 	if err := agent.Listen(agent.Options{ShutdownCleanup: true}); err != nil {
 		log.Fatalln(err)
 	}
-	newTicker()
 }
