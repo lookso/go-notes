@@ -1,8 +1,8 @@
 .PHONY: build
 
 echo:
-	echo gopath: $$GOPATH"\n"
-	echo post_url:"http://www.ruanyifeng.com/blog/2015/02/make.html"\n
+	echo gopath: $$GOPATH
+	echo post_url:"http://www.ruanyifeng.com/blog/2015/02/make.html"
 
 SERVICE := hello
 MAIN := cmd/
