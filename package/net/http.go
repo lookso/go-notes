@@ -6,6 +6,8 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"runtime"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -55,6 +57,23 @@ func Demo(w http.ResponseWriter, r *http.Request) {
 	res := build.String()
 	fmt.Println(w.Write([]byte(res)))
 }
+func Chan(w http.ResponseWriter, r *http.Request) {
+	taskChan := make(chan int)
+	consumer := func() {
+		for task := range taskChan {
+			_ = task
+		}
+	}
+	producer := func() {
+		for i := 0; i < 10; i++ {
+			taskChan <- i
+		}
+		close(taskChan) // 此处如果没有关闭chan,将发生协程泄露
+	}
+	go consumer()
+	go producer()
+	fmt.Println(w.Write([]byte("goroutine-num:" + strconv.Itoa(runtime.NumGoroutine())))) // 打印当前协程数量
+}
 
 func handle(done chan string) {
 	for {
@@ -71,6 +90,7 @@ func handle(done chan string) {
 func main() {
 	http.HandleFunc("/index", Index)
 	http.HandleFunc("/demo", Demo)
+	http.HandleFunc("/chan", Chan)
 	if err := http.ListenAndServe(":8000", nil); err != nil {
 		fmt.Println(err)
 	}

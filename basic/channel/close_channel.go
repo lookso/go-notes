@@ -2,41 +2,42 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
+	"runtime"
 	"time"
 )
 
 func main() {
-
-	rand.Seed(time.Now().UnixNano())
-	const Max = 100000
-	const NumSenders = 1000
-	dataCh := make(chan int, 100)
+	defer func() {
+		fmt.Println("goroutine-num", runtime.NumGoroutine())
+	}()
+	const NumSenders = 50
+	dataCh := make(chan int)
 	stopCh := make(chan struct{})
+	defer close(dataCh)
 	// senders
 	for i := 0; i < NumSenders; i++ {
-		go func() {
+		go func(i int) {
 			for {
 				select {
 				case <-stopCh:
 					return
-				case dataCh <- rand.Intn(Max):
+				case dataCh <- i:
 				}
 			}
-		}()
+		}(i)
 	}
 	// the receiver
-	go func() {
-		for value := range dataCh {
-			if value == Max-1 {
-				fmt.Println("send stop signal to senders.")
-				close(stopCh)
-				return
-			}
-			fmt.Println(value)
+	for value := range dataCh {
+		if value == 10 {
+			fmt.Println("send stop signal to senders.")
+			close(stopCh)
+			break
 		}
-	}()
-	select {
-	case <-time.After(time.Hour):
+		fmt.Println(value)
 	}
+	select {
+	case <-time.After(time.Second * 6):
+		fmt.Println("5s after....")
+	}
+
 }
