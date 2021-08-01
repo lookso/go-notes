@@ -56,7 +56,16 @@ func doDb() error {
 	db := GetDB()
 	//创建数据
 	//createWinner := Winners{UserId: 100861, Name: "jack", Phone: 15010549088, Province: "河南省", City: "南阳市", Area: "龙阳县", AddInfo: "龙阳县聚龙潭街108单元100861室", PrizeLevel: 1}
-	createWinner := Winners{UserId: 100861, Name: "jack", Phone: 15010549088, Province: "河南省", City: "南阳市", Area: "龙阳县", AddInfo: "龙阳县聚龙潭街108单元100861室", PrizeLevel: 1}
+	createWinner := Winners{
+		UserId:     100861,
+		Name:       "jack",
+		Phone:      15010549088,
+		Province:   "河南省",
+		City:       "南阳市",
+		Area:       "龙阳县",
+		AddInfo:    "龙阳县聚龙潭街108单元100861室",
+		PrizeLevel: 1,
+	}
 
 	db.NewRecord(createWinner) // => 返回 `true` ，因为主键为空
 

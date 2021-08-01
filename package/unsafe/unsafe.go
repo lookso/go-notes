@@ -6,7 +6,7 @@ import (
 )
 
 type NextYear struct {
-	Year int8    `json:"year"`
+	Year int8 `json:"year"`
 	Moon int8 `json:"moon"`
 	Day  int  `json:"day"`
 }
