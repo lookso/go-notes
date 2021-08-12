@@ -9,6 +9,15 @@ import (
 var SleepTime = 3000
 
 func main() {
+	var a = []int{1}
+	var b = append(a, 1)
+	fmt.Println(a, b)
+
+	classIDs := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+	if len(classIDs) > 5 {
+		classIDs = classIDs[:5]
+	}
+	fmt.Println("classIDs", classIDs)
 	fmt.Println(cast.ToStringSlice(12))
 
 	var phone = "15010659038"
