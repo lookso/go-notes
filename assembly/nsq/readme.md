@@ -5,7 +5,7 @@ localhost :: netcode/nsq-master/build » ./nsqlookupd
 [nsqlookupd] 2021/08/14 18:28:43.031308 INFO: HTTP: listening on [::]:4161
 
 
-localhost :: netcode/nsq-master/build » ./nsqd --lookupd-tcp-address=127.0.0.1:4160                                127 ↵
+localhost :: netcode/nsq-master/build » ./nsqd --lookupd-tcp-address=127.0.0.1:4160
 [nsqd] 2021/08/14 16:54:07.734379 INFO: nsqd v1.2.1-alpha (built w/go1.12.10)
 [nsqd] 2021/08/14 16:54:07.734549 INFO: ID: 16
 [nsqd] 2021/08/14 16:54:07.735162 INFO: TOPIC(test): created
