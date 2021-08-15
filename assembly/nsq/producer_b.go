@@ -17,6 +17,7 @@ func main() {
 	}
 
 	topicName := "my_topic_test"
+	deferredTopic := "my_deferred_topic_test"
 
 	// Synchronously publish a single message to the specified topic.
 	// Messages can also be sent asynchronously and/or in batches.
@@ -30,6 +31,11 @@ func main() {
 					log.Fatal(err)
 				}
 				time.Sleep(time.Second * time.Duration(1))
+				// 延迟消息
+				err = producer.DeferredPublish(deferredTopic, time.Second*10, messageBody)
+				if err != nil {
+					log.Fatal(err)
+				}
 			}
 			process <- 1
 		}(process)
