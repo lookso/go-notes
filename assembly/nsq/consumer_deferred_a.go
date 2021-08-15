@@ -41,7 +41,7 @@ func (h *myMessageHandler) HandleMessage(m *nsq.Message) error {
 func main() {
 	// Instantiate a consumer that will subscribe to the provided channel.
 	config := nsq.NewConfig()
-	consumer, err := nsq.NewConsumer("my_deferred_topic_test", "my_channel", config)
+	consumer, err := nsq.NewConsumer("my_deferred_topic_test", "my_deferred_channel_a", config)
 	if err != nil {
 		log.Fatal(err)
 	}

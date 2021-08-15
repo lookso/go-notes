@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"golang.org/x/sync/errgroup"
 	"log"
 	"os"
 	"os/signal"
@@ -10,39 +11,44 @@ import (
 	"github.com/nsqio/go-nsq"
 )
 
-func processMessageA(m []byte) error {
+func processMessageBB(m []byte) error {
 	fmt.Printf("%s\n", m)
 	return nil
 }
 
-type myMessageHandlerA struct{}
+type myMessageHandlerBB struct{}
 
 // HandleMessage implements the Handler interface.
-func (h *myMessageHandlerA) HandleMessage(m *nsq.Message) error {
-	if len(m.Body) == 0 {
-		// Returning nil will automatically send a FIN command to NSQ to mark the message as processed.
-		// In this case, a message with an empty body is simply ignored/discarded.
-		return nil
+func (h *myMessageHandlerBB) HandleMessage(m *nsq.Message) error {
+	var eg errgroup.Group
+	eg.Go(func() error {
+		if len(m.Body) == 0 {
+			// Returning nil will automatically send a FIN command to NSQ to mark the message as processed.
+			// In this case, a message with an empty body is simply ignored/discarded.
+			return nil
+		}
+		// do whatever actual message processing is desired
+		err := processMessageBB(m.Body)
+		return err
+	})
+	if err := eg.Wait(); err != nil {
+		return err
 	}
-
-	// do whatever actual message processing is desired
-	err := processMessageA(m.Body)
-
 	// Returning a non-nil error will automatically send a REQ command to NSQ to re-queue the message.
-	return err
+	return nil
 }
 
 func main() {
 	// Instantiate a consumer that will subscribe to the provided channel.
 	config := nsq.NewConfig()
-	consumer, err := nsq.NewConsumer("my_topic_test", "my_channel_a", config)
+	consumer, err := nsq.NewConsumer("my_deferred_topic_test", "my_deferred_channel_b", config)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	// Set the Handler for messages received by this Consumer. Can be called multiple times.
 	// See also AddConcurrentHandlers.
-	consumer.AddHandler(&myMessageHandlerA{})
+	consumer.AddHandler(&myMessageHandlerBB{})
 
 	// Use nsqlookupd to discover nsqd instances.
 	// See also ConnectToNSQD, ConnectToNSQDs, ConnectToNSQLookupds.
