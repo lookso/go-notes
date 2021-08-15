@@ -26,7 +26,7 @@ func main() {
 	}
 	log.Println("删除后数组长度：", len(intMap))
 
-	// 再次进行手动GC回收
+	// 试试再次进行手动GC回收
 	runtime.GC()
 	printMemStats("删除map数据后")
 

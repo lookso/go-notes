@@ -19,6 +19,10 @@ func work(in <-chan int, quit <-chan bool) {
 		}
 	}
 }
+//
+//  main
+//  @Description:
+//
 func main() {
 	var quit = make(chan bool)
 	var in = make(chan int)
