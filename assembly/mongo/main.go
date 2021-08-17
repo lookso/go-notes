@@ -44,12 +44,12 @@ func main() {
 
 	// multiple insert
 	var userInfos = []UserInfo{
-		UserInfo{Name: "a1", Age: 6, Weight: 20},
-		UserInfo{Name: "b2", Age: 6, Weight: 25},
-		UserInfo{Name: "c3", Age: 6, Weight: 30},
-		UserInfo{Name: "d4", Age: 6, Weight: 35},
-		UserInfo{Name: "a1", Age: 7, Weight: 40},
-		UserInfo{Name: "a1", Age: 8, Weight: 45},
+		{Name: "a1", Age: 6, Weight: 20},
+		{Name: "b2", Age: 6, Weight: 25},
+		{Name: "c3", Age: 6, Weight: 30},
+		{Name: "d4", Age: 6, Weight: 35},
+		{Name: "a1", Age: 7, Weight: 40},
+		{Name: "a1", Age: 8, Weight: 45},
 	}
 	_, err = cli.Collection.InsertMany(ctx, userInfos)
 	if err != nil {

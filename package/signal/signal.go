@@ -20,7 +20,7 @@ func ListenAll() {
 }
 
 // 监听指定信号
-func ListenSigUsr()  {
+func ListenSigUsr() {
 	//合建chan
 	c := make(chan os.Signal)
 	//监听指定信号 ctrl+c kill
@@ -31,3 +31,5 @@ func ListenSigUsr()  {
 	s := <-c
 	fmt.Println("退出信号", s)
 }
+
+// SIGKILL 和SIGSTOP信号不能被捕获,SIGKILL就是kill -9 -pid ,kill -pid 等同SIGTERM

@@ -40,7 +40,6 @@ func binarySearch(arr []int, findVal int, start int, end int) (key int) {
 		return binarySearch(arr, findVal, start, mid-1)
 	} else {
 		return binarySearch(arr, findVal, mid+1, end)
-
 	}
 }
 
