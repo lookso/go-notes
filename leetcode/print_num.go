@@ -1,5 +1,5 @@
 /*
-@Time : 2019/5/13 10:12 AM 
+@Time : 2019/5/13 10:12 AM
 @Author : Tenlu
 @File : basic
 @Software: GoLand
@@ -7,19 +7,47 @@
 package main
 
 import (
-	"time"
 	"fmt"
+	"time"
 )
 
-func main()  {
+func main() {
 	//getNum()
 	getNum2()
 	//getNum3()
-	time.Sleep(2*time.Second)
+	time.Sleep(2 * time.Second)
+}
+
+func getNum2() {
+	a := make(chan bool, 1)
+	b := make(chan bool)
+	exit := make(chan bool)
+
+	go func() {
+		for i := 1; i <= 10; i++ {
+			if ok := <-a; ok {
+				fmt.Println("a = ", 2*i-1)
+				b <- true
+			}
+		}
+	}()
+	go func() {
+		defer func() {
+			close(exit)
+		}()
+		for i := 1; i <= 10; i++ {
+			if ok := <-b; ok {
+				fmt.Println("b : ", 2*i)
+				a <- true
+			}
+		}
+	}()
+	a <- true
+	<-exit
 }
 
 // 协程交替输出1-20之间的数字
-func getNum()  {
+func getNum() {
 
 	//go func() {
 	//	for i:=1;i<=10 ;i++  {
@@ -44,7 +72,7 @@ func getNum()  {
 			<-c1
 			go func(i int) {
 				fmt.Println(2*i - 1)
-				c2<-1
+				c2 <- 1
 			}(i)
 		}
 	}()
@@ -57,37 +85,10 @@ func getNum()  {
 			}(i)
 		}
 	}()
-	c1<-1
+	c1 <- 1
 }
 
-func getNum2()  {
-	A := make(chan bool, 1)
-	B := make(chan bool)
-	Exit := make(chan bool)
-
-	go func() {
-		for i := 1; i <= 10; i++ {
-			if ok := <-A; ok {
-				fmt.Println("A = ", 2*i-1)
-				B <- true
-			}
-		}
-	}()
-	go func() {
-		defer func() {
-			close(Exit)
-		}()
-		for i := 1; i <= 10; i++ {
-			if ok := <-B; ok {
-				fmt.Println("B : ", 2*i)
-				A <- true
-			}
-		}
-	}()
-	A <- true
-	<-Exit
-}
-func getNum3()  {
+func getNum3() {
 	ch := make(chan int)
 	exit := make(chan struct{})
 
@@ -113,4 +114,3 @@ func getNum3()  {
 
 	<-exit
 }
-
