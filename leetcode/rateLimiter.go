@@ -7,10 +7,9 @@
 package main
 
 import (
+	"fmt"
 	"sync"
 	"time"
-	"testing"
-	"fmt"
 )
 //lck：lck是互斥锁，主要用来防止并发情况下产生错误。
 //rate：速率，即接口每秒限制多少个请求。在这里也就是水滴从漏桶中流出的速度，同时也是余量增加的速度。
@@ -55,7 +54,7 @@ func (r *rateLimiter) Check() bool {
 	return ok
 }
 
-func TestRateLimiter_Check(t *testing.T) {
+func main() {
 	limiter := NewRateLimiter(10, 1)
 	start := time.Now()
 	count := 0
@@ -68,8 +67,4 @@ func TestRateLimiter_Check(t *testing.T) {
 	}
 	fmt.Println("count:", count)
 	fmt.Println(time.Now().Sub(start).Seconds())
-}
-
-func main()  {
-	TestRateLimiter_Check()
 }
