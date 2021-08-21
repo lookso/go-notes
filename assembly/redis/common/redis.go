@@ -28,3 +28,30 @@ func RedisClient() (*redis.Client, error) {
 	fmt.Println("connect", pong)
 	return client, nil
 }
+
+// 哨兵模式
+func FailoverClient() (err error) {
+	ctx := context.Background()
+	rdb := redis.NewFailoverClient(&redis.FailoverOptions{
+		MasterName:    "master",
+		SentinelAddrs: []string{"x.x.x.x:26379", "xx.xx.xx.xx:26379", "xxx.xxx.xxx.xxx:26379"},
+	})
+	_, err = rdb.Ping(ctx).Result()
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// 集群模式
+func ClusterClient() (err error) {
+	ctx := context.Background()
+	rdb := redis.NewClusterClient(&redis.ClusterOptions{
+		Addrs: []string{":7000", ":7001", ":7002", ":7003", ":7004", ":7005"},
+	})
+	_, err = rdb.Ping(ctx).Result()
+	if err != nil {
+		return err
+	}
+	return nil
+}
