@@ -27,8 +27,11 @@ require (
 	github.com/fortytw2/leaktest v1.3.0 // indirect
 	github.com/gin-gonic/gin v1.6.3
 	github.com/go-redis/redis v6.15.9+incompatible
-	github.com/go-redis/redis/v7 v7.4.0
+	github.com/go-redis/redis/v7 v7.4.0 // indirect
+	github.com/go-redis/redis/v8 v8.4.0
 	github.com/go-redis/redis_rate/v7 v7.0.1
+	github.com/go-redis/redis_rate/v8 v8.0.0 // indirect
+	github.com/go-redis/redis_rate/v9 v9.1.1 // indirect
 	github.com/gobwas/glob v0.2.3 // indirect
 	github.com/gocolly/colly v1.2.0
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b

@@ -1,8 +1,9 @@
 package main
 
 import (
+	"context"
 	"fmt"
-	"github.com/go-redis/redis"
+	"github.com/go-redis/redis/v8"
 	"github.com/google/uuid"
 	"go-notes/assembly/redis/common"
 	"log"
@@ -11,29 +12,22 @@ import (
 	"time"
 ) //redis package
 
-//connect redis
-var client = redis.NewClient(&redis.Options{
-	Addr:     ":6379",
-	Password: "",
-	DB:       0,
-})
-
-func init() {
-	if err := client.Ping().Err(); err != nil {
-		panic(err)
-	}
-}
-
 func getUuid() string {
 	return uuid.New().String()
 }
 
+var client *redis.Client
+
+func init() {
+	client, _ = common.RedisClient()
+}
+
 //lock
-func lock(myfunc func()) {
+func lock(ctx context.Context, myfunc func()) {
 	uuid := getUuid()
 	var lockKey = "mylockr"
 	//lock
-	lockSuccess, err := client.SetNX(lockKey, uuid, time.Second*5).Result()
+	lockSuccess, err := client.SetNX(ctx, lockKey, uuid, time.Second*5).Result()
 	if err != nil || !lockSuccess {
 		fmt.Println("get lock fail")
 		return
@@ -44,9 +38,9 @@ func lock(myfunc func()) {
 	myfunc()
 	//unlock
 	// get和del不是原子性,考虑放到lua脚本
-	value, _ := client.Get(lockKey).Result()
+	value, _ := client.Get(ctx, lockKey).Result()
 	if value == uuid {
-		_, err = client.Del(lockKey).Result()
+		_, err = client.Del(ctx, lockKey).Result()
 
 		if err != nil {
 			fmt.Println("unlock fail")
@@ -69,22 +63,23 @@ func incr() {
 var wg sync.WaitGroup
 
 func main() {
+	ctx := context.Background()
 	for i := 0; i < 5; i++ {
 		wg.Add(1)
 		go func() {
-			lock(incr)
+			lock(ctx, incr)
 			defer wg.Done()
 		}()
 	}
 	wg.Wait()
 	fmt.Printf("final counter is %d \n", counter)
-	lk()
+	lk(ctx)
 }
 
-func lk(){
+func lk(ctx context.Context) {
 	fmt.Println("This is a program for go to use go_redis.")
 	//connect
-	client,_:=common.RedisClient()
+	client, _ := common.RedisClient()
 	defer client.Close()
 
 	var rw sync.RWMutex
@@ -96,11 +91,11 @@ func lk(){
 			defer group.Done()
 			for {
 				j++
-				err := client.Do("set", "groupId:"+strconv.Itoa(i)+strconv.Itoa(j), "name:"+strconv.Itoa(i)+strconv.Itoa(j), "ex", "50", "nx").Err()
+				err := client.Do(ctx, "set", "groupId:"+strconv.Itoa(i)+strconv.Itoa(j), "name:"+strconv.Itoa(i)+strconv.Itoa(j), "ex", "50", "nx").Err()
 				if err != nil {
 					log.Fatal("err", err)
 				}
-				name, _ := client.Get("groupId:" + strconv.Itoa(i) + strconv.Itoa(j)).Result()
+				name, _ := client.Get(ctx, "groupId:"+strconv.Itoa(i)+strconv.Itoa(j)).Result()
 				if name != "" {
 					fmt.Println("string:", name)
 				}

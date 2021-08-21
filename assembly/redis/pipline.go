@@ -1,18 +1,20 @@
 package main
 
 import (
+	"context"
 	"fmt"
-	"github.com/go-redis/redis"
+	"github.com/go-redis/redis/v8"
 	"go-notes/assembly/redis/common"
 )
 
 func main() {
-	client,_ := common.RedisClient()
-	client.HSet("1371648200","sex",100)
+	ctx := context.Background()
+	client, _ := common.RedisClient()
+	client.HSet(ctx, "1371648200", "sex", 100)
 	pipe := client.Pipeline()
-	pipe.HGetAll("1371648200")
-	pipe.HGetAll("1371648200")
-	cmders, err := pipe.Exec()
+	pipe.HGetAll(ctx, "1371648200")
+	pipe.HGetAll(ctx, "1371648200")
+	cmders, err := pipe.Exec(ctx)
 	if err != nil {
 		fmt.Println("err", err)
 	}

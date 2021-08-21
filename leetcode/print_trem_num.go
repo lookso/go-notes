@@ -23,29 +23,30 @@ func main() {
 	l := math.Ceil(lf)
 	ll := cast.ToInt(l)
 	fmt.Println("ll", ll)
+	lock := sync.Mutex{}
 	var stuIds = make([]int, 0)
 	var wg = &sync.WaitGroup{}
-	lock := sync.Mutex{}
 	for i := 1; i <= ll; i++ {
 		wg.Add(1)
-		lock.Lock()
 		go func(i int) {
-			defer lock.Unlock()
 			fmt.Println("--" + strconv.Itoa(i) + "---")
 			defer func() {
 				if err := recover(); err != nil {
 					fmt.Println("panic err", err)
 				}
-				defer wg.Done()
+				lock.Unlock()
+				wg.Done()
+
 			}()
 			dl := i*num - 1
 			if i > len(arr)/num {
 				dl = len(arr) - 1
 			}
+			lock.Lock()
 			for j := (i - 1) * num; j <= dl; j++ {
-				fmt.Println(arr[j])
-				stuIds = append(stuIds, arr[j])
+				stuIds = append(stuIds, arr[j]) // 并发写入确实有问题
 			}
+
 			//ch <- i
 			fmt.Println("goroutine num", runtime.NumGoroutine())
 		}(i)
@@ -53,5 +54,6 @@ func main() {
 	}
 	wg.Wait()
 	fmt.Println("goroutine num", runtime.NumGoroutine())
-	fmt.Println("stu_ids", stuIds)
+	fmt.Println("stu_ids", len(stuIds), stuIds)
+
 }

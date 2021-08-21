@@ -1,8 +1,9 @@
 package main
 
 import (
+	"context"
 	"fmt"
-	"github.com/go-redis/redis"
+	"github.com/go-redis/redis/v8"
 	"go-notes/assembly/redis/common"
 )
 
@@ -11,8 +12,9 @@ import (
 //"213.2058"
 
 func main() {
+	ctx:=context.Background()
 	client, _ := common.RedisClient()
-	client.GeoAdd("geo_hash", &redis.GeoLocation{
+	client.GeoAdd(ctx,"geo_hash", &redis.GeoLocation{
 		Name:      "天府广场",
 		Longitude: 104.072833,
 		Latitude:  30.663422,
@@ -42,7 +44,7 @@ func main() {
 		Latitude:  30.670737,
 	}).Result()
 	// GeoPos从key里返回所有给定位置元素的位置（经度和纬度）
-	resPos, err := client.GeoPos("geo_hash", "天府广场", "宽窄巷子").Result()
+	resPos, err := client.GeoPos(ctx,"geo_hash", "天府广场", "宽窄巷子").Result()
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -52,7 +54,7 @@ func main() {
 		fmt.Println("geoPos", *v)
 	}
 	// GeoHash返回一个或多个位置元素的 Geohash 表示
-	resHash, err := client.GeoHash("geo_hash", "天府广场", "四川大剧院").Result()
+	resHash, err := client.GeoHash(ctx,"geo_hash", "天府广场", "四川大剧院").Result()
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -60,7 +62,7 @@ func main() {
 		fmt.Println("geoHash", v)
 	}
 
-	resRadiu, _ := client.GeoRadius("geo_hash", 104.072833, 30.663422, &redis.GeoRadiusQuery{
+	resRadiu, _ := client.GeoRadius(ctx,"geo_hash", 104.072833, 30.663422, &redis.GeoRadiusQuery{
 		Radius:      800,   //radius表示范围距离，
 		Unit:        "m",   //距离单位是 m|km|ft|mi
 		WithCoord:   true,  //传入WITHCOORD参数，则返回结果会带上匹配位置的经纬度
