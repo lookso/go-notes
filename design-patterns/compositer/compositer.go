@@ -1,6 +1,7 @@
 package composite
 
 // region start composite swimmer demo
+// 组合模式
 type ITrainer interface {
 	Train()
 }

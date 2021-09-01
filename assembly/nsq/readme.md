@@ -1,3 +1,5 @@
+doc:http://doc.yonyoucloud.com/doc/wiki/project/nsq-guide/nsqd.html
+
 [nsqlookupd] 2021/08/14 18:28:39.127270 INFO: TCP: closing [::]:4160
 localhost :: netcode/nsq-master/build » ./nsqlookupd
 [nsqlookupd] 2021/08/14 18:28:43.030785 INFO: nsqlookupd v1.2.1-alpha (built w/go1.12.10)
@@ -35,3 +37,5 @@ localhost :: netcode/nsq-master/build » ./nsq_to_file --topic=my_topic_test --o
 [nsq_to_file] 2021/08/14 18:29:35.208845 INFO: [my_topic_test/nsq_to_file] syncing 1 records to disk
 
 
+
+http://localhost:4161/lookup?topic=my_topic_test

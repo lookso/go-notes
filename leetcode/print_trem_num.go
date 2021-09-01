@@ -34,9 +34,7 @@ func main() {
 				if err := recover(); err != nil {
 					fmt.Println("panic err", err)
 				}
-				lock.Unlock()
 				wg.Done()
-
 			}()
 			dl := i*num - 1
 			if i > len(arr)/num {
@@ -46,14 +44,11 @@ func main() {
 			for j := (i - 1) * num; j <= dl; j++ {
 				stuIds = append(stuIds, arr[j]) // 并发写入确实有问题
 			}
-
-			//ch <- i
+			lock.Unlock()
 			fmt.Println("goroutine num", runtime.NumGoroutine())
 		}(i)
-		//<-ch
 	}
 	wg.Wait()
 	fmt.Println("goroutine num", runtime.NumGoroutine())
 	fmt.Println("stu_ids", len(stuIds), stuIds)
-
 }
