@@ -16,6 +16,7 @@ require (
 	github.com/antchfx/htmlquery v1.2.3 // indirect
 	github.com/antchfx/xmlquery v1.3.3 // indirect
 	github.com/aws/aws-sdk-go v1.35.20 // indirect
+	github.com/boltdb/bolt v1.3.1 // indirect
 	github.com/coreos/bbolt v1.3.4 // indirect
 	github.com/coreos/etcd v3.3.25+incompatible
 	github.com/coreos/go-semver v0.3.0 // indirect
