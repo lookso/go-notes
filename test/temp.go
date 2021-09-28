@@ -7,40 +7,41 @@ import (
 	"strconv"
 )
 
-// 0-2   1
-// 3-5   2
-// 6-8   3
-// 9-11  4
-
 // 一组数字,按照每5个元素长度起一个协程,不足5个的按5个算,有序打印出所有元素
 func main() {
-	var arr = []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24}
-	var ch = make(chan int)
-	var num = 10
-	lf, _ := strconv.ParseFloat(fmt.Sprintf("%.2f", float64(len(arr))/float64(num)), 64)
+	var arr = []int{20, 21, 40, 12, 435, 4, 32, 17, 34, 765, 678, 23, 29}
+	var newArr = make([]int, 0)
+	var m = map[int]int{4: 1}
+	//var temp=4
+	for k, v := range arr {
+		newArr = append(newArr, v)
+		if _, ok := m[v]; ok {
+			newArr[0], newArr[k] = v, newArr[0]
+		}
+	}
+	// 401  3 1203(500+500+203)
+
+	// 200  3  600
+	// 30 4 120
+
+	lf, _ := strconv.ParseFloat(fmt.Sprintf("%.2f", float64(1203)/float64(500)), 64)
 	l := math.Ceil(lf)
 	ll := cast.ToInt(l)
-	fmt.Println("ll", ll)
-	var stuIds = make([]int, 0)
+	// 0-166
+	// 166-332
+	//332-(401-332)
+	ll = 3
 	for i := 1; i <= ll; i++ {
-		go func(i int) {
-			defer func() {
-				if err := recover(); err != nil {
-					fmt.Println("panic err", err)
-				}
-			}()
-			dl := i*num - 1
-			if i > len(arr)/num {
-				dl = len(arr) - 1
+		if ll > 1 {
+			s := 500 / 3
+			if i == ll {
+				fmt.Println((i-1)*s,":",401)
+			} else {
+				fmt.Println((i-1) * s,":",i * s)
 			}
-			for j := (i - 1) * num; j <= dl; j++ {
-				fmt.Println(arr[j])
-				stuIds = append(stuIds, arr[j])
-			}
-			fmt.Println("--" + strconv.Itoa(i) + "---")
-			ch <- i
-		}(i)
-		<-ch
+		}
 	}
-	fmt.Println("stu_ids", stuIds)
+
+	fmt.Println(newArr)
+
 }
