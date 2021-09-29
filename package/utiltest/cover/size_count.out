@@ -1,0 +1,11 @@
+mode: count
+go-notes/package/utiltest/cover/cover.go:3.25,5.9 1 2
+go-notes/package/utiltest/cover/cover.go:17.2,17.19 1 0
+go-notes/package/utiltest/cover/cover.go:6.13,7.20 1 1
+go-notes/package/utiltest/cover/cover.go:8.14,9.16 1 0
+go-notes/package/utiltest/cover/cover.go:10.14,11.17 1 1
+go-notes/package/utiltest/cover/cover.go:12.15,13.15 1 0
+go-notes/package/utiltest/cover/cover.go:14.16,15.16 1 0
+go-notes/package/utiltest/cover/cover.go:20.24,21.14 1 10
+go-notes/package/utiltest/cover/cover.go:24.2,24.14 1 5
+go-notes/package/utiltest/cover/cover.go:21.14,23.3 1 5
