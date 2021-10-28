@@ -9,24 +9,56 @@ package main
 import (
 	"fmt"
 	"sync"
-	"time"
 )
 
-func main() {
-	testMap:=make(map[int]int)
-	testMap[1]=1
-	v:=testMap[1]
-	fmt.Println(v)
+type ScrmOpen struct {
+	appId  string
+	appKey string
+}
+type ScrmOpen2 struct {
+	appId  string
+	appKey string
+}
 
-	var once sync.Once
-	for i := 0; i < 5; i++ {
-		go func(i int) {
-			fun1 := func() {
-				fmt.Printf("i:=%d\n", i)
-			}
-			once.Do(fun1)
-		}(i)
+func main() {
+
+	fmt.Println(NewScrmOpenApi(2))
+	fmt.Println(NewScrmOpenApi(1))
+	fmt.Println(NewScrmOpenApi(1))
+	fmt.Println(NewScrmOpenApi(2))
+}
+
+var once sync.Once
+
+type ScrmOpenApiV2 struct {
+	AppId string `json:"app_id"`
+}
+
+var instance *ScrmOpenApiV2
+var instance2 *ScrmOpenApiV2
+
+func NewScrmOpenApi(t int) *ScrmOpenApiV2 {
+	if t==2{
+		return once2()
 	}
-	// 为了防止主goroutine直接运行完了，啥都看不到
-	time.Sleep(50 * time.Millisecond)
+	return newonce()
+}
+func once2() *ScrmOpenApiV2 {
+	if instance != nil {
+		return instance
+	}
+	var once sync.Once
+	once.Do(func() {
+		instance=new(ScrmOpenApiV2)
+		instance.AppId="1"
+	})
+	return instance
+}
+func newonce()  *ScrmOpenApiV2{
+	var once sync.Once
+	once.Do(func() {
+		instance2=new(ScrmOpenApiV2)
+		instance2.AppId="2"
+	})
+	return instance2
 }

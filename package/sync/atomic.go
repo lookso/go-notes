@@ -26,6 +26,10 @@ func main() {
 		fmt.Println("new", new)
 		fmt.Println("addr", addr)
 	}
+	// 不比较旧址,只是简单替换
+	oldInt := atomic.SwapInt32(&addr, new)
+	fmt.Println("oldInt", oldInt)
+
 	fmt.Println("------LoadInt32--------")
 	// 载入
 	// 如果一个写操作未完成，有一个读操作就已经发生了，这样读操作使很糟糕的。加写锁
@@ -38,12 +42,17 @@ func main() {
 	fmt.Println("pv", pv)
 	// 在原子的存储某个值的过程中，任何cpu都不会进行针对进行同一个值的读或写操作。
 	// 如果我们把所有针对此值的写操作都改为原子操作，那么就不会出现针对此值的读操作读操作因被并发的进行而读到修改了一半的情况。
-	atomic.StoreInt32(&pv,4)
+	atomic.StoreInt32(&pv, 4)
 	fmt.Println(pv)
-
-	//atomic.Value{}
-	//atomic.StoreInt32()
-	//atomic.SwapInt32()
+	type NewConfig struct {
+		Name string `json:"name"`
+	}
+	var nc = NewConfig{
+		Name: "123",
+	}
+	var config atomic.Value
+	config.Store(nc)
+	fmt.Println(config.Load())
 }
 
 func addValue(delta int32) {

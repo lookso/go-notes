@@ -64,7 +64,8 @@ var swg sync.WaitGroup
 func gen(ctx context.Context) <-chan int {
 	// 创建子context
 	subCtx, _ := context.WithCancel(ctx)
-	go sub(subCtx)  // 这里使用ctx，也能给goroutine通知
+	ctxnext:=ctxFun(subCtx)
+	go sub(ctxnext)  // 这里使用ctx，也能给goroutine通知
 	dst := make(chan int)
 	n := 1
 	go func() {
@@ -80,6 +81,10 @@ func gen(ctx context.Context) <-chan int {
 		}
 	}()
 	return dst
+}
+func ctxFun(ctx context.Context) context.Context  {
+	ctx.Value("1234")
+	return ctx
 }
 
 func sub(ctx context.Context) {
