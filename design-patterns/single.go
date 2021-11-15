@@ -17,22 +17,41 @@ type singleton struct {
 }
 
 var ins *singleton
-
-var once sync.Once
-
-func GetIns() *singleton {
+var insTwo *singleton
+func NewIns(name string) *singleton {
+	var once sync.Once
+	var lock sync.Mutex
+	// 存在线程安全问题，高并发时有可能创建多个对象
+	if ins != nil {
+		lock.Lock()
+		return ins
+	}
 	once.Do(func() {
-		ins = &singleton{}
+		ins = &singleton{
+			Name: name,
+		}
 	})
 	return ins
 }
-
+func NewInsTwo(name string) *singleton {
+	var once sync.Once
+	if insTwo != nil {
+		return insTwo
+	}
+	once.Do(func() {
+		insTwo = &singleton{
+			Name: name,
+		}
+	})
+	return insTwo
+}
+//模拟sync.once
 type OnlyOne struct {
 	m    sync.Mutex
 	done uint32
 }
 
-func (o *OnlyOne) do(f func()) {
+func (o *OnlyOne) Once(f func()) {
 	if atomic.LoadUint32(&o.done) == 1 {
 		return
 	}
@@ -43,12 +62,43 @@ func (o *OnlyOne) do(f func()) {
 	}
 	f()
 }
+// 饿汉模式
+// 构建一个结构体，用来实例化单例
+type example2 struct {
+	name string
+}
+
+// 声明一个私有变量，作为单例
+var instance2 *example2
+
+// init函数将在包初始化时执行，实例化单例
+func init() {
+	instance2 = new(example2)
+	instance2.name = "初始化单例模式"
+}
+
+func GetInstance2() *example2 {
+	return instance2
+}
 
 func main() {
-	singleA := GetIns()
-	singleA.Name = "toms"
-	singleB := GetIns()
-	singleB.Name = "jack"
-	fmt.Println(singleA.Name) //
-	fmt.Println(singleB.Name) // 我们申请了两次实例.在改变一个第二个实例的字段之后，第一个也随之改变了
+	wg := sync.WaitGroup{}
+	for i := 0; i < 5; i++ {
+		wg.Add(1)
+		go func() {
+			singleA := NewIns("jack")
+			singleB := NewIns("toms")
+			fmt.Println(singleA.Name)
+			fmt.Println(singleB.Name)
+
+			single1 := NewInsTwo("two")
+			single2 := NewInsTwo("one")
+			fmt.Println(single1.Name)
+			fmt.Println(single2.Name)
+			defer wg.Done()
+		}()
+		s := GetInstance2()
+		fmt.Println(s.name)
+	}
+	wg.Wait()
 }

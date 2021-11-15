@@ -7,7 +7,6 @@
 package main
 
 import (
-	"fmt"
 	"sync"
 )
 
@@ -21,44 +20,50 @@ type ScrmOpen2 struct {
 }
 
 func main() {
+	//fmt.Println(NewScrmOpenApi(1))
+	//fmt.Println(NewScrmOpenApi(1))
+	//fmt.Println(NewScrmOpenApi(2))
+	//fmt.Println(NewScrmOpenApi(2))
+	//fmt.Println(NewScrmOpenApi(1))
+	NewScrmOpenApi(1)
 
-	fmt.Println(NewScrmOpenApi(2))
-	fmt.Println(NewScrmOpenApi(1))
-	fmt.Println(NewScrmOpenApi(1))
-	fmt.Println(NewScrmOpenApi(2))
+	NewScrmOpenApi(2)
+
 }
 
-var once sync.Once
-
+//var once sync.Once
+// 这个地方有个坑,只在外部声明一个统一的once,两个实例方法都使用这个once的时候,就会发现只有一个once被实例化成功,另一个实例会报未初始化,
+// 所以需要在子方法内容单独声明 sync.once
 type ScrmOpenApiV2 struct {
-	AppId string `json:"app_id"`
+	appId  string `json:"app_id"`
 }
 
 var instance *ScrmOpenApiV2
 var instance2 *ScrmOpenApiV2
 
 func NewScrmOpenApi(t int) *ScrmOpenApiV2 {
-	if t==2{
-		return once2()
+	if t == 1 {
+		return onceFunc()
 	}
-	return newonce()
+	return newOnceFunc()
 }
-func once2() *ScrmOpenApiV2 {
+func onceFunc() *ScrmOpenApiV2 {
 	if instance != nil {
 		return instance
 	}
 	var once sync.Once
 	once.Do(func() {
-		instance=new(ScrmOpenApiV2)
-		instance.AppId="1"
+		instance = new(ScrmOpenApiV2)
+		instance.appId = "100"
 	})
 	return instance
 }
-func newonce()  *ScrmOpenApiV2{
+func newOnceFunc() *ScrmOpenApiV2 {
 	var once sync.Once
 	once.Do(func() {
-		instance2=new(ScrmOpenApiV2)
-		instance2.AppId="2"
+		instance2 = new(ScrmOpenApiV2)
+		instance2.appId = "200"
 	})
 	return instance2
 }
+

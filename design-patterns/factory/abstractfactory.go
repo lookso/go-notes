@@ -1,4 +1,4 @@
-package abstractfactory
+package main
 
 import "fmt"
 
@@ -52,7 +52,7 @@ type XMLMainDAO struct{}
 func (*XMLMainDAO) SaveOrderMain() {
 	fmt.Print("xml main save\n")
 }
-
+// -------
 //XMLDetailDAO XML存储
 type XMLDetailDAO struct{}
 
@@ -70,4 +70,18 @@ func (*XMLDAOFactory) CreateOrderMainDAO() OrderMainDAO {
 
 func (*XMLDAOFactory) CreateOrderDetailDAO() OrderDetailDAO {
 	return &XMLDetailDAO{}
+}
+
+func getMainAndDetail(factory DAOFactory) {
+	factory.CreateOrderMainDAO().SaveOrderMain()
+	factory.CreateOrderDetailDAO().SaveOrderDetail()
+}
+
+func main() {
+	var factory DAOFactory
+	factory = &RDBDAOFactory{}
+	getMainAndDetail(factory)
+	// Output:
+	// rdb main save
+	// rdb detail save
 }

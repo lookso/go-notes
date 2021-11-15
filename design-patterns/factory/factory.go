@@ -2,8 +2,8 @@ package main
 
 import "fmt"
 
-type Op interface {
-	Connect() string // 类似php的interface Op{ public function Connect();} //接口内的方法必须实现
+type DbFactor interface {
+	Connect() string
 }
 type TheMysql struct {
 }
@@ -18,7 +18,7 @@ func (m *TheMysql) Connect() string {
 func (p *ThePdo) Connect() string {
 	return "this is pdo drive connect"
 }
-func (f *TheFactory) MyFactory(name string) Op {
+func (f *TheFactory) MyFactory(name string) DbFactor {
 	switch name {
 	case "mysql":
 		return new(TheMysql)

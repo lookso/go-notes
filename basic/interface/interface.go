@@ -29,6 +29,8 @@ func (p *Phone) stop() {
 }
 
 func main() {
+	var u Usber
+	interfaceFunc(u)
 	var p Usber = &Phone{Name: "华为手机"} // Golang 中接口就是一个数据类型,表示手机实现 Usb 接口
 	p.start()
 	p.stop()
@@ -41,6 +43,9 @@ func main() {
 	var m Duck = Mss{"name": "banner"}
 	m.Eat()
 	interType(321)
+}
+func interfaceFunc(it interface{})  {
+	
 }
 func interfaceTest(it interface{}) {
 	if it, ok := it.(int); ok {

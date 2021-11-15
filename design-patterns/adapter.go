@@ -7,8 +7,6 @@ import (
 // 适配器模式用于转换一种接口适配另一种接口。
 //实际使用中Adaptee一般为接口，并且使用工厂函数生成实例。
 
-
-
 //Adaptee 是被适配的目标接口
 type Adaptee interface {
 	SpecificRequest() string

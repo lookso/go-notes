@@ -1,70 +1,84 @@
 package main
 
+// 建造者模式:将一个复杂对象的构造与它的表示分离，使同样的构建过程可以创建不同的表示。
 import "fmt"
 
-// 建造者模式:将一个复杂对象的构造与它的表示分离，使同样的构建过程可以创建不同的表示。
-type Character struct {
-	Name string
-	Arms string
+//定义一个产品(待构建的产品)
+type People struct {
+	Hat     string //帽子
+	Clothes string //衣服
+	Pants   string //裤子
+	Sock    string //袜子
+	Shoes   string //鞋子
 }
 
-func (p *Character) SetName(name string) {
-	p.Name = name
+//展示产品信息
+func (p People) ShowPeopleInfo() {
+	fmt.Println(p)
 }
 
-func (p *Character) SetArms(arms string) {
-	p.Arms = arms
-}
-
-func (p Character) GetName() string {
-	return p.Name
-}
-
-func (p Character) GetArms() string {
-	return p.Arms
-}
-
+//建造者接口
 type Builder interface {
-	SetName(name string) Builder
-	SetArms(arms string) Builder
-	Build() *Character
+	SetHat(hat string) Builder
+	SetClothes(clothes string) Builder
+	SetPants(pants string) Builder
+	SetSock(sock string) Builder
+	SetShoes(shoes string) Builder
+	Build() *People
 }
 
-type CharacterBuilder struct {
-	character *Character
+//具体的建造者
+type ConcreteBuilder struct {
+	//需要建造的产品
+	people *People
 }
 
-func (p *CharacterBuilder) SetName(name string) Builder {
-	if p.character == nil {
-		p.character = &Character{}
+func (c *ConcreteBuilder) SetHat(hat string) Builder {
+	c.init()
+	c.people.Hat = hat
+	return c
+}
+
+func (c *ConcreteBuilder) SetClothes(clothes string) Builder {
+	c.init()
+	c.people.Clothes = clothes
+	return c
+}
+
+func (c *ConcreteBuilder) SetPants(pants string) Builder {
+	c.init()
+	c.people.Pants = pants
+	return c
+}
+
+func (c *ConcreteBuilder) SetSock(sock string) Builder {
+	c.init()
+	c.people.Sock = sock
+	return c
+}
+
+func (c *ConcreteBuilder) SetShoes(shoes string) Builder {
+	c.init()
+	c.people.Shoes = shoes
+	return c
+}
+
+func (c *ConcreteBuilder) Build() *People {
+	return c.people
+}
+
+//初始化具体建造者的数据结构
+func (c *ConcreteBuilder) init() {
+	if c.people == nil {
+		c.people = &People{}
 	}
-	p.character.SetName(name)
-	return p
-}
-
-func (p *CharacterBuilder) SetArms(arms string) Builder {
-	if p.character == nil {
-		p.character = &Character{}
-	}
-	p.character.SetArms(arms)
-	return p
-}
-
-func (p *CharacterBuilder) Build() *Character {
-	return p.character
-}
-
-type Director struct {
-	builder Builder
-}
-
-func (p Director) Create(name string, arms string) *Character {
-	return p.builder.SetName(name).SetArms(arms).Build()
 }
 
 func main() {
-	var builder Builder = &CharacterBuilder{}
-	var director *Director = &Director{builder: builder}
-	var character *Character = director.Create("loader", "AK47")
-	fmt.Println(character.GetName() + "," + character.GetArms())
+	//创建具体的建造者
+	builder := ConcreteBuilder{}
+	//指定产品属性来创建产品
+	people := builder.SetClothes("衣服1").SetHat("帽子1").SetPants("裤子1").SetSock("袜子1").SetShoes("鞋子1").Build()
+	//打印产品
+	people.ShowPeopleInfo()
 }
