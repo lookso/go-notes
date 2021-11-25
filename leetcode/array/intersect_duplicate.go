@@ -5,21 +5,22 @@ import (
 	"sort"
 )
 
-// 合并两个数组,不去重
+// 两个数组中重复的元素
 // https://blog.csdn.net/qq_46595591/article/details/107313619
 func main() {
-	var arr1 = []int{1, 1, 4, 5, 6, 8}
-	var arr2 = []int{1, 1, 3, 4, 8}
+	var arr1 = []int{1, 4, 5, 6, 8, 10}
+	var arr2 = []int{3, 5, 7, 8, 11}
 	fmt.Println(intersectDuplicate(arr1, arr2))
 	fmt.Println(intersectDuplicate2(arr1, arr2))
 }
+
 func intersectDuplicate(a, b []int) []int {
 	sort.Ints(a)
-	sort.Ints(b)          //对两数组排序
-	res := make([]int, 0) //创建第三个数组
+	sort.Ints(b)                         // 对两数组排序
+	res := make([]int, 0, len(a)+len(b)) // 创建第三个数组
 	i, j := 0, 0
 	for i < len(a) && j < len(b) {
-		if a[i] < b[j] { //如果两个元素不相同，对小元素所在数组后一位遍历
+		if a[i] < b[j] { // 如果两个元素不相同，对小元素所在数组后一位遍历
 			i++
 		} else if a[i] > b[j] {
 			j++ //如果两个元素不相同，对大元素所在数组后一位遍历

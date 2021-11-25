@@ -31,7 +31,7 @@ func main() {
 
 }
 
-//var once sync.Once
+var once sync.Once
 // 这个地方有个坑,只在外部声明一个统一的once,两个实例方法都使用这个once的时候,就会发现只有一个once被实例化成功,另一个实例会报未初始化,
 // 所以需要在子方法内容单独声明 sync.once
 type ScrmOpenApiV2 struct {
@@ -51,7 +51,7 @@ func onceFunc() *ScrmOpenApiV2 {
 	if instance != nil {
 		return instance
 	}
-	var once sync.Once
+	//var once sync.Once
 	once.Do(func() {
 		instance = new(ScrmOpenApiV2)
 		instance.appId = "100"
@@ -59,7 +59,7 @@ func onceFunc() *ScrmOpenApiV2 {
 	return instance
 }
 func newOnceFunc() *ScrmOpenApiV2 {
-	var once sync.Once
+	//var once sync.Once
 	once.Do(func() {
 		instance2 = new(ScrmOpenApiV2)
 		instance2.appId = "200"
