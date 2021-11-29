@@ -50,6 +50,7 @@ require (
 	github.com/kennygrant/sanitize v1.2.4 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/nsqio/go-nsq v1.0.8
+	github.com/olahol/melody v0.0.0-20180227134253-7bd65910e5ab
 	github.com/olivere/elastic v6.2.35+incompatible
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/openzipkin-contrib/zipkin-go-opentracing v0.4.5
