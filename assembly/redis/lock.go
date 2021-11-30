@@ -6,7 +6,6 @@ import (
 	"github.com/go-redis/redis/v8"
 	"github.com/google/uuid"
 	"go-notes/assembly/redis/common"
-	"sync"
 	"time"
 ) //redis package
 
@@ -41,7 +40,6 @@ func lock(ctx context.Context, myfunc func()) {
 	value, _ := client.Get(ctx, lockKey).Result()
 	if value == uuid {
 		_, err = client.Del(ctx, lockKey).Result()
-
 		if err != nil {
 			fmt.Println("unlock fail")
 		} else {
@@ -70,24 +68,26 @@ func lock(ctx context.Context, myfunc func()) {
 var counter int64
 
 func incr() {
+	time.Sleep(10 * time.Second)
 	counter++
-	time.Sleep(6 * time.Second)
 	fmt.Printf("after incr is %d\n", counter)
 }
 
 //5 goroutine compete lock
-var wg sync.WaitGroup
+//var wg sync.WaitGroup
 
 func main() {
 	ctx := context.Background()
-	for i := 0; i < 5; i++ {
-		wg.Add(1)
-		go func() {
+	for i := 0; i < 50; i++ {
+		//wg.Add(1)
+		//go func() {
 			lock(ctx, incr)
-			defer wg.Done()
-		}()
+		//	defer wg.Done()
+	//	}()
 	}
-	wg.Wait()
+	//wg.Wait()
 	fmt.Printf("final counter is %d \n", counter)
 }
 //https://hub.fastgit.org/zieckey/etcdsync/blob/master/mutex.go
+
+
