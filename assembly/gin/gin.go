@@ -9,10 +9,13 @@ import (
 
 type Param struct {
 	Name string `json:"name"`
+	Skip []int  `json:"skip"`
 }
 
 func main() {
-	var param = Param{Name: "jack"}
+	var param = Param{
+		Skip: make([]int, 0),
+	}
 	router := gin.Default()
 
 	router.POST("/post", func(c *gin.Context) {
@@ -34,10 +37,14 @@ func main() {
 		c.String(200, "ok")
 	})
 	router.GET("/get/json", func(c *gin.Context) {
-		names := []string{"lena", "austin", "foo"}
-
-		// 将会输出:   while(1);["lena","austin","foo"]
-		c.SecureJSON(http.StatusOK, names)
+		type Resopnse struct {
+			IDs []int `json:"ids"`
+		}
+		//var r = Resopnse{} // { "ids": null }
+		var r = Resopnse{
+			IDs: make([]int, 0),  // { "ids": []] }
+		}
+		c.SecureJSON(http.StatusOK, r)
 	})
 	router.POST("/post/json", func(c *gin.Context) {
 		// 获取原始字节
