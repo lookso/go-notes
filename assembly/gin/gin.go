@@ -11,6 +11,17 @@ type Param struct {
 	Name string `json:"name"`
 	Skip []int  `json:"skip"`
 }
+type response struct {
+	Code    int         `json:"code"`
+	Stat    int         `json:"stat"`
+	Message string      `json:"msg"`
+	Data    interface{} `json:"data"`
+}
+
+func Success(v interface{}) interface{} {
+	ret := response{Stat: 1, Code: 0, Message: "ok", Data: v}
+	return ret
+}
 
 func main() {
 	var param = Param{
@@ -37,14 +48,18 @@ func main() {
 		c.String(200, "ok")
 	})
 	router.GET("/get/json", func(c *gin.Context) {
+		type User struct {
+			IDs  []int  `json:"id"`
+			Name string `json:"name"`
+		}
 		type Resopnse struct {
-			IDs []int `json:"ids"`
+			Users []User `json:"users"`
 		}
 		//var r = Resopnse{} // { "ids": null }
 		var r = Resopnse{
-			IDs: make([]int, 0),  // { "ids": []] }
+			Users: make([]User, 0), // { "ids": []] }
 		}
-		c.SecureJSON(http.StatusOK, r)
+		c.JSON(http.StatusOK, Success(r))
 	})
 	router.POST("/post/json", func(c *gin.Context) {
 		// 获取原始字节
@@ -62,7 +77,7 @@ func main() {
 			log.Fatalln(err)
 		}
 		log.Println(string(d))
-		c.String(200, "ok")
+		c.String(200, string(d))
 	})
 	router.GET("/someProtoBuf", func(c *gin.Context) {
 		reps := []int64{int64(1), int64(2)}
