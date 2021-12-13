@@ -55,10 +55,10 @@ func main() {
 		map1:  make(map[string]string, 0),
 	}
 
-	fmt.Println(t3 == t4)                  // false
-	fmt.Println("DeepEqual",reflect.DeepEqual(t1, t2)) // true
-	fmt.Printf("%p, %p \n", t3, t4)        // 0xc000046050, 0xc0000460a0
-	fmt.Printf("%p, %p \n", &t3, &t4)      // 0xc000006030, 0xc000006038
+	fmt.Println(t3 == t4)                               // false
+	fmt.Println("DeepEqual", reflect.DeepEqual(t1, t2)) // true
+	fmt.Printf("%p, %p \n", t3, t4)                     // 0xc000046050, 0xc0000460a0
+	fmt.Printf("%p, %p \n", &t3, &t4)                   // 0xc000006030, 0xc000006038
 
 	// 前面加*，表示指针指向的值，即结构体实例，不能用==
 	// Invalid operation: *t3 == *t4 (operator == not defined on T1)
@@ -69,5 +69,22 @@ func main() {
 	fmt.Println(reflect.DeepEqual(t3, t5)) // true
 	fmt.Printf("%p, %p \n", t3, t5)        // 0xc000046050, 0xc000046050
 	fmt.Printf("%p, %p \n", &t3, &t5)      // 0xc000006030, 0xc000006040
+	MyUser()
+}
 
+type User struct {
+	name string `json:"name"`
+}
+
+// 我们可以看到，它的两个成员变量都是非大写字母开头，只能在包内使用，
+//现在我们为其中的 firstName 来定义 setter 与 getter
+func (u *User) Getter() string {
+	return u.name
+}
+func (u *User) Setter(newName string) {
+	u.name = newName
+}
+func MyUser() {
+	var user = User{name: "jack"}
+	fmt.Println(user.name)
 }
