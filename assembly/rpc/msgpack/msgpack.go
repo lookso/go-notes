@@ -27,6 +27,10 @@ func initClient() (err error) {
 }
 
 func main() {
+	cm:=`{"wx_userid":"AKuiGuoEXin","callback_url":"https://app.saasw.vdyoo.com/ctxapi/api/v2/chat/suzhicallback","chats":[{"chat_info":"wrLmK7CAAAcrT1Ea4UNsdo_88Pn5eFPg","ext_user_list":["wmLmK7CAAAYskOniwYCAUKZAKkl0tcdQ","wmLmK7CAAAcH1GmQ8Z1yR9BmjkSL0wOA"]}]}`
+	b,_:=json.Marshal(&cm)
+	fmt.Println("b",string(b))
+
 	var countryCapitalMap map[string]string /*创建集合 */
 	countryCapitalMap = make(map[string]string)
 
@@ -36,6 +40,7 @@ func main() {
 	countryCapitalMap["Japan"] = "东京"
 	countryCapitalMap["India "] = "新德里"
 	fmt.Println("原数据-", countryCapitalMap)
+
 	jsBt, err := json.Marshal(&countryCapitalMap)
 	fmt.Println("jsStr", string(jsBt))
 	//in := map[string]interface{}{"foo": uint32(123456789), "hello": "world"}

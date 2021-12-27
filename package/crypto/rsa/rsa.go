@@ -37,6 +37,7 @@ func init() {
 	//fmt.Printf("%s\n", privateKey)
 }
 func main() {
+	fmt.Println("123123")
 	// var theMsg = "the message you want to encode 你好 世界"
 	var theMsg = "你好,世界"
 	fmt.Println("Source:", theMsg)

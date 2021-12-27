@@ -162,6 +162,7 @@ func doLease() error {
 }
 
 func main() {
+	fmt.Println(time.Now().AddDate(0, 0, -7).Unix())
 	conn()
 	for {
 		if err := doSet(); err != nil {
@@ -185,3 +186,5 @@ func main() {
 	}
 	defer cli.Close() // 连接关闭要放在main函数里面
 }
+
+
