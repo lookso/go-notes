@@ -8,6 +8,14 @@ type User struct {
 }
 
 func main() {
+
+	var arrs = []int{1, 2, 3, 4}
+	for _, v := range arrs {
+		if v == 3 {
+			break
+		}
+		fmt.Println(v)
+	}
 	var arr = make([]*User, 0)
 	var u = User{
 		Name: "jack",

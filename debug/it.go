@@ -7,6 +7,8 @@ type Res struct {
 
 }
 func main() {
+
+
 	var res=&Res{uid: 0}
 	res.TS()
 }

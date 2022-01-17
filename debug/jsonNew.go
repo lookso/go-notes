@@ -18,6 +18,11 @@ type MyData struct {
 }
 
 func main() {
+	var m=map[int]string{1:"a",2:"b"}
+	if i,ok:=m[1];ok{
+		fmt.Println(i)
+	}
+
 	var resp BasicResp
 	json.Unmarshal([]byte(dataStr),&resp)
 	fmt.Println("1111",resp)
