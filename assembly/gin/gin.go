@@ -28,6 +28,7 @@ func main() {
 		Skip: make([]int, 0),
 	}
 	router := gin.Default()
+	router.Use(gin.Recovery())
 
 	router.POST("/post", func(c *gin.Context) {
 		// 获取原始字节
@@ -36,16 +37,15 @@ func main() {
 			log.Fatalln(err)
 		}
 		log.Println(string(d))
-		c.String(200, "ok")
+		c.String(http.StatusOK, "ok")
 	})
-	router.GET("/post", func(c *gin.Context) {
+	router.GET("/post", LoggerMiddleWare(), func(c *gin.Context) {
 		// 获取原始字节
 		d, err := c.GetRawData()
 		if err != nil {
 			log.Fatalln(err)
 		}
-		log.Println(string(d))
-		c.String(200, "ok")
+		c.String(http.StatusOK, string(d))
 	})
 	router.GET("/get/json", func(c *gin.Context) {
 		type User struct {
@@ -77,7 +77,7 @@ func main() {
 			log.Fatalln(err)
 		}
 		log.Println(string(d))
-		c.String(200, string(d))
+		c.String(http.StatusOK, string(d))
 	})
 	router.GET("/someProtoBuf", func(c *gin.Context) {
 		reps := []int64{int64(1), int64(2)}
