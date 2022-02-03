@@ -45,7 +45,7 @@ func main() {
 		if err != nil {
 			log.Fatalln(err)
 		}
-		c.String(http.StatusOK, string(d))
+		c.String(http.StatusOK, string(d)+":热编译123456")
 	})
 	router.GET("/get/json", func(c *gin.Context) {
 		type User struct {
