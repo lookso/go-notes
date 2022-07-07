@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	db, err := bolt.Open("my.db", 0600, nil)
+	db, err := bolt.Open("./my.db", 0600, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -71,9 +71,9 @@ func main() {
 		if b != nil {
 
 			data := b.Get([]byte("l"))
-			fmt.Printf("%s\n", data)
+			fmt.Printf("%s\n", string(data))
 			data = b.Get([]byte("l"))
-			fmt.Printf("%s\n", data)
+			fmt.Printf("%s\n", string(data))
 		}
 
 		//一定要返回nil

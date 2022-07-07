@@ -27,7 +27,7 @@ func main() {
 			log.Fatal(err)
 		}
 
-		time.Sleep(time.Second * time.Duration(1))
+		time.Sleep(time.Second * time.Duration(100))
 	}
 
 	// Gracefully stop the producer when appropriate (e.g. before shutting down the service)
