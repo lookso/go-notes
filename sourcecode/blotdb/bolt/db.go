@@ -47,6 +47,12 @@ type DB struct {
 	// A panic is issued if the database is in an inconsistent state. This
 	// flag has a large performance impact so it should only be used for
 	// debugging purposes.
+
+	//启用后，数据库将在每次提交后执行Check（）。
+	//如果数据库处于不一致状态，则会发出死机。这
+	//标志对性能有很大影响，因此它只应用于
+	//调试目的。
+
 	StrictMode bool
 
 	// Setting the NoSync flag will cause the database to skip fsync()
@@ -59,6 +65,15 @@ type DB struct {
 	// ignored.  See the comment on that constant for more details.
 	//
 	// THIS IS UNSAFE. PLEASE USE WITH CAUTION.
+
+	//设置NoSync标志将导致数据库跳过fsync（）
+	//每次提交后调用。这在批量加载数据时非常有用
+	//在发生以下情况时，您可以重新启动批量加载：
+	//系统故障或数据库损坏。不为设置此标志 正常使用。
+	//如果包全局IgnoreNoSync常量为true，则该值为
+	//已忽略。有关更多详细信息，请参阅关于该常数的注释。
+	//这是不安全的。请小心使用。
+
 	NoSync bool
 
 	// When true, skips the truncate call when growing the database.
@@ -66,11 +81,22 @@ type DB struct {
 	// Skipping truncation avoids preallocation of hard drive space and
 	// bypasses a truncate() and fsync() syscall on remapping.
 	//
+
+	//如果为true，则在增长数据库时跳过truncate调用。
+	//将其设置为true仅在非ext3/ext4系统上安全。
+	//跳过截断可以避免预先分配硬盘空间和
+	//在重新映射时绕过truncate（）和fsync（）系统调用。
+	//
+
 	// https://github.com/boltdb/bolt/issues/284
 	NoGrowSync bool
 
 	// If you want to read the entire database fast, you can set MmapFlag to
 	// syscall.MAP_POPULATE on Linux 2.6.23+ for sequential read-ahead.
+
+	//如果要快速读取整个数据库，可以将MmapFlag设置为
+	//系统调用。MAP_在Linux 2.6.23+上填充，用于顺序预读。
+
 	MmapFlags int
 
 	// MaxBatchSize is the maximum size of a batch. Default value is
@@ -79,6 +105,14 @@ type DB struct {
 	// If <=0, disables batching.
 	//
 	// Do not change concurrently with calls to Batch.
+
+	//MaxBatchSize是批次的最大大小。默认值为
+	//从打开的DefaultMaxBatchSize复制。
+	//
+	//如果<=0，则禁用批处理。
+	//
+	//不要与批处理调用同时更改。
+
 	MaxBatchSize int
 
 	// MaxBatchDelay is the maximum delay before a batch starts.
@@ -87,11 +121,22 @@ type DB struct {
 	// If <=0, effectively disables batching.
 	//
 	// Do not change concurrently with calls to Batch.
+	//MaxBatchDelay是批次开始之前的最大延迟。
+	//默认值是从Open中的DefaultMaxBatchDelay复制的。
+	//
+	//如果<=0，则有效禁用批处理。
+	//
+	//不要与批处理调用同时更改。
 	MaxBatchDelay time.Duration
 
 	// AllocSize is the amount of space allocated when the database
 	// needs to create new pages. This is done to amortize the cost
 	// of truncate() and fsync() when growing the data file.
+
+	//AllocSize是数据库运行时分配的空间量
+	//需要创建新页面。这样做是为了摊销成本
+	//增长数据文件时截断（）和fsync（）的。
+
 	AllocSize int
 
 	path     string
@@ -126,6 +171,8 @@ type DB struct {
 
 	// Read only mode.
 	// When true, Update() and Begin(true) return ErrDatabaseReadOnly immediately.
+
+	// 当为true时，Update（）和Begin（true）返回ErrDatabaseReadOnly
 	readOnly bool
 }
 
@@ -147,6 +194,11 @@ func (db *DB) String() string {
 // Open creates and opens a database at the given path.
 // If the file does not exist then it will be created automatically.
 // Passing in nil options will cause Bolt to open the database with the default options.
+
+//Open在给定路径上创建并打开数据库。
+//如果文件不存在，则会自动创建。
+//传入nil选项将导致Bolt使用默认选项打开数据库。
+
 func Open(path string, mode os.FileMode, options *Options) (*DB, error) {
 	var db = &DB{opened: true}
 
@@ -183,15 +235,28 @@ func Open(path string, mode os.FileMode, options *Options) (*DB, error) {
 	// if !options.ReadOnly.
 	// The database file is locked using the shared lock (more than one process may
 	// hold a lock at the same time) otherwise (options.ReadOnly is set).
+
+	//锁定文件，以便以读写模式使用 Bolt 的其他进程无法
+	//同时使用数据库。这将导致损坏，因为
+	//这两个进程将分别编写元页面和自由页面。
+	//数据库文件以独占方式锁定（只有一个进程可以获取锁定）
+	//如果 ！选项。只读。
+	//使用共享锁锁定数据库文件（多个进程可能
+	//同时按住锁）否则（选项。已设置只读）。
+	//
+	// 只读加共享锁、否则加互斥锁
 	if err := flock(db, mode, !db.readOnly, options.Timeout); err != nil {
 		_ = db.close()
 		return nil, err
 	}
 
 	// Default values for test hooks
+	//文件并发写入数据,基于原子操作,b 是我们要写入数据的字节切片,off 是相对位置
 	db.ops.writeAt = db.file.WriteAt
 
 	// Initialize the database if it doesn't exist.
+	//  os包的Stat方法返回FileInfo接口
+	// https://www.jianshu.com/p/1406fb98b1f4
 	if info, err := db.file.Stat(); err != nil {
 		return nil, err
 	} else if info.Size() == 0 {
@@ -342,13 +407,19 @@ func (db *DB) mmapSize(size int) (int, error) {
 // init creates a new database file and initializes its meta pages.
 func (db *DB) init() error {
 	// Set the page size to the OS page size.
+	// 获取内存分页大小 4096
+	// https://www.jianshu.com/p/b86a69892990
 	db.pageSize = os.Getpagesize()
 
 	// Create two meta pages on a buffer.
+	// 前4个page预留
 	buf := make([]byte, db.pageSize*4)
 	for i := 0; i < 2; i++ {
+		// 初始化两个meta page
 		p := db.pageInBuffer(buf[:], pgid(i))
+		fmt.Printf("p:%+v", p)
 		p.id = pgid(i)
+		// 第0页和第1页存放元数据
 		p.flags = metaPageFlag
 
 		// Initialize the meta page.
@@ -364,18 +435,21 @@ func (db *DB) init() error {
 	}
 
 	// Write an empty freelist at page 3.
+	// 在 pgid=2 的页写入一个空的空闲列表.
 	p := db.pageInBuffer(buf[:], pgid(2))
 	p.id = pgid(2)
 	p.flags = freelistPageFlag
 	p.count = 0
 
-	// Write an empty leaf page at page 4.
+	// Write an empty leaf page at page 4.\
+	// 在 pgid=3 的页写入一个空的叶子元素.
 	p = db.pageInBuffer(buf[:], pgid(3))
 	p.id = pgid(3)
 	p.flags = leafPageFlag
 	p.count = 0
 
 	// Write the buffer to our data file.
+	// 将 buffer 中的这四个页写入数据文件并刷盘
 	if _, err := db.ops.writeAt(buf, 0); err != nil {
 		return err
 	}
@@ -795,6 +869,7 @@ func (db *DB) page(id pgid) *page {
 }
 
 // pageInBuffer retrieves a page reference from a given byte array based on the current page size.
+// pageInBuffer 根据当前页面大小从给定的字节数组中检索页面引用。
 func (db *DB) pageInBuffer(b []byte, id pgid) *page {
 	return (*page)(unsafe.Pointer(&b[id*pgid(db.pageSize)]))
 }
@@ -899,6 +974,7 @@ type Options struct {
 	Timeout time.Duration
 
 	// Sets the DB.NoGrowSync flag before memory mapping the file.
+	// 设置数据库。NoGrowSync 标志在内存映射文件之前。
 	NoGrowSync bool
 
 	// Open database in read-only mode. Uses flock(..., LOCK_SH |LOCK_NB) to
@@ -906,6 +982,7 @@ type Options struct {
 	ReadOnly bool
 
 	// Sets the DB.MmapFlags flag before memory mapping the file.
+	// 设置数据库。MmapFlags 在内存映射文件之前进行标志。
 	MmapFlags int
 
 	// InitialMmapSize is the initial mmap size of the database
@@ -916,6 +993,16 @@ type Options struct {
 	// If <=0, the initial map size is 0.
 	// If initialMmapSize is smaller than the previous database size,
 	// it takes no effect.
+
+	//InitialMmapSize 是数据库的初始 mmap 大小
+	//以字节为单位。读取事务不会阻止写入事务
+	//如果 InitialMmapSize 足够大以容纳数据库 mmap
+	//大小。（请参阅数据库。开始获取更多信息）
+	////
+	//如果 <=0，则初始映射大小为 0。
+	//如果 initialMmapSize 小于以前的数据库大小，
+	//它不起作用。
+	//
 	InitialMmapSize int
 }
 

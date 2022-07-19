@@ -6,8 +6,13 @@ import (
 	"log"
 )
 
+const (
+	BlockBucket  = "MyBlocks"
+	BlockChainDb = "blockChain.db"
+)
+
 func main() {
-	db, err := bolt.Open("../bucket.db", 0600, bolt.DefaultOptions)
+	db, err := bolt.Open("../go-notes/sourcecode/blotdb/"+BlockChainDb, 0600, bolt.DefaultOptions)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -16,11 +21,11 @@ func main() {
 	//2.创建表
 	err = db.Update(func(tx *bolt.Tx) error {
 		//判断要创建的表是否存在
-		b := tx.Bucket([]byte("MyBlocks"))
+		b := tx.Bucket([]byte(BlockBucket))
 		if b == nil {
 
 			//创建叫"MyBucket"的表
-			_, err := tx.CreateBucket([]byte("MyBlocks"))
+			_, err := tx.CreateBucket([]byte(BlockBucket))
 			if err != nil {
 				//也可以在这里对表做插入操作
 				log.Fatal(err)
@@ -39,7 +44,7 @@ func main() {
 	err = db.Update(func(tx *bolt.Tx) error {
 
 		//取出叫"MyBucket"的表
-		b := tx.Bucket([]byte("MyBlocks"))
+		b := tx.Bucket([]byte(BlockBucket))
 
 		//往表里面存储数据
 		if b != nil {
@@ -65,7 +70,7 @@ func main() {
 	err = db.View(func(tx *bolt.Tx) error {
 
 		//取出叫"MyBucket"的表
-		b := tx.Bucket([]byte("MyBlocks"))
+		b := tx.Bucket([]byte(BlockBucket))
 
 		//往表里面存储数据
 		if b != nil {
