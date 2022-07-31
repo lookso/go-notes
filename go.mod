@@ -14,6 +14,7 @@ require (
 	github.com/Shopify/sarama v1.19.0
 	github.com/afex/hystrix-go v0.0.0-20180502004556-fa1af6a1f4f5
 	github.com/alibaba/sentinel-golang v1.0.3
+	github.com/allegro/bigcache v1.2.1 // indirect
 	github.com/antchfx/htmlquery v1.2.3 // indirect
 	github.com/antchfx/xmlquery v1.3.3 // indirect
 	github.com/aws/aws-sdk-go v1.35.20 // indirect
@@ -85,6 +86,7 @@ require (
 	google.golang.org/genproto v0.0.0-20210122163508-8081c04a3579
 	google.golang.org/grpc v1.35.0
 	google.golang.org/protobuf v1.25.0
+	gopkg.in/ffmt.v1 v1.5.6
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
 	sigs.k8s.io/yaml v1.2.0 // indirect
 )

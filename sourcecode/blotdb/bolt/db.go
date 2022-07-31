@@ -260,6 +260,7 @@ func Open(path string, mode os.FileMode, options *Options) (*DB, error) {
 	if info, err := db.file.Stat(); err != nil {
 		return nil, err
 	} else if info.Size() == 0 {
+		fmt.Println("size:",info.Size())
 		// Initialize new files with meta pages.
 		if err := db.init(); err != nil {
 			return nil, err
@@ -267,6 +268,7 @@ func Open(path string, mode os.FileMode, options *Options) (*DB, error) {
 	} else {
 		// Read the first meta page to determine the page size.
 		var buf [0x1000]byte
+		fmt.Println("buf-len:", len(buf))
 		if _, err := db.file.ReadAt(buf[:], 0); err == nil {
 			m := db.pageInBuffer(buf[:], 0).meta()
 			if err := m.validate(); err != nil {
@@ -370,6 +372,10 @@ func (db *DB) munmap() error {
 // mmapSize determines the appropriate size for the mmap given the current size
 // of the database. The minimum size is 32KB and doubles until it reaches 1GB.
 // Returns an error if the new mmap size is greater than the max allowed.
+
+//mmapSize 在给定当前大小的情况下确定 mmap 的适当大小
+//的数据库。最小大小为 32KB，并加倍，直到达到 1GB。
+//如果新的 mmap 大小大于允许的最大值，则返回错误。
 func (db *DB) mmapSize(size int) (int, error) {
 	// Double the size from 32KB until 1GB.
 	for i := uint(15); i <= 30; i++ {
@@ -530,6 +536,27 @@ func (db *DB) close() error {
 //
 // IMPORTANT: You must close read-only transactions after you are finished or
 // else the database will not reclaim old pages.
+
+//开始启动新事务。
+//可以同时使用多个只读事务，但只能使用一个
+//一次可以使用写事务。启动多个写事务
+//将导致调用阻塞并序列化，直到当前写入
+//事务完成。
+//
+//交易不应相互依存。打开读取
+//同一goroutine中的事务和写事务可能导致
+//由于数据库需要定期重新映射自身，因此写入程序会死锁
+//当它增长时，当读取事务打开时，它不能这样做。
+//
+
+//如果长时间运行的读取事务（例如，快照事务）是
+//如果需要，您可能需要设置DB。初始化为足够大的值
+//避免潜在的写事务阻塞。
+
+//
+//重要提示：您必须在完成或
+//否则数据库将不会回收旧页面。
+
 func (db *DB) Begin(writable bool) (*Tx, error) {
 	if writable {
 		return db.beginRWTx()

@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math"
+	"time"
 )
 
 func round(x float64) int {
@@ -216,8 +217,20 @@ func callfunNum() {
 		0
 	**/
 }
+func TimeDate(t time.Time, sec, nsec int) time.Time {
+	return time.Date(t.Year(), t.Month(), t.Day(), t.Hour(), t.Minute(), sec, nsec, time.Local)
+}
 
 func main() {
+	current := time.Now()
+
+	endTime := current.Add(+time.Minute * 1)
+	//execStartTime := common.TimeDate(current, 0, 0).Unix()
+	// 提高执行正确率,往后多查4分钟,避免时间误差
+	minBefore := current.Add(-time.Minute * 4)
+	execStartTime := TimeDate(minBefore, 0, 0).Format("2006-01-02 15:04:05")
+	execEndTime := TimeDate(endTime, 0, 0).Format("2006-01-02 15:04:05")
+	fmt.Printf("1:%v,2:%v,3:%v,4:%+v",execStartTime,execEndTime,minBefore,current.Format("2006-01-02 15:04:05"))
 
 	contentTextTypeCount:=0
 	for i:=0;i<10;i++{
