@@ -5,6 +5,8 @@ import (
 	"sync"
 )
 
+// https://www.cnblogs.com/qcrao-2018/p/12736031.html
+
 type Person struct {
 	Name string
 }
