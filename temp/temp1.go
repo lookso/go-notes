@@ -5,10 +5,16 @@ import (
 	"github.com/spf13/cast"
 	"math"
 	"strconv"
+	"time"
 )
 
 // 一组数字,按照每5个元素长度起一个协程,不足5个的按5个算,有序打印出所有元素
 func main() {
+	current := time.Now()
+	today := current.Format("2006-01-02")
+	beforeThirtyDay := current.AddDate(0, 0, -1).Format("2006-01-02")
+	fmt.Println("time:",today,beforeThirtyDay)
+
 	var arr = []int{20, 21, 40, 12, 435, 4, 32, 17, 34, 765, 678, 23, 29}
 	var newArr = make([]int, 0)
 	var m = map[int]int{4: 1}
