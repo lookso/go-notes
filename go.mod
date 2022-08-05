@@ -27,6 +27,7 @@ require (
 	github.com/dengsgo/math-engine v0.0.0-20200627074419-8918d8f8ea02
 	github.com/dlclark/regexp2 v1.4.0
 	github.com/eclipse/paho.mqtt.golang v1.3.2
+	github.com/edsrzf/mmap-go v1.0.0
 	github.com/fortytw2/leaktest v1.3.0 // indirect
 	github.com/gammazero/workerpool v1.1.2
 	github.com/getsentry/sentry-go v0.12.0
