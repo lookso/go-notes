@@ -20,6 +20,8 @@ import (
 //关键代码： 1、Component 类充当抽象角色，不应该具体实现。 2、修饰类引用和继承 Component 类，具体扩展类重写父类方法。
 //应用实例： 1、孙悟空有 72 变，当他变成"庙宇"后，他的根本还是一只猴子，但是他又有了庙宇的功能
 
+// 动态地给一个对象增加一些额外的职责，就拓展对象功能来说，装饰模式比生成子类的方式更为灵活。
+
 type IDecorate interface {
 	Do()
 }
@@ -40,36 +42,36 @@ func (c *Decorate) Do() {
 }
 
 // 具体A装饰
-type DecorateA struct {
+type Person struct {
 	Base Decorate
 }
 
 // 重写方法，隐式实现接口
-func (c *DecorateA) Do() {
-	fmt.Printf("执行A装饰\n")
+func (c *Person) Do() {
+	fmt.Printf("执行Person-A装饰\n")
 	c.Base.Do()
 }
 
 // 具体B装饰
-type DecorateB struct {
+type Clothes struct {
 	Base Decorate
 }
 
 // 重写方法，隐式实现接口
-func (c *DecorateB) Do() {
-	fmt.Printf("执行B装饰\n")
+func (c *Clothes) Do() {
+	fmt.Printf("执行clothes-B装饰\n")
 	c.Base.Do()
 }
 
 func main() {
 	// 添加装饰A
-	a := new(DecorateA)
+	p := new(Person)
 	// 添加装饰B
-	b := new(DecorateB)
-	a.Base.DecorateFun(b)
+	c := new(Clothes)
+	p.Base.DecorateFun(c)
 	// 执行
-	a.Do()
-	var num = "1"
+	p.Do()
+	var num = "100"
 	fmt.Println(myAtoi(num))
 
 }
