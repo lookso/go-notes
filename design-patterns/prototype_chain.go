@@ -3,6 +3,11 @@ package main
 import "fmt"
 
 // https://zhuanlan.zhihu.com/p/370197977?utm_id=0
+
+// 原型模式就是利用对已有对象（原型）进行复制（或者叫拷贝）的方式，来创建新对象，以达到节省创建时间的目的。
+// 拷贝可以选择深拷贝或者浅拷贝。
+// 原型模式是创建型模式中的最后一个，它主要用于对象创建成本比较大的情况。
+
 // 原型链
 /**
  * @Description: 简历类，里面包含简历的基本信息
@@ -75,4 +80,7 @@ func main() {
 	copyResume := resume.clone()
 	copyResume.setPersonInfo("李工作", 21, "男")
 	copyResume.display()
+	copyResume2 := resume.clone()
+	copyResume2.setPersonInfo("罗大爷", 30, "男")
+	copyResume2.display()
 }
