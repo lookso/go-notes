@@ -1,4 +1,4 @@
-package chain
+package duty_chain
 
 import (
 	"fmt"
