@@ -15,6 +15,7 @@ import (
 type singleton struct {
 	Name string
 }
+// 懒汉、饿汉模式
 
 var ins *singleton
 var insTwo *singleton
