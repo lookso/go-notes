@@ -2,12 +2,14 @@ package main
 
 import (
 	"fmt"
-	"github.com/boltdb/bolt"
+	"go-notes/sourcecode/boltdb/bolt"
 	"log"
+	"os"
 )
 
 func main() {
-	db, err := bolt.Open("./my.db", 0600, nil)
+	pwd, err := os.Getwd()
+	db, err := bolt.Open(pwd+"/sourcecode/my.db", 0600, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -18,7 +20,6 @@ func main() {
 		//判断要创建的表是否存在
 		b := tx.Bucket([]byte("MyBlocks"))
 		if b == nil {
-
 			//创建叫"MyBucket"的表
 			_, err := tx.CreateBucket([]byte("MyBlocks"))
 			if err != nil {

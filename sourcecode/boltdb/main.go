@@ -1,7 +1,7 @@
 package main
 
 import (
-	"go-notes/sourcecode/blotdb/bolt"
+	"go-notes/sourcecode/boltdb/bolt"
 	"log"
 )
 

@@ -12,27 +12,33 @@ import (
 	"os/user"
 )
 
+// https://github.com/golang/go/issues/50992
+// 看源文件是否损坏,是否下载成功
 func main() {
 	user, err := user.Current()
 	//fmt.Println(user)
-	path := user.HomeDir+"/test/file/123.png"
+	path := user.HomeDir + "/test/file/123.png"
 	fmt.Println(path)
 	templateData, err := ioutil.ReadFile(path)
 	fmt.Println("123 err", err)
-	_,f,e:=image.Decode(bytes.NewReader(templateData))
-	fmt.Println(f,e)
+	_, f, e := image.Decode(bytes.NewReader(templateData))
+	fmt.Println(f, e)
 	_, err = png.Decode(bytes.NewReader(templateData))
-	fmt.Println("456",err)
+	fmt.Println("456", err)
 
 	fh, err := os.Open(path)
+	info, err := fh.Stat()
+	fmt.Println(123123)
+	fh.Seek(0, 0)
+	fmt.Println("info:", info)
 
 	if err != nil {
 		fmt.Println("ERR 1: " + err.Error())
 		os.Exit(1)
 	}
-	if fh==nil{
+	if fh == nil {
 		fmt.Println(13123)
-	}else{
+	} else {
 		fmt.Println(66666)
 	}
 
