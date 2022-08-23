@@ -52,7 +52,7 @@ type DB struct {
 	//如果数据库处于不一致状态，则会发出死机。这
 	//标志对性能有很大影响，因此它只应用于
 	//调试目的。
-
+	//提交数据时是否进行校验
 	StrictMode bool
 
 	// Setting the NoSync flag will cause the database to skip fsync()
@@ -73,7 +73,7 @@ type DB struct {
 	//如果包全局IgnoreNoSync常量为true，则该值为
 	//已忽略。有关更多详细信息，请参阅关于该常数的注释。
 	//这是不安全的。请小心使用。
-
+	// 提交数据后是否进行fsync操作
 	NoSync bool
 
 	// When true, skips the truncate call when growing the database.
@@ -96,7 +96,7 @@ type DB struct {
 
 	//如果要快速读取整个数据库，可以将MmapFlag设置为
 	//系统调用。MAP_在Linux 2.6.23+上填充，用于顺序预读。
-
+	// 是否开启文件到内存的映射
 	MmapFlags int
 
 	// MaxBatchSize is the maximum size of a batch. Default value is
@@ -146,16 +146,16 @@ type DB struct {
 	data     *[maxMapSize]byte
 	datasz   int
 	filesz   int // current on disk file size
-	meta0    *meta
+	meta0    *meta // 两个根元数据之一
 	meta1    *meta
 	pageSize int
 	opened   bool
 	rwtx     *Tx
 	txs      []*Tx
-	freelist *freelist
+	freelist *freelist //freepage 记录链表
 	stats    Stats
 
-	pagePool sync.Pool
+	pagePool sync.Pool // //page 内存池
 
 	batchMu sync.Mutex
 	batch   *batch
@@ -173,6 +173,7 @@ type DB struct {
 	// When true, Update() and Begin(true) return ErrDatabaseReadOnly immediately.
 
 	// 当为true时，Update（）和Begin（true）返回ErrDatabaseReadOnly
+	// 以只读模式打开的db
 	readOnly bool
 }
 
