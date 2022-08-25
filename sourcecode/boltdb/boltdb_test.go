@@ -1,9 +1,11 @@
-package sourcecode
+package boltdb
 
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"github.com/spf13/cast"
 	"go-notes/sourcecode/boltdb/bolt"
 	"log"
 	"os"
@@ -14,8 +16,8 @@ import (
 
 const (
 	DbName          = "myFile.db"
-	FatherBlockName = "FatherBlocks"
-	ChildBlockName  = "ChildBlocks"
+	FatherBlockName = "fatherBlocks"
+	ChildBlockName  = "childBlocks"
 )
 
 func TestBolt(t *testing.T) {
@@ -29,11 +31,28 @@ func TestBolt(t *testing.T) {
 	}
 	defer db.Close()
 
-	if err := db.Update(func(tx *bolt.Tx) error {
+	newDb, err := bolt.Open(pwd+"/test.db", 0600, bolt.DefaultOptions)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer newDb.Close()
+
+	// 显式读写事务
+	tx, err := db.Begin(true)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	tx.Commit()
+
+	tx.Rollback()
+
+	// 置隐式事务Update, View, Batch
+	if err = db.Update(func(tx *bolt.Tx) error {
 		// 判断要创建的表是否存在
 		f := tx.Bucket([]byte(FatherBlockName))
 		if f == nil {
-			//创建叫"MyBucket"的表,建表 new bucket
+			// new bucket
 			f, err = tx.CreateBucket([]byte(FatherBlockName))
 			if err != nil {
 				return err
@@ -48,6 +67,9 @@ func TestBolt(t *testing.T) {
 			return err
 		}
 		c.Put([]byte("c1"), []byte("this is c1"))
+		for i := 0; i < 5; i++ {
+			c.Put([]byte(cast.ToString(i)), []byte("this is"+cast.ToString(i)))
+		}
 		err = c.Delete([]byte("c1"))
 		if err != nil {
 			return err
@@ -62,43 +84,49 @@ func TestBolt(t *testing.T) {
 	// 只读数据库
 	if err = db.View(func(tx *bolt.Tx) error {
 		f := tx.Bucket([]byte(FatherBlockName))
-		f1 := f.Get([]byte("f1"))
-		fmt.Printf("f1:%s\n", string(f1))
+		if f != nil {
+			f1 := f.Get([]byte("f1"))
+			fmt.Printf("f1:%s\n", string(f1))
 
-		f2 := f.Get([]byte("f2"))
-		fmt.Printf("f2:%s\n", string(f2))
+			f2 := f.Get([]byte("f2"))
+			fmt.Printf("f2:%s\n", string(f2))
+		}
 
-
-		// 区间扫描
+		fmt.Println("------区间扫描------")
 		// Assume our events bucket exists and has RFC3339 encoded time keys.
-		cur3 := tx.Bucket([]byte("Events")).Cursor()
+		c := tx.Bucket([]byte(ChildBlockName))
+		if c != nil {
+			cur3 := c.Cursor()
+			// Our time range spans the 90's decade.
+			min := []byte("1")
+			max := []byte("4")
 
-		// Our time range spans the 90's decade.
-		min := []byte("1990-01-01T00:00:00Z")
-		max := []byte("2000-01-01T00:00:00Z")
-
-		// Iterate over the 90's.
-		for k, v := cur3.Seek(min); k != nil && bytes.Compare(k, max) <= 0; k, v = cur3.Next() {
-			fmt.Printf("%s: %s\n", k, v)
+			// Iterate over the 90's.
+			for k, v := cur3.Seek(min); k != nil && bytes.Compare(k, max) <= 0; k, v = cur3.Next() {
+				fmt.Printf("%s: %s\n", k, v)
+			}
 		}
 
-		// 前缀扫描
+		fmt.Println("------ 前缀扫描------")
 		// Assume bucket exists and has keys
-		cur := tx.Bucket([]byte("MyBucket")).Cursor()
+		if c2 := tx.Bucket([]byte(ChildBlockName)); c2 != nil {
+			cur := c2.Cursor()
 
-		prefix := []byte("1234")
-		for k, v := cur.Seek(prefix); k != nil && bytes.HasPrefix(k, prefix); k, v = cur.Next() {
-			fmt.Printf("key=%s, value=%s\n", k, v)
+			prefix := []byte("c")
+			for k, v := cur.Seek(prefix); k != nil && bytes.HasPrefix(k, prefix); k, v = cur.Next() {
+				fmt.Printf("key=%s, value=%s\n", k, v)
+			}
 		}
-
-		//根据key遍历
+		fmt.Println("------根据key遍历-----")
 		// Assume bucket exists and has keys
-		b := tx.Bucket([]byte("MyBucket"))
-
-		cur2 := b.Cursor()
-		for k, v := cur2.First(); k != nil; k, v = cur2.Next() {
-			fmt.Printf("key=%s, value=%s\n", k, v)
+		b := tx.Bucket([]byte(FatherBlockName))
+		if b != nil {
+			cur2 := b.Cursor()
+			for k, v := cur2.First(); k != nil; k, v = cur2.Next() {
+				fmt.Printf("key=%s, value=%s\n", k, v)
+			}
 		}
+		fmt.Println("--------------")
 		return nil
 	}); err != nil {
 		log.Fatal(err)
@@ -107,13 +135,16 @@ func TestBolt(t *testing.T) {
 	// 批量读写数据库：
 	if err = db.Batch(func(tx *bolt.Tx) error {
 		c := tx.Bucket([]byte(ChildBlockName))
-		for i := 0; i < 100; i++ {
+		if c == nil {
+			return errors.New("bucket is nil")
+		}
+		for i := 0; i < 8; i++ {
 			key := strconv.Itoa(i)
 			err := c.Put([]byte("c"+key), []byte("this is c"+key))
 			if err != nil {
 				return err
 			}
-			if i > 30 {
+			if i > 5 {
 				c.DeleteBucket([]byte("c" + key))
 			}
 		}
@@ -148,5 +179,4 @@ func TestBolt(t *testing.T) {
 			prev = stats
 		}
 	}()
-
 }
