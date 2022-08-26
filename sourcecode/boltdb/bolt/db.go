@@ -981,6 +981,10 @@ func (db *DB) grow(sz int) error {
 				return fmt.Errorf("file resize error: %s", err)
 			}
 		}
+		// 调用系统函数write时 有写延迟，write负责把东西写到缓存区上，
+		// sync负责把缓存区上的东西排到写队列中(缓冲区->写队列)，在由守护进程负责把队列里的东西写到磁盘上，
+		// 而sync函数在把缓存区上的东西排到写队列后不管写队列中的内容是否写到磁盘上都立即返回。
+		// fsync函数则是对指定文件的操作，而且必须等到写队列中的内容都写到磁盘后才返回，并且更新文件inode结点里的内容。
 		if err := db.file.Sync(); err != nil {
 			return fmt.Errorf("file sync error: %s", err)
 		}

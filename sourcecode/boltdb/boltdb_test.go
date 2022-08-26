@@ -38,15 +38,35 @@ func TestBolt(t *testing.T) {
 	defer newDb.Close()
 
 	// 显式读写事务
-	tx, err := db.Begin(true)
+	tx, err := newDb.Begin(true)
 	if err != nil {
 		log.Fatal(err)
 	}
+	m, err := tx.CreateBucketIfNotExists([]byte("my_test"))
+	if err != nil {
+		log.Fatal(err)
+	}
+	m.Put([]byte("a"), []byte("aaa"))
+	m.Put([]byte("b"), []byte("bbb"))
 
-	tx.Commit()
+	fmt.Println("b", string(m.Get([]byte("b"))))
+	pageInfo, _ := tx.Page(0)
+	fmt.Printf("pageInfo:%+v\n", pageInfo)
 
-	tx.Rollback()
+	if err = tx.Commit(); err != nil {
+		log.Fatal(err)
+	}
 
+	defer tx.Rollback()
+
+	if err = db.Update(func(tx *bolt.Tx) error {
+		f := tx.Bucket([]byte(FatherBlockName))
+		f.Put([]byte("f2"), []byte("this is f2"))
+		fmt.Println("f2:", string(f.Get([]byte("f2"))))
+		return nil
+	}); err != nil {
+
+	}
 	// 置隐式事务Update, View, Batch
 	if err = db.Update(func(tx *bolt.Tx) error {
 		// 判断要创建的表是否存在
@@ -140,12 +160,12 @@ func TestBolt(t *testing.T) {
 		}
 		for i := 0; i < 8; i++ {
 			key := strconv.Itoa(i)
-			err := c.Put([]byte("c"+key), []byte("this is c"+key))
+			err = c.Put([]byte("c"+key), []byte("this is c"+key))
 			if err != nil {
 				return err
 			}
 			if i > 5 {
-				c.DeleteBucket([]byte("c" + key))
+				c.Delete([]byte("c" + key))
 			}
 		}
 
@@ -163,7 +183,7 @@ func TestBolt(t *testing.T) {
 	go func() {
 		// Grab the initial stats.
 		prev := db.Stats()
-
+		fmt.Printf("prev status:%+v\n", prev)
 		for {
 			// Wait for 10s.
 			time.Sleep(10 * time.Second)
@@ -177,6 +197,7 @@ func TestBolt(t *testing.T) {
 
 			// Save stats for the next loop.
 			prev = stats
+			fmt.Printf("diff status:%+v\n", diff)
 		}
 	}()
 }
