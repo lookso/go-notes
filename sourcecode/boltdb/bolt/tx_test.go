@@ -13,6 +13,7 @@ import (
 
 // Ensure that committing a closed transaction returns an error.
 func TestTx_Commit_ErrTxClosed(t *testing.T) {
+
 	db := MustOpenDB()
 	defer db.MustClose()
 	tx, err := db.Begin(true)

@@ -145,7 +145,7 @@ type DB struct {
 	dataref  []byte   // mmap'ed readonly, write throws SEGV
 	data     *[maxMapSize]byte
 	datasz   int
-	filesz   int // current on disk file size
+	filesz   int   // current on disk file size
 	meta0    *meta // 两个根元数据之一
 	meta1    *meta
 	pageSize int
@@ -238,21 +238,16 @@ func Open(path string, mode os.FileMode, options *Options) (*DB, error) {
 	// hold a lock at the same time) otherwise (options.ReadOnly is set).
 
 	//锁定文件，以便以读写模式使用 Bolt 的其他进程无法
-	//同时使用数据库。这将导致损坏，因为
-	//这两个进程将分别编写元页面和自由页面。
-	//数据库文件以独占方式锁定（只有一个进程可以获取锁定）
-	//如果 ！选项。只读。
-	//使用共享锁锁定数据库文件（多个进程可能
-	//同时按住锁）否则（选项。已设置只读）。
-	//
-	// 只读加共享锁、否则加互斥锁
+	//同时使用数据库。这将导致损坏，因为这两个进程将分别编写元页面和自由页面。数据库文件以独占方式锁定（只有一个进程可以获取锁定）
+	//如果!选项。只读。使用共享锁锁定数据库文件（多个进程可能同时按住锁）否则（选项。已设置只读）。
+	//只读加共享锁、否则加互斥锁
 	if err := flock(db, mode, !db.readOnly, options.Timeout); err != nil {
 		_ = db.close()
 		return nil, err
 	}
 
 	// Default values for test hooks
-	//文件并发写入数据,基于原子操作,b 是我们要写入数据的字节切片,off 是相对位置
+	//如果文件并发写入数据,基于原子操作,b 是我们要写入数据的字节切片,off 是相对位置
 	db.ops.writeAt = db.file.WriteAt
 
 	// Initialize the database if it doesn't exist.
@@ -261,7 +256,7 @@ func Open(path string, mode os.FileMode, options *Options) (*DB, error) {
 	if info, err := db.file.Stat(); err != nil {
 		return nil, err
 	} else if info.Size() == 0 {
-		fmt.Println("size:",info.Size())
+		fmt.Println("size:", info.Size())
 		// Initialize new files with meta pages.
 		if err := db.init(); err != nil {
 			return nil, err
@@ -414,7 +409,7 @@ func (db *DB) mmapSize(size int) (int, error) {
 // init creates a new database file and initializes its meta pages.
 func (db *DB) init() error {
 	// Set the page size to the OS page size.
-	// 获取内存分页大小 4096
+	// 获取内存分页大小 4096byte=4kb
 	// https://www.jianshu.com/p/b86a69892990
 	db.pageSize = os.Getpagesize()
 
@@ -454,12 +449,13 @@ func (db *DB) init() error {
 	p.id = pgid(3)
 	p.flags = leafPageFlag
 	p.count = 0
-
+	fmt.Println("buf:", string(buf))
 	// Write the buffer to our data file.
 	// 将 buffer 中的这四个页写入数据文件并刷盘
 	if _, err := db.ops.writeAt(buf, 0); err != nil {
 		return err
 	}
+	// 使用fdatasync减少对metadata的更新,加快数据同步时间,但是这里是对sync的封装
 	if err := fdatasync(db); err != nil {
 		return err
 	}
