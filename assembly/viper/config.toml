@@ -1,0 +1,9 @@
+title = "toolsapi_dev_conf"
+
+[httpserver]
+addr = ":8000"
+readTimeout = 60
+writeTimeout = 60
+
+[env]
+env = "dev"

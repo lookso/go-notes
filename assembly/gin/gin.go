@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/testdata/protoexample"
+	"github.com/panjf2000/ants/v2"
 	"github.com/spf13/cast"
 	"log"
 	"net/http"
@@ -14,6 +15,11 @@ import (
 	"sort"
 	"strings"
 )
+
+func init() {
+	fmt.Println(312321321)
+	//time.Sleep(5 * time.Second)
+}
 
 type Param struct {
 	Name string `json:"name"`
@@ -70,7 +76,22 @@ func MD5(str string) string {
 	return hex.EncodeToString(s.Sum(nil))
 }
 
+type User struct {
+	IDs  []int  `json:"id"`
+	Name string `json:"name"`
+}
+
+type TaskParam struct {
+	u *User
+}
+
 func main() {
+	a := 1
+	if a == 1 {
+		a = 2
+	}
+	fmt.Println(a)
+
 	var param = Param{
 		Skip: make([]int, 0),
 	}
@@ -79,8 +100,7 @@ func main() {
 	router := gin.New()
 	router.Use(gin.Recovery())
 
-
-	router.POST("/get/data", func(c *gin.Context) {
+	router.POST("/post/data", func(c *gin.Context) {
 		var values url.Values
 		reqQuery := ""
 		reqUri := c.Request.RequestURI
@@ -93,6 +113,8 @@ func main() {
 		c.Request.ParseForm()
 		values = c.Request.Form
 		fmt.Println("v2", values)
+		name,_:=c.GetQuery("name")
+		fmt.Println("name",name)
 
 		//var vv url.Values
 		//var data =make(map[string]interface{})
@@ -127,10 +149,7 @@ func main() {
 	//	c.String(http.StatusOK, string(d)+":热编译123456")
 	//})
 	router.GET("/get/json", func(c *gin.Context) {
-		type User struct {
-			IDs  []int  `json:"id"`
-			Name string `json:"name"`
-		}
+
 		type Resopnse struct {
 			Users []User `json:"users"`
 		}
@@ -138,8 +157,30 @@ func main() {
 		var r = Resopnse{
 			Users: make([]User, 0), // { "ids": []] }
 		}
+		name, ok := c.GetQuery("name")
+		if !ok {
+			return
+		}
+		u := new(User)
+		u.IDs = []int{1, 2, 3}
+		u.Name = name
+
+		defer ants.Release()
+		p, err := ants.NewPoolWithFunc(10, ActionDataBackUpFun, ants.WithPanicHandler(panicHandler))
+		if err != nil {
+			return
+		}
+		var taskParam = &TaskParam{
+			u: u,
+		}
+		if err = p.Invoke(taskParam); err != nil {
+			c.JSON(http.StatusBadGateway, Success(r))
+			return
+		}
+
 		c.JSON(http.StatusOK, Success(r))
 	})
+
 	router.POST("/post/json", func(c *gin.Context) {
 		// 获取原始字节
 		err := c.ShouldBind(&param)
@@ -181,4 +222,18 @@ func main() {
 	})
 
 	router.Run(":8000")
+}
+
+func panicHandler(err interface{}) {
+	fmt.Println(err)
+}
+
+func ActionDataBackUpFun(data interface{}) {
+	if data == nil {
+		return
+	}
+	taskParam := data.(*TaskParam)
+	fmt.Println("taskParam", taskParam)
+	u := taskParam.u
+	fmt.Println(u)
 }

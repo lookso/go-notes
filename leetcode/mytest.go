@@ -30,6 +30,8 @@ func main() {
 		}(i)
 	}
 	wg.Wait()
+	fmt.Println("teoms")
+	return
 
 	s := new(Show)
 	Params := make(map[string]interface{})

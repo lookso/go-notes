@@ -2,6 +2,17 @@ package main
 
 import "fmt"
 
+func init() {
+	initA()
+	initB()
+}
+func initA() {
+	fmt.Println(123)
+}
+func initB() {
+	fmt.Println(456)
+}
+
 type Cp struct {
 	Name string `json:"name"`
 	Sex  int    `json:"sex"`

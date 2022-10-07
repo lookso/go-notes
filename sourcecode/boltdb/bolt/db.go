@@ -263,6 +263,7 @@ func Open(path string, mode os.FileMode, options *Options) (*DB, error) {
 		}
 	} else {
 		// Read the first meta page to determine the page size.
+		// （十六进制）0x1000 =（十进制）4096 也就是一页数据量大小的数组
 		var buf [0x1000]byte
 		fmt.Println("buf-len:", len(buf))
 		if _, err := db.file.ReadAt(buf[:], 0); err == nil {
@@ -275,10 +276,15 @@ func Open(path string, mode os.FileMode, options *Options) (*DB, error) {
 				// If the first page is invalid and this OS uses a different
 				// page size than what the database was created with then we
 				// are out of luck and cannot access the database.
+				//如果我们无法读取页面大小，我们可以假设它是相同的操作系统 - 因为这是页面大小的选择方式首选方式。
+				//如果第一页无效，并且此操作系统使用不同的页面大小比数据库创建时的大小，然后我们
+				//运气不好，无法访问数据库。
+				//
 				db.pageSize = os.Getpagesize()
 			} else {
 				db.pageSize = int(m.pageSize)
 			}
+			fmt.Printf("db.pageSize:%+v\n", db.pageSize)
 		}
 	}
 
@@ -369,9 +375,11 @@ func (db *DB) munmap() error {
 // of the database. The minimum size is 32KB and doubles until it reaches 1GB.
 // Returns an error if the new mmap size is greater than the max allowed.
 
-//mmapSize 在给定当前大小的情况下确定 mmap 的适当大小
-//的数据库。最小大小为 32KB，并加倍，直到达到 1GB。
+//mmapSize 在给定当前大小的情况下确定 mmap 的适当大小的数据库。最小大小为 32KB，并加倍，直到达到 1GB。
 //如果新的 mmap 大小大于允许的最大值，则返回错误。
+
+// 映射文件的最小size为32KB，当文件小于1G时，它的大小以加倍的方式增长，当文件大于1G时，每次remmap增加大小时，是以1G为单位增长的
+
 func (db *DB) mmapSize(size int) (int, error) {
 	// Double the size from 32KB until 1GB.
 	for i := uint(15); i <= 30; i++ {
@@ -1083,18 +1091,19 @@ type Info struct {
 }
 
 type meta struct {
-	magic    uint32
-	version  uint32
-	pageSize uint32
+	magic    uint32 // 固定魔数 0xED0CDAED
+	version  uint32 // 固定版本号,2
+	pageSize uint32 // 页大小
 	flags    uint32
-	root     bucket
-	freelist pgid
-	pgid     pgid
-	txid     txid
-	checksum uint64
+	root     bucket // 根bucket，它是所有数据的起始bucket
+	freelist pgid   // 空闲页描述信息所在的数据页
+	pgid     pgid   // 最大数据页id
+	txid     txid   // 事物ID
+	checksum uint64 // 元数据的校验和
 }
 
 // validate checks the marker bytes and version of the meta page to ensure it matches this binary.
+// 验证检查元页面的标记字节和版本，以确保它与此二进制文件匹配。
 func (m *meta) validate() error {
 	if m.magic != magic {
 		return ErrInvalid
