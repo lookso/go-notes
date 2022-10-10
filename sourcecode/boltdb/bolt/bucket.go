@@ -47,6 +47,13 @@ type Bucket struct {
 	// amount if you know that your write workloads are mostly append-only.
 	//
 	// This is non-persisted across transactions so it must be set in every Tx.
+
+	//设置节点拆分时填充节点的阈值。默认情况下，
+	//桶将填充到50%，但增加这个可能是有用的
+	//如果您知道您的写入工作负载大多是仅追加的，则数量。
+	//
+	//这在事务中是非持久的，因此必须在每个 Tx 中设置它。
+	//
 	//  填充率
 	FillPercent float64
 }
@@ -57,6 +64,7 @@ type Bucket struct {
 // header. In the case of inline buckets, the "root" will be 0.
 type bucket struct {
 	root     pgid   // page id of the bucket's root-level page
+	// 单调递增，used by NextSequence()
 	sequence uint64 // monotonically incrementing, used by NextSequence()
 }
 
@@ -160,6 +168,11 @@ func (b *Bucket) openBucket(value []byte) *Bucket {
 // CreateBucket creates a new bucket at the given key and returns the new bucket.
 // Returns an error if the key already exists, if the bucket name is blank, or if the bucket name is too long.
 // The bucket instance is only valid for the lifetime of the transaction.
+
+//创建桶在给定键处创建一个新存储桶，并返回新存储桶。
+//如果密钥已存在、存储桶名称为空或存储桶名称太长，则返回错误。
+//存储桶实例仅在事务的生命周期内有效。
+
 func (b *Bucket) CreateBucket(key []byte) (*Bucket, error) {
 	if b.tx.db == nil {
 		return nil, ErrTxClosed

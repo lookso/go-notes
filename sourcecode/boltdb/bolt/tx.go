@@ -21,7 +21,16 @@ type txid uint64
 // them. Pages can not be reclaimed by the writer until no more transactions
 // are using them. A long running read transaction can cause the database to
 // quickly grow.
+
+//Tx 表示数据库上的只读或读/写事务。
+//只读事务可用于检索键的值和创建游标。
+//读/写事务可以创建和删除存储桶以及创建和删除密钥。
+//
+//重要说明：完成操作后，必须提交或回滚事务
+//他们。在不再进行事务之前，编写器无法回收页面
+//正在使用它们。长时间运行的读取事务可能导致数据库快速成长。
 type Tx struct {
+	// Tx 主要封装了读事务和写事务。其中通过writable来区分是读事务还是写事务
 	writable       bool
 	managed        bool
 	db             *DB
@@ -37,6 +46,13 @@ type Tx struct {
 	// By default, the flag is unset, which works well for mostly in-memory
 	// workloads. For databases that are much larger than available RAM,
 	// set the flag to syscall.O_DIRECT to avoid trashing the page cache.
+
+	//写标记 指定与写入相关的方法（如 WriteTo（））的标志。
+	//Tx 使用指定的标志打开数据库文件以复制数据。
+	//
+	//默认情况下，该标志未设置，这适用于大多数内存中工作量。对于远大于可用 RAM 的数据库，
+	//将标志设置为系统调用。O_DIRECT以避免破坏页面缓存。
+	//
 	WriteFlag int
 }
 
@@ -55,6 +71,7 @@ func (tx *Tx) init(db *DB) {
 	*tx.root.bucket = tx.meta.root
 
 	// Increment the transaction id and add a page cache for writable transactions.
+	// 递增事务 ID 并为可写事务添加页面缓存。
 	if tx.writable {
 		tx.pages = make(map[pgid]*page)
 		tx.meta.txid += txid(1)

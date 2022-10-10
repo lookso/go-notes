@@ -48,7 +48,7 @@ type DB struct {
 	// flag has a large performance impact so it should only be used for
 	// debugging purposes.
 
-	//启用后，数据库将在每次提交后执行Check（）。
+	//启用后，数据库将在每次提交后执行Check()
 	//如果数据库处于不一致状态，则会发出死机。这
 	//标志对性能有很大影响，因此它只应用于
 	//调试目的。
@@ -263,7 +263,7 @@ func Open(path string, mode os.FileMode, options *Options) (*DB, error) {
 		}
 	} else {
 		// Read the first meta page to determine the page size.
-		// （十六进制）0x1000 =（十进制）4096 也就是一页数据量大小的数组
+		// （十六进制）0x1000 =（十进制）4096 也就是一页数据量大小的数组,1024b*4=4096=4kb
 		var buf [0x1000]byte
 		fmt.Println("buf-len:", len(buf))
 		if _, err := db.file.ReadAt(buf[:], 0); err == nil {
@@ -911,6 +911,9 @@ func (db *DB) meta() *meta {
 	// We have to return the meta with the highest txid which doesn't fail
 	// validation. Otherwise, we can cause errors when in fact the database is
 	// in a consistent state. metaA is the one with the higher txid.
+
+	//我们必须返回具有最高 txid 的元，它不会失败验证。否则，我们可能会导致错误，而实际上数据库是
+	//处于一致状态。元A是具有较高 txid 的那个。
 	metaA := db.meta0
 	metaB := db.meta1
 	if db.meta1.txid > db.meta0.txid {
