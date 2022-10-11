@@ -129,6 +129,7 @@ func (f *freelist) free(txid txid, p *page) {
 }
 
 // release moves all page ids for a transaction id (or older) to the freelist.
+// release 将事务 ID（或更早）的所有page ID 移动到freelist。
 func (f *freelist) release(txid txid) {
 	m := make(pgids, 0)
 	for tid, ids := range f.pending {

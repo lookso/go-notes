@@ -645,6 +645,7 @@ func (b *Bucket) write() []byte {
 }
 
 // rebalance attempts to balance all nodes.
+// 重新平衡尝试平衡所有节点
 func (b *Bucket) rebalance() {
 	for _, n := range b.nodes {
 		n.rebalance()

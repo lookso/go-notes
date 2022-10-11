@@ -634,12 +634,14 @@ func (db *DB) beginRWTx() (*Tx, error) {
 	db.rwtx = t
 
 	// Free any pages associated with closed read-only transactions.
+	// 释放与已关闭的只读事务关联的所有页,找到最小的事务id
 	var minid txid = 0xFFFFFFFFFFFFFFFF
 	for _, t := range db.txs {
 		if t.meta.txid < minid {
 			minid = t.meta.txid
 		}
 	}
+	// 将之前事务关联的page全部释放了，因为在只读事务中，没法释放，只读事务的页，因为可能当前的事务已经完成,但实际上其他的读事务还在用
 	if minid > 0 {
 		db.freelist.release(minid - 1)
 	}

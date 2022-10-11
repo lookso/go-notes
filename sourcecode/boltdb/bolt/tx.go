@@ -158,6 +158,8 @@ func (tx *Tx) OnCommit(fn func()) {
 // Commit writes all changes to disk and updates the meta page.
 // Returns an error if a disk write error occurs, or if Commit is
 // called on a read-only transaction.
+//
+//提交会将所有更改写入磁盘并更新meta page。如果发生磁盘写入错误，或者如果 Commit 是 在只读事务上调用。
 func (tx *Tx) Commit() error {
 	_assert(!tx.managed, "managed tx commit not allowed")
 	if tx.db == nil {
@@ -169,6 +171,7 @@ func (tx *Tx) Commit() error {
 	// TODO(benbjohnson): Use vectorized I/O to write out dirty pages.
 
 	// Rebalance nodes which have had deletions.
+	// 删除时进行平衡,页合并
 	var startTime = time.Now()
 	tx.root.rebalance()
 	if tx.stats.Rebalance > 0 {
@@ -176,7 +179,9 @@ func (tx *Tx) Commit() error {
 	}
 
 	// spill data onto dirty pages.
+	// 将数据溢出到脏页上
 	startTime = time.Now()
+	// 这个内部会往缓存tx.pages中加page
 	if err := tx.root.spill(); err != nil {
 		tx.rollback()
 		return err
@@ -190,7 +195,10 @@ func (tx *Tx) Commit() error {
 
 	// Free the freelist and allocate new pages for it. This will overestimate
 	// the size of the freelist but not underestimate the size (which would be bad).
+	// 分配新的页面给freelist，然后将freelist写入新的页面
 	tx.db.freelist.free(tx.meta.txid, tx.db.page(tx.meta.freelist))
+	// 空闲列表可能会增加，因此需要重新分配页用来存储空闲列表
+	// 因为在开启写事务的时候，有去释放之前读事务占用的页信息，因此此处需要判断是否freelist会有溢出的问题
 	p, err := tx.allocate((tx.db.freelist.size() / tx.db.pageSize) + 1)
 	if err != nil {
 		tx.rollback()

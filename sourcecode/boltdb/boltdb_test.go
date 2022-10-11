@@ -15,41 +15,32 @@ import (
 )
 
 const (
-	DbName          = "myFile.db"
+	nestingDbName   = "nesting.db"
 	FatherBlockName = "fatherBlocks"
 	ChildBlockName  = "childBlocks"
 )
 
 func TestBolt(t *testing.T) {
 	pwd, err := os.Getwd()
-	db, err := bolt.Open(pwd+"/"+DbName, 0600, &bolt.Options{
-		ReadOnly: false,
-		Timeout:  1 * time.Second,
-	})
+
+	db, err := bolt.Open(pwd+"/"+nestingDbName, 0600, bolt.DefaultOptions)
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer db.Close()
 
-	newDb, err := bolt.Open(pwd+"/test.db", 0600, bolt.DefaultOptions)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer newDb.Close()
-
 	// 显式读写事务
-	tx, err := newDb.Begin(true)
+	tx, err := db.Begin(true)
 	if err != nil {
 		log.Fatal(err)
 	}
-	m, err := tx.CreateBucketIfNotExists([]byte("my_test"))
+	father, err := tx.CreateBucketIfNotExists([]byte(FatherBlockName))
 	if err != nil {
 		log.Fatal(err)
 	}
-	m.Put([]byte("a"), []byte("aaa"))
-	m.Put([]byte("b"), []byte("bbb"))
+	father.Put([]byte("father_1"), []byte("this is father_1"))
 
-	fmt.Println("b", string(m.Get([]byte("b"))))
+	fmt.Println("father_1", string(father.Get([]byte("father_1"))))
 	pageInfo, _ := tx.Page(0)
 	fmt.Printf("pageInfo:%+v\n", pageInfo)
 
@@ -61,41 +52,27 @@ func TestBolt(t *testing.T) {
 
 	if err = db.Update(func(tx *bolt.Tx) error {
 		f := tx.Bucket([]byte(FatherBlockName))
-		f.Put([]byte("f2"), []byte("this is f2"))
-		fmt.Println("f2:", string(f.Get([]byte("f2"))))
+		f.Put([]byte("father_2"), []byte("this is father_2"))
+		fmt.Println("father_2:", string(f.Get([]byte("father_2"))))
 		return nil
 	}); err != nil {
-
+		log.Fatal(err)
 	}
 	// 置隐式事务Update, View, Batch
 	if err = db.Update(func(tx *bolt.Tx) error {
 		// 判断要创建的表是否存在
-		f := tx.Bucket([]byte(FatherBlockName))
-		if f == nil {
-			// new bucket
-			f, err = tx.CreateBucket([]byte(FatherBlockName))
-			if err != nil {
-				return err
-			}
-			f.Put([]byte("f1"), []byte("this is f1"))
-			return nil
-		}
-		f.Put([]byte("f2"), []byte("this is f2"))
+		child, err := tx.CreateBucketIfNotExists([]byte(ChildBlockName))
 
-		c, err := tx.CreateBucketIfNotExists([]byte(ChildBlockName))
+		for i := 1; i <= 10000; i++ {
+			child.Put([]byte("child_"+cast.ToString(i)), []byte("this is child_"+cast.ToString(i)))
+		}
+		fmt.Printf("child_1:%+v\n", string(child.Get([]byte("child_1"))))
+		err = child.Delete([]byte("child_1"))
 		if err != nil {
 			return err
 		}
-		c.Put([]byte("c1"), []byte("this is c1"))
-		for i := 0; i < 5; i++ {
-			c.Put([]byte(cast.ToString(i)), []byte("this is"+cast.ToString(i)))
-		}
-		err = c.Delete([]byte("c1"))
-		if err != nil {
-			return err
-		}
-		fmt.Printf("c1:%+v\n", string(c.Get([]byte("c1"))))
-
+		fmt.Printf("child_1:%+v\n", string(child.Get([]byte("child_1"))))
+		fmt.Println(child.Stats(), child.Root())
 		return nil
 	}); err != nil {
 		log.Fatal(err)
@@ -105,11 +82,8 @@ func TestBolt(t *testing.T) {
 	if err = db.View(func(tx *bolt.Tx) error {
 		f := tx.Bucket([]byte(FatherBlockName))
 		if f != nil {
-			f1 := f.Get([]byte("f1"))
-			fmt.Printf("f1:%s\n", string(f1))
-
-			f2 := f.Get([]byte("f2"))
-			fmt.Printf("f2:%s\n", string(f2))
+			f1 := f.Get([]byte("father_1"))
+			fmt.Printf("father_1:%s\n", string(f1))
 		}
 
 		fmt.Println("------区间扫描------")
@@ -132,7 +106,7 @@ func TestBolt(t *testing.T) {
 		if c2 := tx.Bucket([]byte(ChildBlockName)); c2 != nil {
 			cur := c2.Cursor()
 
-			prefix := []byte("c")
+			prefix := []byte("ch")
 			for k, v := cur.Seek(prefix); k != nil && bytes.HasPrefix(k, prefix); k, v = cur.Next() {
 				fmt.Printf("key=%s, value=%s\n", k, v)
 			}
@@ -154,18 +128,18 @@ func TestBolt(t *testing.T) {
 
 	// 批量读写数据库：
 	if err = db.Batch(func(tx *bolt.Tx) error {
-		c := tx.Bucket([]byte(ChildBlockName))
+		c := tx.Bucket([]byte(FatherBlockName))
 		if c == nil {
 			return errors.New("bucket is nil")
 		}
 		for i := 0; i < 8; i++ {
 			key := strconv.Itoa(i)
-			err = c.Put([]byte("c"+key), []byte("this is c"+key))
+			err = c.Put([]byte("father_a_"+key), []byte("this is father_a_"+key))
 			if err != nil {
 				return err
 			}
 			if i > 5 {
-				c.Delete([]byte("c" + key))
+				c.Delete([]byte("father_a_" + key))
 			}
 		}
 
