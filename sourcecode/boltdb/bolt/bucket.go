@@ -38,7 +38,7 @@ type Bucket struct {
 	*bucket                     //在内联时bucket主要用来存储其桶的value并在后面拼接所有的元素，即所谓的内联
 	tx       *Tx                // the associated transaction
 	buckets  map[string]*Bucket // subbucket cache
-	page     *page              // inline page reference
+	page     *page              // inline page reference // 内联页面引用
 	rootNode *node              // materialized node for the root page.
 	nodes    map[pgid]*node     // node cache
 
@@ -63,7 +63,7 @@ type Bucket struct {
 // then its root page can be stored inline in the "value", after the bucket
 // header. In the case of inline buckets, the "root" will be 0.
 type bucket struct {
-	root     pgid   // page id of the bucket's root-level page
+	root pgid // page id of the bucket's root-level page
 	// 单调递增，used by NextSequence()
 	sequence uint64 // monotonically incrementing, used by NextSequence()
 }
@@ -96,11 +96,16 @@ func (b *Bucket) Writable() bool {
 // Cursor creates a cursor associated with the bucket.
 // The cursor is only valid as long as the transaction is open.
 // Do not use a cursor after the transaction is closed.
+//游标创建与存储桶关联的游标。
+//光标仅在事务处于打开状态时才有效。
+//不要在事务关闭后使用游标。
 func (b *Bucket) Cursor() *Cursor {
 	// Update transaction statistics.
+	// 更新事务统计信息。
 	b.tx.stats.CursorCount++
 
 	// Allocate and return a cursor.
+	// 分配返回游标
 	return &Cursor{
 		bucket: b,
 		stack:  make([]elemRef, 0),
@@ -185,6 +190,7 @@ func (b *Bucket) CreateBucket(key []byte) (*Bucket, error) {
 	// Move cursor to correct position.
 	c := b.Cursor()
 	k, _, flags := c.seek(key)
+	fmt.Println("bucket-k", string(k))
 
 	// Return an error if there is an existing key.
 	if bytes.Equal(key, k) {
@@ -718,9 +724,11 @@ func (b *Bucket) dereference() {
 
 // pageNode returns the in-memory node, if it exists.
 // Otherwise returns the underlying page.
+// 页节点返回内存中节点（如果存在）。 否则，返回基础页。
 func (b *Bucket) pageNode(id pgid) (*page, *node) {
 	// Inline buckets have a fake page embedded in their value so treat them
 	// differently. We'll return the rootNode (if available) or the fake page.
+	// 内联存储桶的值中嵌入了一个假页面，因此请对待它们不同。我们将返回根节点（如果可用）或假页面。
 	if b.root == 0 {
 		if id != 0 {
 			panic(fmt.Sprintf("inline bucket non-zero page access(2): %d != 0", id))

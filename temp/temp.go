@@ -1,15 +1,24 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/spf13/cast"
 	"math"
+	"sort"
 	"time"
 )
 
 func main() {
+	fmt.Println(bytes.Compare([]byte("a"), []byte("b")))
+
+	arr := []int{1,2,3,4,5,6,8,9,10}
+	d := sort.Search(len(arr), func(i int) bool { return arr[i]>=70})
+	fmt.Println(d)
+	return
+
 	classIDsArr := []int{}
 	num := 100
 

@@ -1,7 +1,6 @@
 package boltdb
 
 import (
-	"bytes"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -79,53 +78,53 @@ func TestBolt(t *testing.T) {
 	}
 
 	// 只读数据库
-	if err = db.View(func(tx *bolt.Tx) error {
-		f := tx.Bucket([]byte(FatherBlockName))
-		if f != nil {
-			f1 := f.Get([]byte("father_1"))
-			fmt.Printf("father_1:%s\n", string(f1))
-		}
-
-		fmt.Println("------区间扫描------")
-		// Assume our events bucket exists and has RFC3339 encoded time keys.
-		c := tx.Bucket([]byte(ChildBlockName))
-		if c != nil {
-			cur3 := c.Cursor()
-			// Our time range spans the 90's decade.
-			min := []byte("1")
-			max := []byte("4")
-
-			// Iterate over the 90's.
-			for k, v := cur3.Seek(min); k != nil && bytes.Compare(k, max) <= 0; k, v = cur3.Next() {
-				fmt.Printf("%s: %s\n", k, v)
-			}
-		}
-
-		fmt.Println("------ 前缀扫描------")
-		// Assume bucket exists and has keys
-		if c2 := tx.Bucket([]byte(ChildBlockName)); c2 != nil {
-			cur := c2.Cursor()
-
-			prefix := []byte("ch")
-			for k, v := cur.Seek(prefix); k != nil && bytes.HasPrefix(k, prefix); k, v = cur.Next() {
-				fmt.Printf("key=%s, value=%s\n", k, v)
-			}
-		}
-		fmt.Println("------根据key遍历-----")
-		// Assume bucket exists and has keys
-		b := tx.Bucket([]byte(FatherBlockName))
-		if b != nil {
-			cur2 := b.Cursor()
-			for k, v := cur2.First(); k != nil; k, v = cur2.Next() {
-				fmt.Printf("key=%s, value=%s\n", k, v)
-			}
-		}
-		fmt.Println("--------------")
-		return nil
-	}); err != nil {
-		log.Fatal(err)
-	}
-
+	//if err = db.View(func(tx *bolt.Tx) error {
+	//	f := tx.Bucket([]byte(FatherBlockName))
+	//	if f != nil {
+	//		f1 := f.Get([]byte("father_1"))
+	//		fmt.Printf("father_1:%s\n", string(f1))
+	//	}
+	//
+	//	fmt.Println("------区间扫描------")
+	//	// Assume our events bucket exists and has RFC3339 encoded time keys.
+	//	c := tx.Bucket([]byte(ChildBlockName))
+	//	if c != nil {
+	//		cur3 := c.Cursor()
+	//		// Our time range spans the 90's decade.
+	//		min := []byte("1")
+	//		max := []byte("4")
+	//
+	//		// Iterate over the 90's.
+	//		for k, v := cur3.Seek(min); k != nil && bytes.Compare(k, max) <= 0; k, v = cur3.Next() {
+	//			fmt.Printf("%s: %s\n", k, v)
+	//		}
+	//	}
+	//
+	//	fmt.Println("------ 前缀扫描------")
+	//	// Assume bucket exists and has keys
+	//	if c2 := tx.Bucket([]byte(ChildBlockName)); c2 != nil {
+	//		cur := c2.Cursor()
+	//
+	//		prefix := []byte("ch")
+	//		for k, v := cur.Seek(prefix); k != nil && bytes.HasPrefix(k, prefix); k, v = cur.Next() {
+	//			fmt.Printf("key=%s, value=%s\n", k, v)
+	//		}
+	//	}
+	//	fmt.Println("------根据key遍历-----")
+	//	// Assume bucket exists and has keys
+	//	b := tx.Bucket([]byte(FatherBlockName))
+	//	if b != nil {
+	//		cur2 := b.Cursor()
+	//		for k, v := cur2.First(); k != nil; k, v = cur2.Next() {
+	//			fmt.Printf("key=%s, value=%s\n", k, v)
+	//		}
+	//	}
+	//	fmt.Println("--------------")
+	//	return nil
+	//}); err != nil {
+	//	log.Fatal(err)
+	//}
+	//
 	// 批量读写数据库：
 	if err = db.Batch(func(tx *bolt.Tx) error {
 		c := tx.Bucket([]byte(FatherBlockName))

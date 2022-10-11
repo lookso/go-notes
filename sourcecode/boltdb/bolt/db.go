@@ -457,7 +457,6 @@ func (db *DB) init() error {
 	p.id = pgid(3)
 	p.flags = leafPageFlag
 	p.count = 0
-	fmt.Println("buf:", string(buf))
 	// Write the buffer to our data file.
 	// 将 buffer 中的这四个页写入数据文件并刷盘
 	if _, err := db.ops.writeAt(buf, 0); err != nil {

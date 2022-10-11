@@ -153,7 +153,7 @@ func (c *Cursor) Delete() error {
 // If the key does not exist then the next key is used.
 func (c *Cursor) seek(seek []byte) (key []byte, value []byte, flags uint32) {
 	_assert(c.bucket.tx.db != nil, "tx closed")
-
+	// 从根页面/节点开始，然后遍历到正确的页面。
 	// Start from root page/node and traverse to correct page.
 	c.stack = c.stack[:0]
 	c.search(seek, c.bucket.root)
@@ -322,7 +322,7 @@ func (c *Cursor) nsearch(key []byte) {
 	// If we have a node then search its inodes.
 	if n != nil {
 		index := sort.Search(len(n.inodes), func(i int) bool {
-			return bytes.Compare(n.inodes[i].key, key) != -1
+			return bytes.Compare(n.inodes[i].key, key) != -1 // a=b->0,a<b->-1
 		})
 		e.index = index
 		return
@@ -377,6 +377,7 @@ func (c *Cursor) node() *node {
 }
 
 // elemRef represents a reference to an element on a given page/node.
+// elemRef 表示对给定页面/节点上的元素的引用。
 type elemRef struct {
 	page  *page
 	node  *node
