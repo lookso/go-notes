@@ -1,7 +1,7 @@
 package main
 
 import (
-	"go-notes/package/cli/cobra/tour/cmd"
+	"go-notes/gopackages/cli/cobra/tour/cmd"
 	"log"
 )
 

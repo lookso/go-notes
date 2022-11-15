@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"github.com/spf13/cobra"
-	"go-notes/package/cli/cobra/tour/internal/word"
+	"go-notes/gopackages/cli/cobra/tour/internal/word"
 	"log"
 	"strings"
 )

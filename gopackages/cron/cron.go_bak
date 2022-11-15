@@ -1,0 +1,119 @@
+package main
+
+import (
+	"fmt"
+	"github.com/robfig/cron/v3"
+	"sync"
+	"time"
+)
+
+//var ch = make(chan int, 0)
+var c = cron.New(cron.WithSeconds())
+
+func main() {
+	//spec3 := "*/5 * * * * *"
+	//	cronFunc(spec3, 3)
+	cronFunc()
+
+	//spec1 := "*/4 * * * * *"
+	//cronFunc(spec1, 1)
+	//spec2 := "*/2 * * * * *"
+	//cronFunc(spec2, 2)
+	////close(ch)
+	////for v:=range ch{
+	////	fmt.Println(v)
+	////}
+	//select {}
+	//	cn()
+
+}
+
+var stopCh = make(chan cron.EntryID, 1)
+
+func cronFunc() {
+
+	entryID1, err := c.AddFunc("*/5 * * * * *", func() {
+		fmt.Printf("time in %v id:%+v,spec:%+v\n", time.Now().Unix(), 3, "*/5 * * * * *")
+	})
+
+	entryID2, err := c.AddFunc("*/2 * * * * *", func() {
+		fmt.Printf("time in %v id:%+v,spec:%+v\n", time.Now().Unix(), 2, "/2")
+	})
+	entryID3, err := c.AddFunc("*/4 * * * * *", func() {
+		fmt.Printf("time in %v id:%+v,spec:%+v\n", time.Now().Unix(), 4, "/4")
+		c.Stop()
+	})
+	//if time.Now().Unix()>1668482160 {
+	//	stopCh <- entryID3
+	//}
+
+	if err != nil {
+		return
+	}
+	fmt.Printf("entryID1:%+v,entryID2:%+v,entryID3:%+v", entryID1, entryID2, entryID3)
+	defer c.Stop()
+	for k, v := range c.Entries() {
+		fmt.Printf("k:%+v,v:%+v", k, v)
+	}
+	c.Start()
+
+	//if id == 3 && time.Now().Unix()>1668479560{
+	//	c.Remove(entryID1)
+	//}
+	//fmt.Printf("id:%+v\n", id)
+
+	//c.Remove(entryID1)
+	for {
+		select {
+		//case entryID := <-stopCh:
+		//	c.Remove(entryID)
+		}
+	}
+
+}
+
+func wait(wg *sync.WaitGroup) chan bool {
+	ch := make(chan bool)
+	go func() {
+		wg.Wait()
+		ch <- true
+	}()
+	return ch
+}
+
+func cn() {
+	wg := &sync.WaitGroup{}
+
+	wg.Add(2)
+
+	cron := cron.New(cron.WithSeconds())
+	id, _ := cron.AddFunc("* * * * * ?", func() {
+
+		wg.Done()
+		fmt.Printf("bbb in %v \n", time.Now().Unix())
+	})
+	fmt.Println("id", id)
+	//cron.Remove(id)
+
+	id2, _ := cron.AddFunc("* * * * * ?", func() {
+
+		wg.Done()
+		fmt.Printf("2222")
+	})
+	fmt.Println("id2", id2)
+	//cron.Remove(id2)
+
+	cron.Start()
+	defer cron.Stop()
+
+	//select {
+	//case <-time.After(OneSecond):
+	//	// Success, shouldn't run
+	//case <-wait(wg):
+	//	t.FailNow()
+	//}
+	select {
+	case <-wait(wg):
+		fmt.Printf("1111111111")
+	}
+}

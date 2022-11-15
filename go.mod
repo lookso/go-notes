@@ -61,6 +61,7 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/qiniu/qmgo v0.8.0
 	github.com/rcrowley/go-metrics v0.0.0-20200313005456-10cdbea86bc0
+	github.com/robfig/cron/v3 v3.0.1
 	github.com/rpcxio/rpcx-examples v1.1.6
 	github.com/saintfish/chardet v0.0.0-20120816061221-3af4cd4741ca // indirect
 	github.com/sentinel-group/sentinel-go-adapters v1.0.1
