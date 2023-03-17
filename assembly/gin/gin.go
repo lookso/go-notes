@@ -9,11 +9,13 @@ import (
 	"github.com/gin-gonic/gin/testdata/protoexample"
 	"github.com/panjf2000/ants/v2"
 	"github.com/spf13/cast"
+	"golang.org/x/sync/errgroup"
 	"log"
 	"net/http"
 	"net/url"
 	"sort"
 	"strings"
+	"time"
 )
 
 func init() {
@@ -23,8 +25,9 @@ func init() {
 
 type Param struct {
 	Name string `json:"name"`
-	Skip []int  `json:"skip"`
+	Skip []int  `json:"skip" ArgName:"skip,auto_join,not_require"`
 }
+
 type response struct {
 	Code    int         `json:"code"`
 	Stat    int         `json:"stat"`
@@ -100,7 +103,37 @@ func main() {
 	router := gin.New()
 	router.Use(gin.Recovery())
 
+	router.GET("/get/tt", func(context *gin.Context) {
+		eg := errgroup.Group{}
+		eg.SetLimit(40)
+		eg.TryGo(func() error {
+			//taskIds := make([]int32, 0, 10)
+			tasks, err := this.repo.GetRunningTask(ctx)
+			if err != nil {
+				this.logger.Errorf(ctx, "TaskBiz.StartOrStop", "repo.NotifyStatusChange return err:[%v]", err)
+				return err
+			}
+			var count = 0
+			for _, detail := range tasks {
+				//taskIds = append(taskIds, int32(detail.Id))
+				err = this.repo.NotifyStatusChange(ctx, int32(detail.Id), 2)
+				if err != nil {
+					this.logger.Errorf(ctx, "TaskBiz.ReStartTask", "repo.NotifyStatusChange return err:[%v]", err)
+					continue
+				}
+				if count%5 == 0 {
+					time.Sleep(3 * time.Second)
+				}
+				count++
+			}
+			return err
+		})
+	})
 	router.POST("/post/data", func(c *gin.Context) {
+
+
+
+
 		var values url.Values
 		reqQuery := ""
 		reqUri := c.Request.RequestURI
@@ -149,6 +182,7 @@ func main() {
 	//	c.String(http.StatusOK, string(d)+":热编译123456")
 	//})
 	router.GET("/get/json", func(c *gin.Context) {
+
 
 		type Resopnse struct {
 			Users []User `json:"users"`

@@ -1,6 +1,6 @@
 module go-notes
 
-go 1.15
+go 1.16
 
 replace (
 	github.com/coreos/bbolt v1.3.4 => go.etcd.io/bbolt v1.3.4
@@ -43,6 +43,7 @@ require (
 	github.com/google/wire v0.5.0
 	github.com/grpc-ecosystem/go-grpc-middleware v1.2.2 // indirect
 	github.com/grpc-ecosystem/grpc-gateway v1.15.2
+	github.com/huichen/sego v0.0.0-20210824061530-c87651ea5c76
 	github.com/jinzhu/gorm v1.9.16
 	github.com/jonboulle/clockwork v0.2.2 // indirect
 	github.com/kennygrant/sanitize v1.2.4 // indirect
@@ -83,6 +84,7 @@ require (
 	go.etcd.io/etcd v3.3.25+incompatible
 	go.mongodb.org/mongo-driver v1.4.0
 	go.opencensus.io v0.22.5
+	go.uber.org/automaxprocs v1.5.1 // indirect
 	go.uber.org/zap v1.16.0
 	golang.org/x/net v0.0.0-20211008194852-3b03d305991f
 	golang.org/x/sync v0.0.0-20201020160332-67f06af15bc9

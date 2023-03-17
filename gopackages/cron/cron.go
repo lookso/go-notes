@@ -3,11 +3,31 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/go-redis/redis"
 	"github.com/robfig/cron/v3"
 	"github.com/spf13/cast"
 	"net/http"
 	"time"
 )
+
+// 声明一个全局的redisDb变量
+var redisDb *redis.Client
+
+// 根据redis配置初始化一个客户端
+func initClient() (err error) {
+	redisDb = redis.NewClient(&redis.Options{
+		Addr:     "localhost:6379", // redis地址
+		Password: "",               // redis密码，没有则留空
+		DB:       0,                // 默认数据库，默认是0
+	})
+
+	//通过 *redis.Client.Ping() 来检查是否成功连接到了redis服务器
+	_, err = redisDb.Ping().Result()
+	if err != nil {
+		return err
+	}
+	return nil
+}
 
 var stopCh = make(chan int)
 var removeCh = make(chan int)
@@ -64,21 +84,25 @@ func TestTwo() {
 var taskIDEntryIDMap = make(map[int]cron.EntryID)
 var c = cron.New(cron.WithSeconds())
 
-var taskStatusMap = make(map[int]*int)
+var taskStatusMap = make(map[int]*int) // 1 暂停
 
 func TestThree(spec string, taskID int) (cron.EntryID, error) {
 	entryID, err := c.AddFunc(spec, func() {
-		fmt.Printf("time in %v id:%+v,spec:%+v\n", time.Now().Unix(), taskID, spec)
+		fmt.Printf("time in %v id:%+v,spec:%+v\n", time.Now().Format("2006-01-02 15:04:05"), taskID, spec)
 		if _, ok := taskStatusMap[taskID]; ok {
 			if *taskStatusMap[taskID] == 1 {
 				removeCh <- taskID
 			}
 		}
 	})
-	fmt.Printf("entryID:%+v", entryID)
+	fmt.Printf("cron entryID:%+v-", entryID)
 	return entryID, err
 }
 func main() {
+	if err := initClient(); err != nil {
+		panic(err)
+	}
+
 	gin.SetMode(gin.DebugMode) // 设置在gin.New()前面才有效
 
 	router := gin.New()
@@ -86,64 +110,65 @@ func main() {
 
 	router.GET("/get/json", func(c *gin.Context) {
 
-		id, ok := c.GetQuery("id")
-		if !ok {
-			return
-		}
-		if id != "" {
+		//id, ok := c.GetQuery("id")
+		taskSpec, _ := c.GetQuery("task_spec")
+		taskStatus, _ := c.GetQuery("task_status")
+
+		id := 1
+		if cast.ToInt(taskStatus) > 0 {
 			var status *int
-			num := 1
-			status = &num
+			setStatus := cast.ToInt(taskStatus)
+			status = &setStatus
 			taskStatusMap[cast.ToInt(id)] = status
 		}
+
+
+		if taskSpec != "" {
+			redisDb.Set("1", taskSpec, 0)
+		}
+		fmt.Printf("http cron change time:%+v,taskSpec:%+v\n", time.Now().Format("2006-01-02 15:04:05"), taskSpec)
 		c.JSON(http.StatusOK, id)
 	})
-	go GoTest()
+	go goRunCron()
 	router.Run(":8000")
 }
 
-func GoTest() {
+func goRunCron() {
 
 	tid := 1
-	spec1 := "*/5 * * * * *"
-	entryID, err := TestThree(spec1, tid)
+	spec := "0 * * * * *"
+	fmt.Println("taskStatusMap[tid]", taskStatusMap[tid])
+
+	var newStatus *int
+	newSetStatus := 0
+	newStatus = &newSetStatus
+	taskStatusMap[tid] = newStatus
+
+	newSpec, err := redisDb.Get("1").Result()
+	fmt.Printf("newSpec-111:%+v", newSpec)
+	if newSpec != "" {
+		spec = newSpec
+	}
+
+	entryID, err := TestThree(spec, tid)
 	if err != nil {
-		fmt.Println(err)
+		fmt.Printf("run err:%+v", err)
 	} else {
 		taskIDEntryIDMap[tid] = entryID
 	}
-	var status *int
-	num := 0
-	status = &num
-	taskStatusMap[tid] = status
+	fmt.Printf("after spec:%+v,time:%+v,entryID:%+v,err:%+v\n", spec, time.Now().Format("2006-01-02 15:04:05"), entryID, err)
 
-	fmt.Println("1---", entryID, err)
-	tid = 2
-	spec2 := "*/5 * * * * *"
-	entryID2, err := TestThree(spec2, tid)
-	if err != nil {
-		fmt.Println(err)
-		fmt.Println("malegebi")
-	} else {
-		taskIDEntryIDMap[tid] = entryID2
-	}
-	var status1 *int
-	num1 := 0
-	status1 = &num1
-	taskStatusMap[tid] = status1
-
-	fmt.Println("2---", entryID2, err)
+	spec = "* * * * * *"
 	c.Start()
 
 	for {
 		select {
 		case taskID := <-removeCh:
+			fmt.Println("remove taskid:%+v", taskID)
 			c.Remove(taskIDEntryIDMap[taskID])
-		//fmt.Println(taskID)
 		default:
-			time.Sleep(time.Second)
-			fmt.Println(88888)
-
+			//time.Sleep(time.Second)
+			//fmt.Println(88888)
 		}
 	}
 }
