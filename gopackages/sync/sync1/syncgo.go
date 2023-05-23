@@ -7,9 +7,9 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"sync"
-	"context"
 	"time"
 )
 
@@ -33,6 +33,9 @@ import (
 
 
 func main()  {
+
+
+	//eg:=errgroup.Group{}
 
 	fmt.Println(123)
 	fmt.Println("------goroutine-time.sleep------")
