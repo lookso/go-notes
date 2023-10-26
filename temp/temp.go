@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"github.com/spf13/cast"
 	"math"
+	"os"
 	"sort"
 	"strings"
 	"time"
@@ -36,6 +37,15 @@ func Tf() (page int, err error) {
 	return page, nil
 }
 func main() {
+	var ENV = os.Getenv("GOROOT")
+	fmt.Println(ENV)
+	return
+
+	tempIDs := []string{"1"}
+	ids := cast.ToIntSlice(tempIDs)
+	fmt.Println(ids)
+	return
+
 	for _, v := range []int{1, 2, 3, 4, 5, 6} {
 		if v == 5 {
 			return
@@ -44,7 +54,7 @@ func main() {
 	}
 	return
 	fmt.Println(time.Now().Nanosecond())
-	fmt.Println(time.Now().UnixNano()/1e6)
+	fmt.Println(time.Now().UnixNano() / 1e6)
 
 	remark := "12截alikSAAB哈哈"
 	//index := strings.LastIndex(remark, "已截")

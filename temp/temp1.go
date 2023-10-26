@@ -10,7 +10,8 @@ import (
 
 // 一组数字,按照每5个元素长度起一个协程,不足5个的按5个算,有序打印出所有元素
 func main() {
-
+	fmt.Println(cast.ToInt("ffd"))
+	return
 	stuIDs := []int{1, 2, 3, 4, 5}
 	step := 2
 	end := 0

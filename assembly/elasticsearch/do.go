@@ -19,7 +19,7 @@ type Es struct {
 
 // 唐诗300首
 //var indexName = "my_es_first_index_test"
-var indexName = "my_ts300_index"
+var indexName = "my_sc300_index"
 
 // 索引mapping定义，这里仿微博消息结构定义
 // settings是修改分片和副本数的。
@@ -56,7 +56,7 @@ const indexMap = `{
 } `
 
 type Mapping struct {
-	Title   string `json:"title`
+	Title   string `json:"title"`
 	Dynasty string `json:"dynasty"`
 	Name    string `json:"name"`
 	Content string `json:"content"`
@@ -67,9 +67,10 @@ var doHost = "http://127.0.0.1:9200"
 
 func main() {
 	EsClient := NewEs()
-	//if err := EsClient.CreateIndex(); err != nil {
-	//	fmt.Println("createIndex err", err)
-	//}
+	if err := EsClient.CreateIndex(); err != nil {
+		fmt.Println("createIndex err", err)
+	}
+	return;
 	//if err := EsClient.Insert(); err != nil {
 	//	fmt.Println("insert err", err)
 	//}
