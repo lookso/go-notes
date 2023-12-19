@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/spf13/cast"
+	"golang.org/x/sync/errgroup"
 	"math"
 	"os"
 	"sort"
@@ -36,7 +37,34 @@ func Tf() (page int, err error) {
 	fmt.Println("page", page)
 	return page, nil
 }
+
 func main() {
+	fmt.Println("1234")
+	goto P
+	fmt.Println("5555")
+
+P:
+	fmt.Println("888")
+	return
+
+	eg := errgroup.Group{}
+	eg.SetLimit(2)
+	eg.TryGo(func() error {
+		fmt.Println("go1 run")
+		return nil
+	})
+	eg.TryGo(func() error {
+		err := errors.New("go2 err")
+		return err
+	})
+	eg.TryGo(func() error {
+		fmt.Println("go3 run")
+		return nil
+	})
+	if err := eg.Wait(); err != nil {
+		fmt.Println(err)
+	}
+
 	var ENV = os.Getenv("GOROOT")
 	fmt.Println(ENV)
 	return

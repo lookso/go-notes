@@ -34,7 +34,7 @@ type My struct {
 	Ours   IOurs
 }
 
-func (m *My) Human(ours IOurs) (*Our, string) {
+func (m My) Human(ours IOurs) (*Our, string) {
 	return NewOurs(ours.GetClass()), ours.GetClass() + ":" + strconv.Itoa(m.Days)
 }
 
