@@ -1,14 +1,13 @@
-package main
+package libs
 import (
 	"context"
-	"io/ioutil"
-	"log"
-
 	"github.com/chromedp/chromedp"
 	"github.com/chromedp/chromedp/device"
+	"io/ioutil"
+	"log"
 )
 
-func main() {
+func Chromedp() {
 
 	// create context
 	ctx, cancel := chromedp.NewContext(context.Background())

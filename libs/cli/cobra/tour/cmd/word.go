@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"github.com/spf13/cobra"
-	"go-notes/gopackages/cli/cobra/tour/internal/word"
+	word2 "go-notes/libs/cli/cobra/tour/internal/word"
 	"log"
 	"strings"
 )
@@ -41,15 +41,15 @@ var wordCmd = &cobra.Command{
 		var content string
 		switch mode {
 		case ModeUpper:
-			content = word.ToUpper(str)
+			content = word2.ToUpper(str)
 		case ModeLower:
-			content = word.ToLower(str)
+			content = word2.ToLower(str)
 		case ModeUnderscoreToUpperCamelCase:
-			content = word.UnderscoreToUpperCamelCase(str)
+			content = word2.UnderscoreToUpperCamelCase(str)
 		case ModeUnderscoreToLowerCamelCase:
-			content = word.UnderscoreToLowerCamelCase(str)
+			content = word2.UnderscoreToLowerCamelCase(str)
 		case ModeCamelCaseToUnderscore:
-			content = word.CamelCaseToUnderscore(str)
+			content = word2.CamelCaseToUnderscore(str)
 		default:
 			log.Fatalf("暂不支持该转换模式，请执行 help word 查看帮助文档")
 		}
