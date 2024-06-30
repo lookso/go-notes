@@ -18,7 +18,7 @@ OpenJDK 64-Bit Server VM warning: Option UseConcMarkSweepGC was deprecated in ve
 2020-10-09 19:30:28,874 [   1888]   WARN - nSystem.impl.ActionManagerImpl - keymap "Visual Studio" not found [Plugin: HtmlTools] 
 2020-10-09 19:30:29,127 [   2141]   WARN - nSystem.impl.ActionManagerImpl - keymap "Eclipse" not found [Plugin: JavaScript] 
 2020-10-09 19:30:29,127 [   2141]   WARN - nSystem.impl.ActionManagerImpl - keymap "Visual Studio" not found [Plugin: JavaScript] 
-2020-10-09 19:30:42,880 [  15894]   WARN - openapi.wm.impl.ToolWindowImpl - ToolWindow icons should be 13x13. Please fix ToolWindow (ID:  Problems View) or icon jar:file:/home/lukun/data/netcode/apps/GoLand-2020.1.2/lib/icons.jar!/general/warning.svg 
+2020-10-09 19:30:42,880 [  15894]   WARN - openapi.wm.impl.ToolWindowImpl - ToolWindow icons should be 13x13. Please fix ToolWindow (ID:  Problems View) or icon jar:file:/home/peanut/data/netcode/apps/GoLand-2020.1.2/lib/icons.jar!/general/warning.svg 
 2020-10-09 19:30:45,048 [  18062]   WARN - .AbstractProgressIndicatorBase - This progress indicator is indeterminate, this may lead to visual inconsistency. Please call setIndeterminate(false) before you start progress.
 com.sylvanaar.idea.Lua.lang.psi.LuaPsiManager$MyBackgroundableInferencer.run(LuaPsiManager.java:407) 
 2020-10-09 19:30:45,222 [  18236]  ERROR - terminal.emulator.JediEmulator - Error processing OSC 1;../package/sync 
@@ -87,4 +87,4 @@ bytes read                    :ESC[
 parsed                        :ESC[?2004h
 bytes read                    :ESC[ 
 free(): corrupted unsorted chunks
-/home/lukun/data/netcode/apps/GoLand-2020.1.2/bin/goland.sh：行 224: 57715 已放弃               （核心已转储）"$JAVA_BIN" -classpath "$CLASSPATH" ${VM_OPTIONS} "-XX:ErrorFile=$HOME/java_error_in_GOLAND_%p.log" "-XX:HeapDumpPath=$HOME/java_error_in_GOLAND.hprof" -Didea.paths.selector=GoLand2020.1 "-Djb.vmOptionsFile=$VM_OPTIONS_FILE" ${IDE_PROPERTIES_PROPERTY} -Didea.platform.prefix=GoLand com.intellij.idea.Main "$@"
+/home/peanut/data/netcode/apps/GoLand-2020.1.2/bin/goland.sh：行 224: 57715 已放弃               （核心已转储）"$JAVA_BIN" -classpath "$CLASSPATH" ${VM_OPTIONS} "-XX:ErrorFile=$HOME/java_error_in_GOLAND_%p.log" "-XX:HeapDumpPath=$HOME/java_error_in_GOLAND.hprof" -Didea.paths.selector=GoLand2020.1 "-Djb.vmOptionsFile=$VM_OPTIONS_FILE" ${IDE_PROPERTIES_PROPERTY} -Didea.platform.prefix=GoLand com.intellij.idea.Main "$@"

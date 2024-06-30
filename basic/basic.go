@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"golang.org/x/sync/errgroup"
 	"sync"
+	"time"
 )
 
 func getTableName(id int) string {
@@ -44,10 +45,19 @@ func mainGo() {
 
 
 func main() {
-	mainGo()
+	//mainGo()
+	//return
+
+	// 更新题目状态
+	hour := 4
+	mainTaskTimeoutTime := time.Now().Add((time.Duration(hour) * time.Hour))
+	fmt.Println(mainTaskTimeoutTime)
 	return
 
-	fmt.Println(getTableName(287794966))
+
+
+
+	fmt.Println(getTableName(12459445))
 	return
 	questionMappings := make([]int, 10000000)
 	questionMappings=[]int{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28}
