@@ -1,10 +1,12 @@
-package libs
+package main
+
 import (
 	"context"
-	"github.com/chromedp/chromedp"
-	"github.com/chromedp/chromedp/device"
 	"io/ioutil"
 	"log"
+
+	"github.com/chromedp/chromedp"
+	"github.com/chromedp/chromedp/device"
 )
 
 func Chromedp() {
