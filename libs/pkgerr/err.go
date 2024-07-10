@@ -3,26 +3,41 @@ package main
 import (
 	E "errors"
 	"fmt"
+
 	"github.com/pkg/errors"
 )
 
 func main() {
-	err0 := t1()
-	//fmt.Println()
+	err := t1()
+	fmt.Printf("err :%+v\n", err)
+	fmt.Printf("Cause err :%+v\n", errors.Cause(err))
+	fmt.Printf("WithStack err :%+v\n", errors.WithStack(err))
 
-	//err := errors.Wrap(err0, "附加信息")
-	//err=errors.WithMessage(err0,"nb")
-	err:=errors.WithStack(err0)
-	//err=errors.Cause(err)
-	if err != nil {
-		//打印错误需要%+v才能详细输出
-		fmt.Printf("err :%+v\n", err)
-		return
-	}
-
-	fmt.Println("Hello world")
+	fmt.Println("-------------------")
+	err = t5()
+	fmt.Printf("err :%+v\n", err)
 }
 
 func t1() error {
-	return E.New("错误")
+	return errors.Wrap(t2(), "t1错误")
+}
+func t2() error {
+	return errors.New("基础错误")
+}
+
+// 标准库包装错误
+
+func t5() error {
+	// 创建一个错误并包装另一个错误
+	err := fmt.Errorf("t5错误: %w", t6())
+	// 尝试解包错误
+	//return err
+	return E.Unwrap(err)
+}
+
+func t6() error {
+	return fmt.Errorf("t6错误:%+w", t7())
+}
+func t7() error {
+	return E.New("t7错误")
 }
