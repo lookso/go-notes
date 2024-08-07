@@ -78,6 +78,7 @@ require (
 	go.opencensus.io v0.24.0
 	go.uber.org/automaxprocs v1.5.3
 	go.uber.org/zap v1.26.0
+	go.uber.org/goleak v1.3.0
 	golang.org/x/image v0.11.0
 	golang.org/x/net v0.25.0
 	golang.org/x/sync v0.7.0
@@ -93,6 +94,7 @@ require (
 require (
 	github.com/AlecAivazis/survey/v2 v2.3.7 // indirect
 	github.com/adamzy/cedar-go v0.0.0-20170805034717-80a9c64b256d // indirect
+	github.com/ajstarks/svgo v0.0.0-20211024235047-1546f124cd8b // indirect
 	github.com/akutz/memconn v0.1.0 // indirect
 	github.com/alitto/pond v1.8.3 // indirect
 	github.com/andybalholm/cascadia v1.3.1 // indirect

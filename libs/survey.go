@@ -9,6 +9,27 @@ import (
 )
 
 func main() {
+	fmt.Println("Hello, World!")
+	var isUpDb string
+	prompt := &survey.Input{
+		Message: "本次运行是否需要更新覆盖数据? (输入 '1' 更新，回车不更新):",
+	}
+
+	// 提示用户输入
+	err := survey.AskOne(prompt, &isUpDb)
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+
+	if isUpDb == "1" {
+		fmt.Println("更新覆盖数据")
+		// 执行更新覆盖数据的逻辑
+	} else {
+		fmt.Println("不更新覆盖数据")
+		// 跳过更新覆盖数据的逻辑
+	}
+
 	app := &cli.App{
 		Name:  "interactive-cli",
 		Usage: "A simple CLI with interactive prompt",
@@ -32,7 +53,7 @@ func main() {
 		},
 	}
 
-	err := app.Run(os.Args)
+	err = app.Run(os.Args)
 	if err != nil {
 		fmt.Println(err)
 	}
